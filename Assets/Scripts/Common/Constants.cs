@@ -2,7 +2,9 @@ public enum SceneType
 {
     Intro,
     Title,
-    InGame
+    InGame,
+    //BaseCamp
+    //Stage
 }
 
 public class Constants
