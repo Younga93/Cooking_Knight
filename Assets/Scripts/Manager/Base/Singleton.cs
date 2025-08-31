@@ -23,7 +23,7 @@ public class Singleton<T> : MonoBehaviour where T : Component
         }
     }
 
-    public void Awake()
+    protected virtual void Awake()
     {
         if (_instance == null)
         {
@@ -34,5 +34,6 @@ public class Singleton<T> : MonoBehaviour where T : Component
         {
             Destroy(gameObject);
         }
+        Debug.Log($"{typeof(T).Name} Awake");
     }
 }
