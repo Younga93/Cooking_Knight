@@ -41,6 +41,7 @@ public class ShopManager : Singleton<ShopManager>
     // {
     //    if(ItemsForSale.Count == 0) yield break;
     //    yield return new WaitForSeconds(ItemsForSale[0].time??); -> 아직 아이템 관련 스크립트가 없어서, 임시 이름.
+    // WaitForSeconds가 TimeScale이 0일때도 작동을 하는가?
     //    NotifyObservers(ItemsForSale[0].price);
     //    ItemsForSale[0].Remove();
     //    
