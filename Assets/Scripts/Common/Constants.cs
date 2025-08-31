@@ -1,10 +1,11 @@
-public enum SceneType
-{
+﻿
+public enum SceneType{
     Intro,
     Title,
     BaseCamp,
     Stage
 }
+
 
 public static class SceneNames
 {
