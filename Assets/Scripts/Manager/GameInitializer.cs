@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class GameInitializer : MonoBehaviour
 {
+    [SerializeField] private SceneType sceneType;
     private void Awake()
     {
         //생성되어야하는 싱글톤 순서대로...
@@ -12,7 +13,6 @@ public class GameInitializer : MonoBehaviour
         //GameManager.Instance.ToString()과 같이 접근하면 됩니다.
         
         GameManager.Instance.ToString();
-        
-        StartManager.Instance.ChangeState(new IntroState());
+        SceneLoadManager.Instance.LoadScene(sceneType);
     }
 }
