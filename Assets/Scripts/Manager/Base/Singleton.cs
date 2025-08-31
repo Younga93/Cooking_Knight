@@ -34,5 +34,6 @@ public class Singleton<T> : MonoBehaviour where T : Component
         {
             Destroy(gameObject);
         }
+        Debug.Log($"{typeof(T).Name} Awake");
     }
 }

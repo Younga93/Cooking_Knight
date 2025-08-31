@@ -1,25 +1,56 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SceneLoadManager : Singleton<SceneLoadManager>
 {
-    private Dictionary<SceneType, SceneBase> scenes = new Dictionary<SceneType, SceneBase>();
-    private SceneBase previousScene;
-    private SceneBase currentScene;
+    private Dictionary<SceneType, SceneBase> _scenes = new Dictionary<SceneType, SceneBase>();
+    private SceneBase _previousScene;
+    private SceneBase _currentScene;
 
-    private void Awake()
+    protected override void Awake() 
     {
-        //Dictionary scenes 매핑
+        base.Awake();
+        _scenes.Add(SceneType.Intro, new IntroScene());
+        _scenes.Add(SceneType.Title, new TitleScene());
+        _scenes.Add(SceneType.BaseCamp, new BaseCampScene());
+        _scenes.Add(SceneType.Stage, new StageScene());
     }
 
     public void LoadScene(SceneType sceneType)
     {
-        
+        StartCoroutine(LoadSceneProcess(sceneType));
     }
 
     private IEnumerator LoadSceneProcess(SceneType sceneType)
     {
-        yield return null;
+        if (_currentScene != null)
+        {
+            //todo: 이전 씬이 존재한다면, 씬 언로드하기
+            SceneManager.UnloadSceneAsync(_currentScene.GetSceneName());
+        }
+        
+        _previousScene = _currentScene;
+        _currentScene = _scenes[sceneType];
+
+        //로딩씬 먼저 부르기
+        // AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(SceneNames.Loading);
+        // yield return new WaitUntil(()=>asyncOperation.isDone);
+        
+        //실제 다음 씬 비동기 로드
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(_currentScene.GetSceneName());
+        asyncOperation.allowSceneActivation = false;    //로딩 완료 후에도 활성화 false
+        
+        while (asyncOperation.progress < 0.9f)
+        {
+            //todo. 로딩 진행률 표시할 때 여기에서.
+            yield return null;
+        }
+        
+        asyncOperation.allowSceneActivation = true;
+        yield return new WaitForEndOfFrame();   //렌더링 끝날때까지 대기
+        _currentScene.OnLoad(); //씬 초기화 진행
     }
 }

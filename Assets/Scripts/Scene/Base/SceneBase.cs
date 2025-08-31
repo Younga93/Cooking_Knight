@@ -2,17 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SceneBase : MonoBehaviour
+public abstract class SceneBase
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public abstract string GetSceneName();
+    public abstract void OnLoad();
+    public abstract void OnUnload();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
