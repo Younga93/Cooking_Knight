@@ -11,8 +11,6 @@ public class PlayerMovementWalkState: IPlayerMovementState
     {
         Vector2 movementInput = player.PlayerInputActions.Player.Move.ReadValue<Vector2>();
         player.MovementController.SetMovementInput(movementInput);
-        
-        Debug.Log("PlayerMovementWalkState updated");
     }
 
     public void ExitState(Player player)

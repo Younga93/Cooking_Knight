@@ -10,7 +10,6 @@ public class PlayerMovementIdleState: IPlayerMovementState
 
     public void UpdateState(Player player)
     {
-        Debug.Log("PlayerMovementIdleState updated");
     }
 
     public void ExitState(Player player)

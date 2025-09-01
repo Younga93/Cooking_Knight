@@ -19,7 +19,13 @@ public class Player : MonoBehaviour //, IShopObserver?
     public PlayerCondition PlayerCondition { get; private set; }
     
     public PlayerInput PlayerInputActions { get; private set; } 
-
+    
+    [Header("Ground check")]
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float groundCheckRadius = 0.1f;
+    
+    
     private void Awake()
     {
         MovementController = GetComponent<PlayerMovementController>();
@@ -28,29 +34,33 @@ public class Player : MonoBehaviour //, IShopObserver?
         
         PlayerInputActions = new PlayerInput();
         
+        //이동 상태 머신 초기화
         _movementStates = new Dictionary<string, IPlayerMovementState>();
-        _actionStates = new Dictionary<string, IPlayerActionState>();
+        _movementStates.Add(PlayerState.Movement.Idle, new PlayerMovementIdleState());
+        _movementStates.Add(PlayerState.Movement.Walk, new PlayerMovementWalkState());
         
-        _movementStates.Add("Idle", new PlayerMovementIdleState()); //todo. 하드코딩 부분 Constants으로 변경하기 
-        _movementStates.Add("Walk", new PlayerMovementWalkState());
+        //액션 상태 머신 초기화
+        _actionStates = new Dictionary<string, IPlayerActionState>();
+        _actionStates.Add(PlayerState.Action.Idle, new PlayerActionIdleState());
+        _actionStates.Add(PlayerState.Action.Jump, new PlayerActionJumpState());
+        _actionStates.Add(PlayerState.Action.Attack, new PlayerActionAttackState());
     }
 
      private void Start()
      {
-         // todo. 현재 상태 idle로 초기화. 이후 Enter까지.
-         _movementState = _movementStates["Idle"];
+         _movementState = _movementStates[PlayerState.Movement.Idle];
          _movementState.EnterState(this);
-         // _actionState
-     }
 
-     private void Update()
-     {
-         _movementState.UpdateState(this);
+         _actionState = _actionStates[PlayerState.Action.Idle];
+         _actionState.EnterState(this);
      }
 
      private void OnEnable()
      {
          PlayerInputActions.Player.Move.performed += OnMove;
+         PlayerInputActions.Player.Move.canceled += OnMove;
+         PlayerInputActions.Player.Jump.performed += OnJump;
+         PlayerInputActions.Player.Attack.performed += OnAttack;
          
          PlayerInputActions.Enable();
      }
@@ -58,23 +68,43 @@ public class Player : MonoBehaviour //, IShopObserver?
      private void OnDisable()
      {
          PlayerInputActions.Player.Move.performed -= OnMove;
+         PlayerInputActions.Player.Move.canceled -= OnMove;
+         PlayerInputActions.Player.Jump.performed -= OnJump;
+         PlayerInputActions.Player.Attack.performed -= OnAttack;
 
          PlayerInputActions.Disable();
      }
-
+     
+     private void Update()
+     {
+         _movementState.UpdateState(this);
+         _actionState.UpdateState(this);
+     }
+     
      public void OnMove(InputAction.CallbackContext context)
      {
          Vector2 movementInput = context.ReadValue<Vector2>();
          if (movementInput.magnitude > 0)
          {
-             TransitionToMovementState("Walk");
+             TransitionToMovementState(PlayerState.Movement.Walk);
          }
          else
          {
-             TransitionToMovementState("Idle");
+             TransitionToMovementState(PlayerState.Movement.Idle);
          }
          MovementController.SetMovementInput(movementInput);
      }
+
+     public void OnJump(InputAction.CallbackContext context)
+     {
+         TransitionToActionState(PlayerState.Action.Jump);
+     }
+
+     public void OnAttack(InputAction.CallbackContext context)
+     {
+         TransitionToActionState(PlayerState.Action.Attack);
+     }
+     
      public void TransitionToMovementState(string stateName)
     {
         if (_movementState == _movementStates[stateName]) return;
@@ -86,9 +116,15 @@ public class Player : MonoBehaviour //, IShopObserver?
     
     public void TransitionToActionState(string stateName)
     {
-        //todo.
-        //현재 무브먼트 exit
-        //현재 무브먼트 매개변수로 변경한 뒤
-        //새 무브먼트로 enter
+        if (_actionState == _actionStates[stateName]) return;
+        
+        _actionState.ExitState(this);
+        _actionState = _actionStates[stateName];
+        _actionState.EnterState(this);
+    }
+
+    public bool IsGrounded()
+    {
+        return Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
     }
 }
