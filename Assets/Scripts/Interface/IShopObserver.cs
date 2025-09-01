@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IShopObserver
 {
-    //public void OnItemSold(int money);
+    public void OnItemSold(int money);
 }

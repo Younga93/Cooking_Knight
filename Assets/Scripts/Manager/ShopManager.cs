@@ -8,63 +8,68 @@ using UnityEngine;
 //고민해봐야겠습니다.
 public class ShopManager : Singleton<ShopManager>
 {
-    //List<Item> ItemsForSale = new();
-    //private bool isSelling = false;
+    private List<FoodData> ItemsForSale = new();
+    private bool isSelling = false;
 
-    //private readonly List<IShopObserver> shopObservers = new();
-    
-    //private Coroutine sellItemCoroutine;
-    //private void Start(){
-    //  PlayerManager.Instance.OnShopLoaded();
-    //}
-    
-    //private void Update(){
-    //    if(!isSelling) return;
-    //    if(ItemsForSale.Count == 0) return;
-    //    SellItem();
-    //}
-    
-    //public void AddItemForSale(List<Item> items){
-    //    foreach(var item in items){
-    //        ItemsForSale.Add(item);
-    //    }
-    //}
+    private readonly List<IShopObserver> shopObservers = new();
 
-    //private void SellItem(){
-    //    if(sellItemCoroutine != null) return; //이렇게 적어도 중복 검사가 될까요? 안해봐서 모르겠어요. 일단 Update에서 체크는 하고 있지만, 혹시 몰라서 적은 방어코드에요.
-    //    isSelling = true;
-    //    StartCoroutine(SellItemProcess());
-    //}
-    
-    //private IEnumerator SellItemProcess(){
-    //  try
-    // {
-    //    if(ItemsForSale.Count == 0) yield break;
-    //    yield return new WaitForSeconds(ItemsForSale[0].time??); -> 아직 아이템 관련 스크립트가 없어서, 임시 이름.
-    //    NotifyObservers(ItemsForSale[0].price);
-    //    ItemsForSale[0].Remove();
-    //    
-    //    yield break;
-    // }
-    // finally{
-    //    isSelling = false;
-    //    sellItemCoroutine = null;
-    //  }
-    //}
-    
-    //옵저버 관련 코드.
-    //public void AddObserver(IShopObserver observer){
-    //  if(!shopObservers.Contains(observer))
-    // shopObservers.Add(observer);
-    // }
-    
-    //public void RemoveObserver(IShopObserver observer){
-    //  if(shopObservers.Contains(observer))
-    //  shopObservers.Remove(observer);
-    // }
-    
-    //private void NotifyObservers(int price){
-    //  foreach(var observer in shopObservers)
-    //  observer.OnItemSold(price);
-    // }
+    private Coroutine sellItemCoroutine;
+
+    private void Update()
+    {
+        if (!isSelling) return;
+        if (ItemsForSale.Count == 0) return;
+        SellItem();
+    }
+
+    public void AddItemForSale(List<FoodData> items)
+    {
+        foreach (var item in items)
+        {
+            ItemsForSale.Add(item);
+        }
+    }
+
+    private void SellItem()
+    {
+        if (sellItemCoroutine != null) return;
+        isSelling = true;
+        StartCoroutine(SellItemProcess());
+    }
+
+    private IEnumerator SellItemProcess()
+    {
+        try
+        {
+            if (ItemsForSale.Count == 0) yield break;
+            //yield return new WaitForSeconds(ItemsForSale[0].time ??);
+            NotifyObservers(ItemsForSale[0].Price);
+            ItemsForSale.RemoveAt(0);
+
+            yield break;
+        }
+        finally
+        {
+            isSelling = false;
+            sellItemCoroutine = null;
+        }
+    }
+
+    public void AddObserver(IShopObserver observer)
+    {
+        if (!shopObservers.Contains(observer))
+            shopObservers.Add(observer);
+    }
+
+    public void RemoveObserver(IShopObserver observer)
+    {
+        if (shopObservers.Contains(observer))
+            shopObservers.Remove(observer);
+    }
+
+    private void NotifyObservers(int price)
+    {
+         foreach (var observer in shopObservers)
+             observer.OnItemSold(price);
+    }
 }

@@ -1,10 +1,12 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour //, IShopObserver?
+public class Player : MonoBehaviour
 {
+    private Inventory _inventory;
+    
     //Player State: Attack, Movement
     private IPlayerMovementState _movementState;
     private IPlayerActionState _actionState;
@@ -57,6 +59,8 @@ public class Player : MonoBehaviour //, IShopObserver?
 
          _actionState = _actionStates[PlayerState.Action.Idle];
          _actionState.EnterState(this);
+         
+         _inventory = GetComponent<Inventory>();
      }
 
      private void OnEnable()
