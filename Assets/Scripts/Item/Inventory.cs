@@ -5,7 +5,7 @@ using UnityEngine;
 public class Inventory : MonoBehaviour , IShopObserver, IItemCollector
 {
     public List<ItemData> ingredients = new();
-    public List<ItemData> foods = new();
+    public List<FoodData> foods = new();
 
     public int money;
 
@@ -20,34 +20,28 @@ public class Inventory : MonoBehaviour , IShopObserver, IItemCollector
     
     public void AddItem(ItemData item)
     {
-        if (item.IsRawIngredients)
+        foreach (var ingredient in ingredients)
         {
-            foreach (var ingredient in ingredients)
+            if (ingredient.ID == item.ID)
             {
-                if (ingredient.ID == item.ID)
-                {
-                    ingredient.Count += item.Count;
-                }
-                else
-                {
-                    ingredients.Add(item);
-                }
+                ingredient.Count++;
+                return;
             }
         }
-        else
+        ingredients.Add(item);
+    }
+
+    public void AddItem(FoodData item)
+    {
+        foreach (var food in foods)
         {
-            foreach (var food in foods)
+            if (food.ID == item.ID)
             {
-                if (food.ID == item.ID)
-                {
-                    food.Count += item.Count;
-                }
-                else
-                {
-                    foods.Add(item);
-                }
+                food.Count++;
+                return;
             }
         }
+        foods.Add(item);
     }
 
     public void SendFoodsToShop()
@@ -58,9 +52,9 @@ public class Inventory : MonoBehaviour , IShopObserver, IItemCollector
 
     public bool TryPurchase(int price)
     {
-        if (price > this.money)
+        if (price > money)
             return false;
-        this.money -= price;
+        money -= price;
         return true;
     }
 
@@ -68,6 +62,4 @@ public class Inventory : MonoBehaviour , IShopObserver, IItemCollector
     {
         money += price;
     }
-
-
 }

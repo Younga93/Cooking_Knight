@@ -6,7 +6,6 @@ using System.IO;
 
 public class DataManager : Singleton<DataManager>
 {
-    
     private string _defaultDataPath = Application.streamingAssetsPath;
 
     private readonly List<DropItemData> _dropItemDatas = new();
@@ -14,17 +13,21 @@ public class DataManager : Singleton<DataManager>
 
     private readonly List<RecipeData> _recipeDatas = new();
     public Dictionary<int, RecipeData> RecipeDatas = new();
-    
+
     [SerializeField] private List<ItemData> itemDatas = new();
+    [SerializeField] private List<FoodData> foodDatas = new();
     public Dictionary<int, ItemData> ItemDatas = new();
+    public Dictionary<int, FoodData> FoodDatas = new();
+
     protected override void Awake()
     {
-         base.Awake();
-         LoadData(_dropItemDatas, "DropItemData.json");
-         LoadData(_recipeDatas, "RecipeData.json");
-         LoadItemDataDict();
-         LoadDropItemDataDict();
-         LoadRecipeDataDict();
+        base.Awake();
+        LoadData(_dropItemDatas, "DropItemData.json");
+        LoadData(_recipeDatas, "RecipeData.json");
+        LoadItemDataDict();
+        LoadFoodDataDict();
+        LoadDropItemDataDict();
+        LoadRecipeDataDict();
     }
 
     private void LoadDropItemDataDict()
@@ -42,6 +45,7 @@ public class DataManager : Singleton<DataManager>
             RecipeDatas.Add(item.ID, item);
         }
     }
+
     private void LoadItemDataDict()
     {
         foreach (var item in itemDatas)
@@ -49,23 +53,34 @@ public class DataManager : Singleton<DataManager>
             ItemDatas.Add(item.ID, item);
         }
     }
+
+    private void LoadFoodDataDict()
+    {
+        foreach (var food in foodDatas)
+        {
+            FoodDatas.Add(food.ID, food);
+        }
+    }
+
     private List<T> LoadJsonData<T>(string path)
     {
         string json = File.ReadAllText(path);
         return JsonConvert.DeserializeObject<List<T>>(json);
     }
+
     private void LoadData<T>(List<T> list, string additionalPath)
-     {
-         if(!File.Exists(Path.Combine(_defaultDataPath, additionalPath)))
-         {
-              Debug.LogError($"Data file not found, path: {_defaultDataPath + additionalPath}");
-         }
-         else{
-              List<T> datas = LoadJsonData<T>(Path.Combine(_defaultDataPath, additionalPath));
-              foreach (var data in datas)
-              {
-                  list.Add(data);
-              }
-         }
-     }
+    {
+        if (!File.Exists(Path.Combine(_defaultDataPath, additionalPath)))
+        {
+            Debug.LogError($"Data file not found, path: {_defaultDataPath + additionalPath}");
+        }
+        else
+        {
+            List<T> datas = LoadJsonData<T>(Path.Combine(_defaultDataPath, additionalPath));
+            foreach (var data in datas)
+            {
+                list.Add(data);
+            }
+        }
+    }
 }

@@ -8,7 +8,7 @@ using UnityEngine;
 //고민해봐야겠습니다.
 public class ShopManager : Singleton<ShopManager>
 {
-    private List<ItemData> ItemsForSale = new();
+    private List<FoodData> ItemsForSale = new();
     private bool isSelling = false;
 
     private readonly List<IShopObserver> shopObservers = new();
@@ -22,7 +22,7 @@ public class ShopManager : Singleton<ShopManager>
         SellItem();
     }
 
-    public void AddItemForSale(List<ItemData> items)
+    public void AddItemForSale(List<FoodData> items)
     {
         foreach (var item in items)
         {

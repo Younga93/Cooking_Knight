@@ -69,7 +69,7 @@ public class UIManager : Singleton<UIManager>
         if (uiComponent == null)
         {
             Debug.LogError($"Component not found: {uiName}");
-            Destroy(go);
+            //Destroy(go);
             return null;
         }
         
