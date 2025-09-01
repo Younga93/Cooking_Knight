@@ -19,8 +19,8 @@ public class PlayerAttackController : MonoBehaviour
     
     private void Awake()
     {
-        _animator = GetComponentInChildren<Animator>();
-        _player = GetComponent<Player>();
+        _animator = GetComponent<Animator>();
+        _player = GetComponentInParent<Player>();
     }
 
     private void FixedUpdate()
@@ -40,6 +40,7 @@ public class PlayerAttackController : MonoBehaviour
     }
     public void StartAttack()
     {
+        Debug.Log("StartAttack()이 호출되었습니다.");
         //1번 레이어(Action Layer)에서 재생하기
         _animator.Play(AnimatorString.PlayerAnimation.Attack, 1);
 
@@ -62,6 +63,8 @@ public class PlayerAttackController : MonoBehaviour
                 enemyCondition.TakeDamage(attackPower);
             }
         }
+
+        OnAttackAnimationEnd();
     }
 
     public void OnAttackAnimationEnd()

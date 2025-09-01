@@ -117,10 +117,10 @@ public class Player : MonoBehaviour //, IShopObserver?
      {
          // if (context.started) //첫 프레임에만 실행하도록
          // {
-             // if (AttackController.CanAttack() && !(_actionState is PlayerActionDeadState))
+             // if (AttackController.CanAttack()) // && !(_actionState is PlayerActionDeadState))
              // {
                  TransitionToActionState(PlayerState.Action.Attack);
-         //     }
+             // }
          // }
      }
 
