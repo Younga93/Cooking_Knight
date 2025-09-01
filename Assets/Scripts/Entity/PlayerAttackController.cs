@@ -5,23 +5,63 @@ using UnityEngine;
 
 public class PlayerAttackController : MonoBehaviour
 {
+    [Header("Attack")]
+    [SerializeField] private float attackPower = 20f;
+    [SerializeField] private float attackSpeed = 1f;
+    [SerializeField] private float attackRange = 0.5f;
+    [SerializeField] private Transform attackPoint;
+    [SerializeField] private LayerMask enemyLayers;
+    
     private Animator _animator;
     private Player _player;
 
+    private float attackCooldown;
+    
     private void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
         _player = GetComponent<Player>();
     }
 
+    private void FixedUpdate()
+    {
+        if (attackCooldown > 0)
+        {
+            attackCooldown -= Time.deltaTime;
+            if(attackCooldown<= 0) Debug.Log("Attack available");
+        }
+    }
+
+    public bool CanAttack()
+    {
+        return true;
+        // return attackCooldown <= 0;
+
+    }
     public void StartAttack()
     {
         //1번 레이어(Action Layer)에서 재생하기
         _animator.Play(AnimatorString.PlayerAnimation.Attack, 1);
+
+        attackCooldown = 1f / attackSpeed;
         
         //todo. 추후 애니메이션 이벤트로 처리하기
-        float animationLength = _animator.GetCurrentAnimatorStateInfo(1).length;
-        Invoke(nameof(OnAttackAnimationEnd), animationLength);
+        // float animationLength = _animator.GetCurrentAnimatorStateInfo(1).length;
+        // Invoke(nameof(OnAttackAnimationEnd), animationLength);
+    }
+
+    public void OnAttackHit()
+    {
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+
+        foreach (Collider2D enemy in hitEnemies)
+        {
+            ConditionController enemyCondition = enemy.GetComponent<ConditionController>();
+            if (enemyCondition != null)
+            {
+                enemyCondition.TakeDamage(attackPower);
+            }
+        }
     }
 
     public void OnAttackAnimationEnd()

@@ -16,7 +16,7 @@ public class Player : MonoBehaviour //, IShopObserver?
     //Player Controller들
     public PlayerMovementController MovementController { get; private set; }
     public PlayerAttackController AttackController { get; private set; }
-    public PlayerCondition PlayerCondition { get; private set; }
+    public ConditionController ConditionController { get; private set; }
     
     public PlayerInput PlayerInputActions { get; private set; } 
     
@@ -31,8 +31,8 @@ public class Player : MonoBehaviour //, IShopObserver?
     private void Awake()
     {
         MovementController = GetComponent<PlayerMovementController>();
-        AttackController = GetComponent<PlayerAttackController>();
-        PlayerCondition = GetComponent<PlayerCondition>();
+        AttackController = GetComponentInChildren<PlayerAttackController>();
+        ConditionController = GetComponent<ConditionController>();
         
         PlayerInputActions = new PlayerInput();
         
@@ -65,6 +65,7 @@ public class Player : MonoBehaviour //, IShopObserver?
          PlayerInputActions.Player.Move.canceled += OnMove;
          PlayerInputActions.Player.Jump.performed += OnJump;
          PlayerInputActions.Player.Attack.performed += OnAttack;
+         PlayerInputActions.Player.Attack.canceled += OnAttack;
          
          PlayerInputActions.Enable();
      }
@@ -75,6 +76,7 @@ public class Player : MonoBehaviour //, IShopObserver?
          PlayerInputActions.Player.Move.canceled -= OnMove;
          PlayerInputActions.Player.Jump.performed -= OnJump;
          PlayerInputActions.Player.Attack.performed -= OnAttack;
+         PlayerInputActions.Player.Attack.canceled -= OnAttack;
 
          PlayerInputActions.Disable();
      }
@@ -113,7 +115,13 @@ public class Player : MonoBehaviour //, IShopObserver?
 
      public void OnAttack(InputAction.CallbackContext context)
      {
-         TransitionToActionState(PlayerState.Action.Attack);
+         // if (context.started) //첫 프레임에만 실행하도록
+         // {
+             // if (AttackController.CanAttack() && !(_actionState is PlayerActionDeadState))
+             // {
+                 TransitionToActionState(PlayerState.Action.Attack);
+         //     }
+         // }
      }
 
      public void OnHit()
