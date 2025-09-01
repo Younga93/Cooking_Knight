@@ -5,7 +5,7 @@ public class ConditionController : MonoBehaviour
 {
     [Header("Health")] 
     [SerializeField] private float maxHealth;
-    private float currentHealth;
+    [SerializeField] private float currentHealth;
     
     public event Action<float> OnHealthChanged;
     
