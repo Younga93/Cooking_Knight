@@ -20,6 +20,8 @@ public class Player : MonoBehaviour //, IShopObserver?
     
     public PlayerInput PlayerInputActions { get; private set; } 
     
+    public Animator PlayerAnimator { get; private set; }
+    
     [Header("Ground check")]
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
@@ -33,6 +35,8 @@ public class Player : MonoBehaviour //, IShopObserver?
         PlayerCondition = GetComponent<PlayerCondition>();
         
         PlayerInputActions = new PlayerInput();
+        
+        PlayerAnimator = GetComponentInChildren<Animator>();
         
         //이동 상태 머신 초기화
         _movementStates = new Dictionary<string, IPlayerMovementState>();
@@ -97,18 +101,36 @@ public class Player : MonoBehaviour //, IShopObserver?
 
      public void OnJump(InputAction.CallbackContext context)
      {
-         TransitionToActionState(PlayerState.Action.Jump);
+         if (IsGrounded())
+         {
+             // 땅에 닿았을 때만
+             // 애니메이터 isGrounded 파라미터를 true로 설정
+             PlayerAnimator.SetBool(AnimatorString.Parameters.IsGrounded, true);
+             
+             TransitionToActionState(PlayerState.Action.Jump);
+         }
      }
 
      public void OnAttack(InputAction.CallbackContext context)
      {
          TransitionToActionState(PlayerState.Action.Attack);
      }
+
+     public void OnHit()
+     {
+         //todo 피격상태로 전환하기
+     }
+
+     public void OnDead()
+     {
+         //todo 사망상태로 전환하기
+     }
      
      public void TransitionToMovementState(string stateName)
     {
         if (_movementState == _movementStates[stateName]) return;
         
+        IsGrounded();
         _movementState.ExitState(this);
         _movementState = _movementStates[stateName];
         _movementState.EnterState(this);
@@ -117,14 +139,34 @@ public class Player : MonoBehaviour //, IShopObserver?
     public void TransitionToActionState(string stateName)
     {
         if (_actionState == _actionStates[stateName]) return;
-        
+
+        if (PlayerAnimator != null)
+        {
+            Debug.Log("PlayerAnimator trigger들 초기화됨");
+            PlayerAnimator.ResetTrigger(AnimatorString.Parameters.Jump);
+            PlayerAnimator.ResetTrigger(AnimatorString.Parameters.Hit);
+            PlayerAnimator.ResetTrigger(AnimatorString.Parameters.Dead);
+        }
         _actionState.ExitState(this);
         _actionState = _actionStates[stateName];
         _actionState.EnterState(this);
     }
-
+    
     public bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+        bool isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+        if (isGrounded)
+        {
+            PlayerAnimator.SetBool(AnimatorString.Parameters.IsGrounded, true);
+        }
+        return isGrounded;
     }
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        // 디버깅용: Scene 뷰에 GroundCheck 원을 그려주는 코드
+        Gizmos.color = IsGrounded() ? Color.green : Color.red;
+        Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+    }
+#endif
 }

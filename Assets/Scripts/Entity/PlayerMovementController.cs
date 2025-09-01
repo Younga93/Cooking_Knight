@@ -10,8 +10,6 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] private float jumpForce = 5f;
     
     public Rigidbody2D Rigidbody2D { get; private set; }
-    
-    
     public Vector2 MovementInput { get; private set; }
 
     private void Awake()
@@ -21,6 +19,7 @@ public class PlayerMovementController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        FlipCharacter();
         Rigidbody2D.velocity = new Vector2(MovementInput.x * moveSpeed, Rigidbody2D.velocity.y);
     }
 
@@ -32,5 +31,17 @@ public class PlayerMovementController : MonoBehaviour
     public void Jump()
     {
         Rigidbody2D.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+    }
+
+    private void FlipCharacter()
+    {
+        if (MovementInput.x < 0)    //좌측이동중
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+        else if (MovementInput.x > 0) //우측 이동중
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
     }
 }

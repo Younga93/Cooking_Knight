@@ -31,6 +31,29 @@ public static class PlayerState
         public const string Attack = "Attack";
     }
 }
+
+public static class AnimatorString
+{
+    public static class PlayerAnimation
+    {
+        public const string Walk = "walk";
+        public const string Idle = "idle";
+        public const string Attack = "attack";
+        public const string Jump = "jump";
+        public const string Hit = "hit";
+        public const string Dead = "dead";
+    }
+
+    public static class Parameters
+    {
+        public const string IsWalking = "isWalking";
+        public const string IsGrounded = "isGrounded";
+        public const string Jump = "Jump";
+        public const string Hit = "Hit";
+        public const string Dead = "Dead";
+    }
+
+}
 public class Constants
 {
 }

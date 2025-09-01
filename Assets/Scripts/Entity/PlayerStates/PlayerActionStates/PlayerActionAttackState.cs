@@ -5,7 +5,7 @@ public class PlayerActionAttackState : IPlayerActionState
     public void EnterState(Player player)
     {
         Debug.Log("PlayerActionAttackState entered");
-        //todo. 공격 판정 시작 (애니메이션 시작)
+        player.AttackController.StartAttack();
     }
 
     public void UpdateState(Player player)

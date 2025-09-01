@@ -6,6 +6,8 @@ public class PlayerActionJumpState : IPlayerActionState
     {
         Debug.Log("PlayerActionJumpState entered");
         player.MovementController.Jump();
+        player.PlayerAnimator.SetTrigger(AnimatorString.Parameters.Jump);
+        player.PlayerAnimator.SetBool(AnimatorString.Parameters.IsGrounded, false);
     }
 
     public void UpdateState(Player player)
@@ -17,6 +19,9 @@ public class PlayerActionJumpState : IPlayerActionState
         //땅에 붙어있거나, 아래로 하강할때만.
         if (player.IsGrounded() && player.MovementController.Rigidbody2D.velocity.y <= 0f)
         {
+            Debug.Log("PlayerActionJumpState it is grounded");
+
+            // 상태 머신을 Idle로 전환
             player.TransitionToActionState(PlayerState.Action.Idle);
         }
     }
