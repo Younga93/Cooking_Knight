@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     private IPlayerActionState _actionState;
     
     //Player 상태 캐싱 //Key 값은 Animation이랑 맞춰서 쓰면 될듯.
+    //todo. 리팩토링: State 두종류로 나누지 말고 그냥 하나로 합치기.
     private Dictionary<string, IPlayerMovementState> _movementStates;
     private Dictionary<string, IPlayerActionState> _actionStates;
 
@@ -119,13 +120,10 @@ public class Player : MonoBehaviour
 
      public void OnAttack(InputAction.CallbackContext context)
      {
-         // if (context.started) //첫 프레임에만 실행하도록
-         // {
-             // if (AttackController.CanAttack()) // && !(_actionState is PlayerActionDeadState))
-             // {
-                 TransitionToActionState(PlayerState.Action.Attack);
-             // }
-         // }
+         if (AttackController.CanAttack() && !(_actionState is PlayerActionDeadState))
+         {
+             TransitionToActionState(PlayerState.Action.Attack);
+         }
      }
 
      public void OnHit()
