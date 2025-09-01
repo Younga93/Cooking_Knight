@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6855018511150220861}
   - component: {fileID: 3878753882984104223}
   - component: {fileID: 8522771052850638854}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -639,7 +639,7 @@ GameObject:
   - component: {fileID: 5985639731585686178}
   - component: {fileID: 1762167001431238297}
   - component: {fileID: 8281510424649905455}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
