@@ -72,4 +72,13 @@ public class PlayerAttackController : MonoBehaviour
         _animator.Play("Empty", 1);
         _player.TransitionToActionState(PlayerState.Action.Idle);
     }
+    
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        // 디버깅용: Scene 뷰에 GroundCheck 원을 그려주는 코드
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+    }
+#endif
 }
