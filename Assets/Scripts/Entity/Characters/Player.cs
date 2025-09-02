@@ -111,7 +111,7 @@ public class Player : MonoBehaviour
          {
              // 땅에 닿았을 때만
              // 애니메이터 isGrounded 파라미터를 true로 설정
-             PlayerAnimator.SetBool(AnimatorString.Parameters.IsGrounded, true);
+             PlayerAnimator.SetBool(AnimatorString.PlayerParameters.IsGrounded, true);
              
              TransitionToActionState(PlayerState.Action.Jump);
          }
@@ -152,9 +152,9 @@ public class Player : MonoBehaviour
         if (PlayerAnimator != null)
         {
             Debug.Log("PlayerAnimator trigger들 초기화됨");
-            PlayerAnimator.ResetTrigger(AnimatorString.Parameters.Jump);
-            PlayerAnimator.ResetTrigger(AnimatorString.Parameters.Hit);
-            PlayerAnimator.ResetTrigger(AnimatorString.Parameters.Dead);
+            PlayerAnimator.ResetTrigger(AnimatorString.PlayerParameters.Jump);
+            PlayerAnimator.ResetTrigger(AnimatorString.PlayerParameters.Hit);
+            PlayerAnimator.ResetTrigger(AnimatorString.PlayerParameters.Dead);
         }
         _actionState.ExitState(this);
         _actionState = _actionStates[stateName];
@@ -166,7 +166,7 @@ public class Player : MonoBehaviour
         bool isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
         if (isGrounded)
         {
-            PlayerAnimator.SetBool(AnimatorString.Parameters.IsGrounded, true);
+            PlayerAnimator.SetBool(AnimatorString.PlayerParameters.IsGrounded, true);
         }
         return isGrounded;
     }

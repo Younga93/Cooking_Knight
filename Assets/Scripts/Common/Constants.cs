@@ -31,6 +31,13 @@ public static class PlayerState
     }
 }
 
+public static class EnemyState
+{
+    public const string Idle = "Idle";
+    public const string Wander = "Wander";
+    public const string Flee = "Flee";
+}
+
 public static class AnimatorString
 {
     public static class PlayerAnimation
@@ -43,13 +50,22 @@ public static class AnimatorString
         public const string Dead = "dead";
     }
 
-    public static class Parameters
+    public static class PlayerParameters
     {
         public const string IsWalking = "isWalking";
         public const string IsGrounded = "isGrounded";
         public const string Jump = "Jump";
         public const string Hit = "Hit";
         public const string Dead = "Dead";
+    }
+
+    public static class EnemyAnimation
+    {
+        public  const string Walk = "walk";
+        public const string Idle = "idle";
+        public const string Run = "run";
+        public const string Hit = "hit";
+        public const string Dead = "dead";
     }
 
 }

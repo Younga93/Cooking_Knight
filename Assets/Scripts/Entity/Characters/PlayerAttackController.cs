@@ -28,7 +28,6 @@ public class PlayerAttackController : MonoBehaviour
         if (attackCooldown > 0)
         {
             attackCooldown -= Time.deltaTime;
-            if(attackCooldown<= 0) Debug.Log("Attack available");
         }
     }
 
@@ -55,12 +54,14 @@ public class PlayerAttackController : MonoBehaviour
     {
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
 
-        foreach (Collider2D enemy in hitEnemies)
+        foreach (Collider2D enemyCollider in hitEnemies)
         {
-            ConditionController enemyCondition = enemy.GetComponent<ConditionController>();
-            if (enemyCondition != null)
+            Enemy enemy = enemyCollider.GetComponent<Enemy>();
+
+            if (enemy != null)
             {
-                enemyCondition.TakeDamage(attackPower);
+                enemy.ConditionController.TakeDamage(attackPower);
+                enemy.TransitionToState(EnemyState.Flee);
             }
         }
 

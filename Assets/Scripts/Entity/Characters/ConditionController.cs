@@ -14,6 +14,13 @@ public class ConditionController : MonoBehaviour
         currentHealth = maxHealth;
     }
 
+    public void SetMaxHealth(float maxHealth)
+    {
+        this.maxHealth = maxHealth;
+        this.currentHealth = this.maxHealth;
+        OnHealthChanged?.Invoke(currentHealth/maxHealth);
+    }
+
     public void TakeDamage(float amount)
     {
         if (currentHealth <= 0) return;

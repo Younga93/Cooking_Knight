@@ -6,8 +6,8 @@ public class PlayerActionJumpState : IPlayerActionState
     {
         Debug.Log("PlayerActionJumpState entered");
         player.MovementController.Jump();
-        player.PlayerAnimator.SetTrigger(AnimatorString.Parameters.Jump);
-        player.PlayerAnimator.SetBool(AnimatorString.Parameters.IsGrounded, false);
+        player.PlayerAnimator.SetTrigger(AnimatorString.PlayerParameters.Jump);
+        player.PlayerAnimator.SetBool(AnimatorString.PlayerParameters.IsGrounded, false);
     }
 
     public void UpdateState(Player player)
