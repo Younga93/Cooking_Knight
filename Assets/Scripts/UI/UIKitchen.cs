@@ -8,7 +8,7 @@ public class UIKitchen : UIBase
 {
     [SerializeField] private VerticalLayoutGroup layoutGroup;
     private Transform _contents;
-    public int currentID;
+    [HideInInspector] public int currentID;
     private List<UIRecipeSlot> _recipeSlots;
     [SerializeField] private Image image1;
     [SerializeField] private Image image2;
