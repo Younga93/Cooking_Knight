@@ -9,7 +9,7 @@ public class SceneLoadManager : Singleton<SceneLoadManager>
     private Dictionary<SceneType, SceneBase> _scenes = new Dictionary<SceneType, SceneBase>();
     private SceneBase _previousScene;
     private SceneBase _currentScene;
-
+    public event Action OnSceneChanged;
     protected override void Awake() 
     {
         base.Awake();
@@ -29,6 +29,7 @@ public class SceneLoadManager : Singleton<SceneLoadManager>
     private IEnumerator LoadSceneProcess(SceneType sceneType)
     {
         //이전씬 존재하면 씬 정리 작업하기.
+        OnSceneChanged?.Invoke();
         _currentScene?.OnUnload();
         
         _previousScene = _currentScene;

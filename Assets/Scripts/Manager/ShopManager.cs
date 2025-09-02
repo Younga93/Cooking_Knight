@@ -17,7 +17,7 @@ public class ShopManager : Singleton<ShopManager>
 
     private void Update()
     {
-        if (!isSelling) return;
+        if (isSelling) return;
         if (ItemsForSale.Count == 0) return;
         SellItem();
     }

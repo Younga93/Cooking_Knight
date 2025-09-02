@@ -5,6 +5,7 @@ using UnityEngine;
 public class Inventory : MonoBehaviour , IShopObserver, IItemCollector
 {
     public List<ItemData> ingredients = new();
+    public Dictionary<int, ItemData> ingredientDict = new();
     public List<FoodData> foods = new();
 
     public int money;
