@@ -11,6 +11,7 @@ public class Kitchen : MonoBehaviour
         if (other.TryGetComponent<Player>(out var player))
         {
             UIManager.Instance.OpenUI<UIKitchen>();
+            KitchenManager.Instance.OnEnterKitchen();
         }
     }
     

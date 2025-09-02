@@ -38,6 +38,7 @@ public class UIRecipeSlot : UIBase
         nameText.text = foodData.Name;
         descriptionText.text = foodData.Description;
         priceText.text = foodData.Price.ToString();
+        priceText.text += " G";
     }
     private void OnClickButton() => _uiKitchen.SelectRecipe(index);
 }
