@@ -4,7 +4,7 @@ public class PlayerActionAttackState : IPlayerActionState
 {
     public void EnterState(Player player)
     {
-        Debug.Log("PlayerActionAttackState entered");
+        // Debug.Log("PlayerActionAttackState entered");
         player.AttackController.StartAttack();
     }
 
@@ -15,7 +15,7 @@ public class PlayerActionAttackState : IPlayerActionState
 
     public void ExitState(Player player)
     {
-        Debug.Log("PlayerActionAttackState Exited");
+        // Debug.Log("PlayerActionAttackState Exited");
     }
 }
 

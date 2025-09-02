@@ -15,7 +15,6 @@ public class EnemyMovementController : MonoBehaviour    //refactoring PlayerMove
     {
         FlipCharacter();
         Rigidbody2D.velocity = new Vector2(_moveDirection.x * _currentSpeed, Rigidbody2D.velocity.y);
-        
     }
 
     public void SetCurrentSpeed(float speed)

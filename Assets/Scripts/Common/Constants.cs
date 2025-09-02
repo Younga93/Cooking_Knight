@@ -36,6 +36,8 @@ public static class EnemyState
     public const string Idle = "Idle";
     public const string Wander = "Wander";
     public const string Flee = "Flee";
+    public const string Dead = "Dead";
+    public const string Hit = "Hit";
 }
 
 public static class AnimatorString
@@ -64,6 +66,13 @@ public static class AnimatorString
         public  const string Walk = "walk";
         public const string Idle = "idle";
         public const string Run = "run";
+        public const string Hit = "hit";
+        public const string Dead = "dead";
+    }
+    public static class EnemyParameters
+    {
+        public const string IsWalking = "isWalking";
+        public const string IsRunning = "isRunning";
         public const string Hit = "hit";
         public const string Dead = "dead";
     }

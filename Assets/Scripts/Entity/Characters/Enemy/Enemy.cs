@@ -11,14 +11,14 @@ public class Enemy : MonoBehaviour
     private Dictionary<string, IEnemyState> _states;
     
     public Player Player { get; private set; }
-    public ConditionController ConditionController { get; private set; }
+    public EnemyConditionController ConditionController { get; private set; }
     public EnemyMovementController MovementController { get; private set; }
     public Animator Animator { get; private set; }
 
     
     private void Awake()
     {
-        ConditionController = GetComponent<ConditionController>();
+        ConditionController = GetComponent<EnemyConditionController>();
         MovementController = GetComponent<EnemyMovementController>();
         Animator = GetComponentInChildren<Animator>();
         Player = GameManager.Instance.Player;
@@ -37,6 +37,8 @@ public class Enemy : MonoBehaviour
         _states.Add(EnemyState.Idle, new EnemyIdleState());
         _states.Add(EnemyState.Wander, new EnemyWanderState());
         _states.Add(EnemyState.Flee, new EnemyFleeState());
+        _states.Add(EnemyState.Dead, new EnemyDeadState());
+        _states.Add(EnemyState.Hit, new EnemyHitState());
 
         _currentState = _states[EnemyState.Flee];
         TransitionToState(EnemyState.Idle);
@@ -53,9 +55,36 @@ public class Enemy : MonoBehaviour
         // {
         //     return;
         // }
-
+        if (_currentState is EnemyDeadState)
+        {
+            return;
+        }
         _currentState.ExitState(this);
         _currentState = _states[stateName];
         _currentState.EnterState(this);
+    }
+
+    private void Reward()
+    {
+        //todo. 리워드 제공 로직
+        Debug.Log($"{_enemyData.enemyName} Reward");
+    }
+    
+    public void DestroyOnAnimationEnd()
+    {
+        Reward();
+        Debug.Log($"{_enemyData.enemyName} Destroy");
+        Destroy(gameObject);
+    }
+    public void OnHitAnimationEnd()
+    {
+        if (ConditionController.GetCurrentHealth() <= 0)
+        {
+            TransitionToState(EnemyState.Dead);
+        }
+        else
+        {
+            TransitionToState(EnemyState.Flee);
+        }
     }
 }

@@ -61,7 +61,7 @@ public class PlayerAttackController : MonoBehaviour
             if (enemy != null)
             {
                 enemy.ConditionController.TakeDamage(attackPower);
-                enemy.TransitionToState(EnemyState.Flee);
+                enemy.TransitionToState(EnemyState.Hit);
             }
         }
 

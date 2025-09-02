@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     //Player Controller들
     public PlayerMovementController MovementController { get; private set; }
     public PlayerAttackController AttackController { get; private set; }
-    public ConditionController ConditionController { get; private set; }
+    public PlayerConditionController ConditionController { get; private set; }
     
     public PlayerInput PlayerInputActions { get; private set; } 
     
@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
     {
         MovementController = GetComponent<PlayerMovementController>();
         AttackController = GetComponentInChildren<PlayerAttackController>();
-        ConditionController = GetComponent<ConditionController>();
+        ConditionController = GetComponent<PlayerConditionController>();
         
         PlayerInputActions = new PlayerInput();
         

@@ -345,6 +345,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45c4e5b9ed172fb438f1f9c336a0047a, type: 3}
+--- !u!1 &1488143662
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1488143663}
+  m_Layer: 0
+  m_Name: EnemySpawnManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1488143663
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1488143662}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.6187897, y: -0.20405346, z: -0.03169231}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1712813744
 GameObject:
   m_ObjectHideFlags: 0
@@ -1380,27 +1411,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 9052815637320294364}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &5598195094053839164
-Animator:
-  serializedVersion: 5
+--- !u!114 &5598195094053839165
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2974845171313228194}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 116e74f38a9d0854ea55be216fc18272, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab393286755b9ea4fb5361441b402b93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5642727238529633181
 GameObject:
   m_ObjectHideFlags: 0
@@ -2498,11 +2520,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!1 &6275862584298459022 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7071223011319806015, guid: 62d87440436439d46918f9beb84dbfa7, type: 3}
-  m_PrefabInstance: {fileID: 8269016760433639530}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6732723672378228036
 GameObject:
   m_ObjectHideFlags: 0
@@ -2847,14 +2864,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3020647126838338188, guid: 62d87440436439d46918f9beb84dbfa7, type: 3}
-      propertyPath: _enemyData
-      value: 
-      objectReference: {fileID: 11400000, guid: 122d859632df06845b496b94888a4715, type: 2}
-    - target: {fileID: 3453255120416206543, guid: 62d87440436439d46918f9beb84dbfa7, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6694504614576096988, guid: 62d87440436439d46918f9beb84dbfa7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2895,10 +2904,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6939430269390876050, guid: 62d87440436439d46918f9beb84dbfa7, type: 3}
-      propertyPath: m_Constraints
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 7071223011319806015, guid: 62d87440436439d46918f9beb84dbfa7, type: 3}
       propertyPath: m_Name
       value: Enemy
@@ -2907,12 +2912,9 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7071223011319806015, guid: 62d87440436439d46918f9beb84dbfa7, type: 3}
-      insertIndex: 2
-      addedObject: {fileID: 9137069912659843402}
     - targetCorrespondingSourceObject: {fileID: 8857423743197980915, guid: 62d87440436439d46918f9beb84dbfa7, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5598195094053839164}
+      addedObject: {fileID: 5598195094053839165}
   m_SourcePrefab: {fileID: 100100000, guid: 62d87440436439d46918f9beb84dbfa7, type: 3}
 --- !u!19719996 &8281510425546569076
 TilemapCollider2D:
@@ -3079,18 +3081,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 9052815637320294364}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9137069912659843402
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6275862584298459022}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 559fd26aac7933c48a67e170f61398c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -3100,3 +3090,4 @@ SceneRoots:
   - {fileID: 8269016760433639530}
   - {fileID: 1712813746}
   - {fileID: 1990196118}
+  - {fileID: 1488143663}

@@ -235,7 +235,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4137712304085420056}
   - component: {fileID: 8875774276389609724}
-  - component: {fileID: 5263221401027488103}
+  - component: {fileID: 3137128868418613261}
   - component: {fileID: 7483221192981850525}
   - component: {fileID: 4968318792245807339}
   - component: {fileID: 7957851634947763447}
@@ -281,7 +281,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   groundCheckRadius: 0.1
---- !u!114 &5263221401027488103
+--- !u!114 &3137128868418613261
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -290,7 +290,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4802902652135792186}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9307aaee3ebf8e42a95511d7694f77c, type: 3}
+  m_Script: {fileID: 11500000, guid: 86adcb71676167942bf1eb6b9c8df744, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 0

@@ -8,7 +8,10 @@ public class EnemyFleeState : IEnemyState
     public void EnterState(Enemy enemy)
     {
         Debug.Log($"{enemy._enemyData.enemyName} entered FleeState");
+        
         enemy.MovementController.SetCurrentSpeed(enemy._enemyData.runSpeed);
+        enemy.Animator.SetBool(AnimatorString.EnemyParameters.IsRunning, true);
+        
         _fleeTimer = FLEE_TIME;
     }
 
@@ -30,5 +33,6 @@ public class EnemyFleeState : IEnemyState
     {
         Debug.Log($"{enemy._enemyData.enemyName} exit FleeState");
         enemy.MovementController.SetMoveDirection(Vector2.zero);
+        enemy.Animator.SetBool(AnimatorString.EnemyParameters.IsRunning, false);
     }
 }

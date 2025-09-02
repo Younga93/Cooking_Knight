@@ -77,7 +77,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6694504614576096988}
   - component: {fileID: 3020647126838338188}
-  - component: {fileID: 3045884627702085404}
+  - component: {fileID: 501156656941822321}
+  - component: {fileID: 792383019546709528}
   - component: {fileID: 3453255120416206543}
   - component: {fileID: 6939430269390876050}
   m_Layer: 8
@@ -116,7 +117,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63b828340a055e44ea366ace9f912dbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3045884627702085404
+  _enemyData: {fileID: 11400000, guid: 122d859632df06845b496b94888a4715, type: 2}
+--- !u!114 &501156656941822321
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -125,10 +127,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 7071223011319806015}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9307aaee3ebf8e42a95511d7694f77c, type: 3}
+  m_Script: {fileID: 11500000, guid: 559fd26aac7933c48a67e170f61398c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 200
+--- !u!114 &792383019546709528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7071223011319806015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b30d6f78405798f49a466af11304bddd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 0
   currentHealth: 0
 --- !u!58 &3453255120416206543
 CircleCollider2D:
@@ -159,7 +173,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -191,7 +205,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 7
+  m_Constraints: 4
 --- !u!1 &8857423743197980915
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,6 +216,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3483065237215240324}
   - component: {fileID: 3812381883926692289}
+  - component: {fileID: 6001505415989464833}
   m_Layer: 8
   m_Name: Model
   m_TagString: Untagged
@@ -276,3 +291,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &6001505415989464833
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8857423743197980915}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 116e74f38a9d0854ea55be216fc18272, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

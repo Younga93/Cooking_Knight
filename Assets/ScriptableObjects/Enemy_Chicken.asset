@@ -15,7 +15,7 @@ MonoBehaviour:
   enemyId: 1
   enemyName: "\uB2ED"
   EnemyType: 0
-  maxHealth: 0
+  maxHealth: 50
   walkSpeed: 1
   runSpeed: 3
   attack: 0

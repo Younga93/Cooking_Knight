@@ -9,7 +9,10 @@ public class EnemyWanderState : IEnemyState
     public void EnterState(Enemy enemy)
     {
         Debug.Log($"{enemy._enemyData.enemyName} entered EnemyWanderState");
+        
         enemy.MovementController.SetCurrentSpeed(enemy._enemyData.walkSpeed);
+        enemy.Animator.SetBool(AnimatorString.EnemyParameters.IsWalking, true);
+        
         SetRandomWanderDirection();
     }
 
@@ -30,6 +33,7 @@ public class EnemyWanderState : IEnemyState
     {
         Debug.Log($"{enemy._enemyData.enemyName} exit EnemyWanderState");
         enemy.MovementController.SetMoveDirection(Vector2.zero);
+        enemy.Animator.SetBool(AnimatorString.EnemyParameters.IsWalking, false);
     }
 
     private void SetRandomWanderDirection()
