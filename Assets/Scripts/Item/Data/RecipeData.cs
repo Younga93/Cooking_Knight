@@ -6,6 +6,7 @@ using UnityEngine;
 public class RecipeData
 {
     public int ID { get; set; }
+    public int FoodID { get; set; }
     public int FirstDropItemID { get; set; }
     public int FirstDropItemCount { get; set; }
     public int SecondDropItemID { get; set; }

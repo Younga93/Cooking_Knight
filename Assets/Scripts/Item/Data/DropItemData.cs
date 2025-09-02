@@ -8,7 +8,7 @@ using UnityEngine;
 public class DropItemData
 {
     public int ID { get; set; }
-    public int Count { get; set; }
-    public int Percent { get; set; }
+    //public int Count { get; set; }
+    public float Percent { get; set; }
 }
 

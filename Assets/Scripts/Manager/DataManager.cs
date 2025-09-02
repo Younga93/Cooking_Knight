@@ -8,6 +8,9 @@ public class DataManager : Singleton<DataManager>
 {
     private string _defaultDataPath = Application.streamingAssetsPath;
 
+    private readonly List<DropItemTable> _dropItemTables = new();
+    public Dictionary<int, DropItemTable> DropItemTables = new();
+
     private readonly List<DropItemData> _dropItemDatas = new();
     public Dictionary<int, DropItemData> DropItemDatas = new();
 
@@ -24,9 +27,12 @@ public class DataManager : Singleton<DataManager>
         base.Awake();
         LoadData(_dropItemDatas, "DropItemData.json");
         LoadData(_recipeDatas, "RecipeData.json");
+        LoadData(_dropItemTables, "DropItemTable.json");
+        ;
         LoadItemDataDict();
         LoadFoodDataDict();
         LoadDropItemDataDict();
+        LoadDropItemTableDict();
         LoadRecipeDataDict();
     }
 
@@ -35,6 +41,14 @@ public class DataManager : Singleton<DataManager>
         foreach (var item in _dropItemDatas)
         {
             DropItemDatas.Add(item.ID, item);
+        }
+    }
+
+    private void LoadDropItemTableDict()
+    {
+        foreach (var item in _dropItemTables)
+        {
+            DropItemTables.Add(item.ID, item);
         }
     }
 
@@ -82,5 +96,37 @@ public class DataManager : Singleton<DataManager>
                 list.Add(data);
             }
         }
+    }
+
+    //매개변수에 담은 DropTable의 리스트에 따라 드롭될 아이템의 확률 계산을 하고, 등장할 아이템을 droppedItems에 담습니다.
+    //사용하실 때, boolean 값으로 아이템이 드롭 됐는지 확인 후, droppedItems에 있는 ItemData.Prefab을 활용하시길 바랍니다.
+    public bool GetDroppedItem(int dropTable, out GameObject droppedItems)
+    {
+        float total = 0f;
+        foreach (var drop in DropItemTables[dropTable].DropItemDatas)
+        {
+            total += drop.Percent;
+        }
+
+        float random = UnityEngine.Random.value * total;
+        int id = 0;
+        foreach (var drop in DropItemTables[dropTable].DropItemDatas)
+        {
+            random -= drop.Percent;
+            if (random <= 0f)
+            {
+                id = drop.ID;
+                break;
+            }
+        }
+
+        if (id == 0)
+        {
+            droppedItems = null;
+            return false;
+        }
+
+        droppedItems = ItemDatas[id].Prefab;
+        return true;
     }
 }

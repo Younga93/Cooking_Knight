@@ -12,12 +12,22 @@ public class UIManager : Singleton<UIManager>
     
     private Dictionary<string, UIBase> _uiDictionary = new();
 
+    private void OnEnable()
+    {
+        SceneLoadManager.Instance.OnSceneChanged += ClearUI;
+    }
+
+    private void OnDisable()
+    {
+        SceneLoadManager.Instance.OnSceneChanged -= ClearUI;
+    }
+    
     public void OpenUI<T>() where T : UIBase
     {
         var ui = GetUI<T>();
         ui?.OpenUI();
     }
-
+    
     public void CloseUI<T>() where T : UIBase
     {
         //UI가 있는지 확인 먼저, 없으면 무시하기.
@@ -69,7 +79,7 @@ public class UIManager : Singleton<UIManager>
         if (uiComponent == null)
         {
             Debug.LogError($"Component not found: {uiName}");
-            //Destroy(go);
+            Destroy(go);
             return null;
         }
         
@@ -79,6 +89,29 @@ public class UIManager : Singleton<UIManager>
         return uiComponent;
     }
 
+    public T CreateSlotUI<T>(Transform parent = null) where T : UIBase
+    {
+        string uiName = typeof(T).Name;
+        string path = Constants.UIElementsPath + uiName;
+        
+        GameObject go = ResourceManager.Instance.Create<GameObject>(path, parent);
+        if (go == null)
+        {
+            Debug.LogError($"Prefab not found: {uiName}");
+            return null;
+        }
+        
+        T uiComponent = go.GetComponent<T>();
+        if (uiComponent == null)
+        {
+            Debug.LogError($"Component not found: {uiName}");
+            Destroy(go);
+            return null;
+        }
+        
+        _uiDictionary[uiName] = uiComponent;
+        return uiComponent;
+    }
     private void CheckCanvas()
     {
         //캔버스 있는지 확인, 있으면 return
@@ -95,5 +128,17 @@ public class UIManager : Singleton<UIManager>
         //없으면 경로 만들고 생성 후 _eventSystem 초기화
         var path = Constants.UICommonPath + Constants.EventSystem;
         _eventSystem = ResourceManager.Instance.Create<EventSystem>(path, null);
+    }
+
+    private void ClearUI()
+    {
+        foreach (var ui in _uiDictionary.Values)
+        {
+            if (ui != null)
+            {
+                Destroy(ui.gameObject);
+            }
+            _uiDictionary.Remove(ui.GetType().Name);
+        }
     }
 }

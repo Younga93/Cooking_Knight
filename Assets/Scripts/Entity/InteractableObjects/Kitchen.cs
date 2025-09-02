@@ -10,7 +10,7 @@ public class Kitchen : MonoBehaviour
     {
         if (other.TryGetComponent<Player>(out var player))
         {
-            UIManager.Instance.OpenUI<UIKitchenButton>();
+            UIManager.Instance.OpenUI<UIKitchen>();
         }
     }
     
@@ -18,7 +18,7 @@ public class Kitchen : MonoBehaviour
     {
         if (other.TryGetComponent<Player>(out var player))
         {
-            UIManager.Instance.CloseUI<UIKitchenButton>();
+            UIManager.Instance.CloseUI<UIKitchen>();
         }
     }
 }
