@@ -28,7 +28,6 @@ public class PlayerAttackController : MonoBehaviour
         if (attackCooldown > 0)
         {
             attackCooldown -= Time.deltaTime;
-            if(attackCooldown<= 0) Debug.Log("Attack available");
         }
     }
 
@@ -55,12 +54,14 @@ public class PlayerAttackController : MonoBehaviour
     {
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
 
-        foreach (Collider2D enemy in hitEnemies)
+        foreach (Collider2D enemyCollider in hitEnemies)
         {
-            ConditionController enemyCondition = enemy.GetComponent<ConditionController>();
-            if (enemyCondition != null)
+            Enemy enemy = enemyCollider.GetComponent<Enemy>();
+
+            if (enemy != null)
             {
-                enemyCondition.TakeDamage(attackPower);
+                enemy.ConditionController.TakeDamage(attackPower);
+                enemy.TransitionToState(EnemyState.Hit);
             }
         }
 
@@ -72,4 +73,13 @@ public class PlayerAttackController : MonoBehaviour
         _animator.Play("Empty", 1);
         _player.TransitionToActionState(PlayerState.Action.Idle);
     }
+    
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        // 디버깅용: Scene 뷰에 GroundCheck 원을 그려주는 코드
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+    }
+#endif
 }

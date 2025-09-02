@@ -1,20 +1,31 @@
 using UnityEngine;
 using System;
 
-public class ConditionController : MonoBehaviour
+public abstract class ConditionController : MonoBehaviour
 {
     [Header("Health")] 
     [SerializeField] private float maxHealth;
-    private float currentHealth;
+    [SerializeField] private float currentHealth;
     
     public event Action<float> OnHealthChanged;
     
-    private void Awake()
+    protected virtual void Awake()
     {
         currentHealth = maxHealth;
     }
 
-    public void TakeDamage(float amount)
+    public float GetCurrentHealth()
+    {
+        return currentHealth;
+    }
+    public void SetMaxHealth(float maxHealth)
+    {
+        this.maxHealth = maxHealth;
+        this.currentHealth = this.maxHealth;
+        OnHealthChanged?.Invoke(currentHealth/maxHealth);
+    }
+
+    public virtual void TakeDamage(float amount)
     {
         if (currentHealth <= 0) return;
 
@@ -24,7 +35,7 @@ public class ConditionController : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            Die();
+            OnDeath();
         }
     }
 
@@ -35,10 +46,5 @@ public class ConditionController : MonoBehaviour
         OnHealthChanged?.Invoke(currentHealth / maxHealth);
     }
 
-    private void Die()
-    {
-        Debug.Log($"{gameObject.name} dead");
-        //todo. 사망 구현하기.
-    }
-    
+    protected abstract void OnDeath();
 }

@@ -4,7 +4,7 @@ public class PlayerMovementIdleState: IPlayerMovementState
 {
     public void EnterState(Player player)
     {
-        Debug.Log("PlayerMovementIdleState entered");
+        // Debug.Log("PlayerMovementIdleState entered");
         player.MovementController.SetMovementInput(Vector2.zero);
     }
 
@@ -14,6 +14,6 @@ public class PlayerMovementIdleState: IPlayerMovementState
 
     public void ExitState(Player player)
     {
-        Debug.Log("PlayerMovementIdleState exited");
+        // Debug.Log("PlayerMovementIdleState exited");
     }
 }

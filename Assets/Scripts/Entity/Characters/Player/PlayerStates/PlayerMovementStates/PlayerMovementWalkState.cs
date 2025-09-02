@@ -4,8 +4,8 @@ public class PlayerMovementWalkState: IPlayerMovementState
 {
     public void EnterState(Player player)
     {
-        Debug.Log("PlayerMovementWalkState entered");
-        player.PlayerAnimator.SetBool(AnimatorString.Parameters.IsWalking, true);
+        // Debug.Log("PlayerMovementWalkState entered");
+        player.PlayerAnimator.SetBool(AnimatorString.PlayerParameters.IsWalking, true);
     }
 
     public void UpdateState(Player player)
@@ -16,7 +16,7 @@ public class PlayerMovementWalkState: IPlayerMovementState
 
     public void ExitState(Player player)
     {
-        player.PlayerAnimator.SetBool(AnimatorString.Parameters.IsWalking, false);
-        Debug.Log("PlayerMovementWalkState exited");
+        player.PlayerAnimator.SetBool(AnimatorString.PlayerParameters.IsWalking, false);
+        // Debug.Log("PlayerMovementWalkState exited");
     }
 }

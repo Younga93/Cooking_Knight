@@ -4,7 +4,7 @@ public class PlayerActionIdleState : IPlayerActionState
 {
     public void EnterState(Player player)
     {
-        Debug.Log("PlayerActionIdleState entered");
+        // Debug.Log("PlayerActionIdleState entered");
     }
 
     public void UpdateState(Player player)
@@ -13,6 +13,6 @@ public class PlayerActionIdleState : IPlayerActionState
 
     public void ExitState(Player player)
     {
-        Debug.Log("PlayerActionIdleState Exited");
+        // Debug.Log("PlayerActionIdleState Exited");
     }
 }

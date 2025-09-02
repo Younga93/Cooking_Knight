@@ -4,10 +4,10 @@ public class PlayerActionJumpState : IPlayerActionState
 {
     public void EnterState(Player player)
     {
-        Debug.Log("PlayerActionJumpState entered");
+        // Debug.Log("PlayerActionJumpState entered");
         player.MovementController.Jump();
-        player.PlayerAnimator.SetTrigger(AnimatorString.Parameters.Jump);
-        player.PlayerAnimator.SetBool(AnimatorString.Parameters.IsGrounded, false);
+        player.PlayerAnimator.SetTrigger(AnimatorString.PlayerParameters.Jump);
+        player.PlayerAnimator.SetBool(AnimatorString.PlayerParameters.IsGrounded, false);
     }
 
     public void UpdateState(Player player)
@@ -28,6 +28,6 @@ public class PlayerActionJumpState : IPlayerActionState
 
     public void ExitState(Player player)
     {
-        Debug.Log("PlayerActionJumpState Exited");
+        // Debug.Log("PlayerActionJumpState Exited");
     }
 }
