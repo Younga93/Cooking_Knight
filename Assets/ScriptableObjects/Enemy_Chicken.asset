@@ -17,6 +17,6 @@ MonoBehaviour:
   EnemyType: 0
   maxHealth: 50
   walkSpeed: 1
-  runSpeed: 3
+  runSpeed: 2
   attack: 0
   prefab: {fileID: 7071223011319806015, guid: 62d87440436439d46918f9beb84dbfa7, type: 3}
