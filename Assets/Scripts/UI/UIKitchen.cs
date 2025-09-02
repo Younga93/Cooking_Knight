@@ -17,12 +17,14 @@ public class UIKitchen : UIBase
     [SerializeField] private TextMeshProUGUI text2;
     [SerializeField] private TextMeshProUGUI text3;
     [SerializeField] private Button button;
-    
+    [SerializeField] private Button exitButton;
+
     private void Start()
     {
         _contents = layoutGroup.GetComponent<Transform>();
         currentID = -1;
     }
+
     protected override void OnOpen()
     {
         foreach (var data in DataManager.Instance.RecipeDatas.Values)
@@ -64,7 +66,7 @@ public class UIKitchen : UIBase
         }
 
         if (currentID == -1) return;
-        
+
         var data = DataManager.Instance.RecipeDatas[currentID];
         if (data.FirstDropItemID != 0)
         {
@@ -74,7 +76,8 @@ public class UIKitchen : UIBase
 
         if (data.SecondDropItemID != 0)
         {
-            text2.text = $"{InventoryManager.Instance.GetItemCount(data.SecondDropItemID)} / {data.SecondDropItemCount}";
+            text2.text =
+                $"{InventoryManager.Instance.GetItemCount(data.SecondDropItemID)} / {data.SecondDropItemCount}";
             image2.sprite = DataManager.Instance.ItemDatas[data.SecondDropItemID].Sprite;
         }
 
@@ -84,4 +87,6 @@ public class UIKitchen : UIBase
             image3.sprite = DataManager.Instance.ItemDatas[data.ThirdDropItemID].Sprite;
         }
     }
+
+    private void OnClickExitButton() => UIManager.Instance.CloseUI<UIKitchen>();
 }
