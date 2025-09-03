@@ -1,11 +1,22 @@
 # Cooking_Knight
 스파르타 유니티 11기 10주차 유니티 심화 팀과제
 
+---
+
+## 목차
+
+#### 1. 프로젝트 개요
+#### 2. 주요 기능
+#### 3. 게임 실행 화면
+#### 4. 에셋 및 라이센스
+
+---
+
 ## 프로젝트 개요
 ### 1. 프로젝트 소개
 - 몬스터를 사냥하고 전리품을 획득해 맛있는 요리를 만들어 판매하는 게임
 ### 2. 장르
-- 2D 플랫포머 아케이드 게임
+- 2D 플랫포머 액션 아케이드
 ### 3. 플랫폼
 - PC
 ### 4. 개발 기간 및 범위
@@ -18,10 +29,10 @@
 ### 5. 사용 기술
 - Unity / C#
 ### 6. 참여 인원
-- 기획 __31 조__
+- __31 조__ : 기획
   - 고승진
   - 박기훈
-- 개발 __13 조__
+- __13 조__ : 개발
   - 이찬희
   - 진영아
 ---
@@ -44,7 +55,7 @@
 - 취사장에서 가진 전리품을 이용해 음식을 만듭니다.
 - 희귀한 전리품으로 요리를 할 경우 더 비싼 음식을 만들 수 있습니다.
 ### 5. 판매
-- 맛있는 음식을 판매하고 골드를 획득합니다.
+- 음식을 판매하고 골드를 획득합니다.
 ---
 ## 게임 실행 화면 (추후 gif 삽입 예정)
 ---
@@ -69,7 +80,8 @@ https://brackeysgames.itch.io/brackeys-platformer-bundle
 2. player-walk
 https://leohpaz.itch.io/rpg-essentials-sfx-free
 3. player-attack
-4. UI
+https://leohpaz.itch.io/minifantasy-dungeon-sfx-pack
+4. UI click
 https://cyrex-studios.itch.io/universal-ui-soundpack
 5. chicken-hurt, kitchen, portal, restaurant
 https://soundeffect-lab.info/sound/battle/
