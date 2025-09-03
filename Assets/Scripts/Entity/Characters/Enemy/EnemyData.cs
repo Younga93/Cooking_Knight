@@ -12,7 +12,7 @@ public enum EnemyType
 public class EnemyData : ScriptableObject
 {
     [Header("Information")]
-    public string enemyId;
+    public int enemyId;
     public string enemyName;
     public EnemyType EnemyType;     //enemy 패턴 타입
     [Header("Condition")]

@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
     public EnemyMovementController MovementController { get; private set; }
     public Animator Animator { get; private set; }
 
+    private EnemySpawnManager  _spawnManager;
     
     private void Awake()
     {
@@ -49,6 +50,11 @@ public class Enemy : MonoBehaviour
         _currentState.UpdateState(this);
     }
 
+    public void Init(EnemyData data, EnemySpawnManager  spawnManager)
+    {
+        ConditionController.SetMaxHealth(data.maxHealth);
+        _spawnManager = spawnManager;
+    }
     public void TransitionToState(string stateName)
     {
         // if (_currentState == _states[stateName])
@@ -73,6 +79,9 @@ public class Enemy : MonoBehaviour
     public void DestroyOnAnimationEnd()
     {
         Reward();
+        
+        _spawnManager.OnEnemyDefeated(this.gameObject);
+        
         Debug.Log($"{_enemyData.enemyName} Destroy");
         Destroy(gameObject);
     }
