@@ -15,4 +15,4 @@ MonoBehaviour:
   ID: 2
   Name: "\uB2ED\uACE0\uAE30"
   Sprite: {fileID: 21300000, guid: 29ef95b65848c4a448af062d4b6b7f82, type: 3}
-  Prefab: {fileID: 0}
+  Prefab: {fileID: 1813351157206337416, guid: 95ff75110b61e9f40bf089b78c47b05c, type: 3}

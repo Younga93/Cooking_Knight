@@ -7,9 +7,9 @@ using UnityEngine.UI;
 public class UIKitchen : UIBase
 {
     [SerializeField] private VerticalLayoutGroup layoutGroup;
-    private Transform _contents;
+    public Transform _contents;
     [HideInInspector] public int currentID;
-    private List<UIRecipeSlot> _recipeSlots;
+    private List<UIRecipeSlot> _recipeSlots = new();
     [SerializeField] private Image image1;
     [SerializeField] private Image image2;
     [SerializeField] private Image image3;
@@ -21,11 +21,15 @@ public class UIKitchen : UIBase
 
     private void Start()
     {
-        _contents = layoutGroup.GetComponent<Transform>();
+        _contents = layoutGroup.gameObject.GetComponent<Transform>();
     }
 
     protected override void OnOpen()
     {
+        if (_contents == null)
+        {
+            _contents = layoutGroup.gameObject.GetComponent<Transform>();
+        }
         foreach (var data in DataManager.Instance.RecipeDatas.Values)
         {
             IncreaseHeight(200);
@@ -118,7 +122,7 @@ public class UIKitchen : UIBase
             text2.text =
                 $"{InventoryManager.Instance.GetItemCount(data.SecondDropItemID)} / {data.SecondDropItemCount}";
             image2.sprite = DataManager.Instance.ItemDatas[data.SecondDropItemID].Sprite;
-            text1.color = Color.white;
+            text2.color = Color.white;
         }
         else
         {
@@ -132,7 +136,7 @@ public class UIKitchen : UIBase
             image3.gameObject.SetActive(true);
             text3.text = $"{InventoryManager.Instance.GetItemCount(data.ThirdDropItemID)} / {data.ThirdDropItemCount}";
             image3.sprite = DataManager.Instance.ItemDatas[data.ThirdDropItemID].Sprite;
-            text1.color = Color.white;
+            text3.color = Color.white;
         }
         else
         {
@@ -148,6 +152,7 @@ public class UIKitchen : UIBase
         if (KitchenManager.Instance.IsCookAvailable(currentID))
         {
             KitchenManager.Instance.Cook(currentID);
+            RefreshUI();
         }
         else
         {

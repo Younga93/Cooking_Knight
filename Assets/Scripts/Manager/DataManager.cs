@@ -24,7 +24,7 @@ public class DataManager : Singleton<DataManager>
         base.Awake();
         LoadData(_recipeDatas, "RecipeDataJson.json");
         LoadData(_dropItemTables, "DropItemTableDataJson.json");
-        ;
+        
         LoadItemDataDict();
         LoadFoodDataDict();
         LoadDropItemTableDict();
@@ -50,18 +50,46 @@ public class DataManager : Singleton<DataManager>
 
     private void LoadItemDataDict()
     {
+        GameObject go = ResourceManager.Instance.Create<GameObject>(Constants.DataHolder + "ItemDataHolder", this.transform);
+        ItemDataHolder holder = go.GetComponent<ItemDataHolder>();
+        foreach (ItemData data in holder.itemDataList)
+        {
+            ItemData itemData = new ItemData();
+            itemData.ID = data.ID;
+            itemData.Name = data.Name;
+            itemData.Sprite = data.Sprite;
+            itemData.Prefab = data.Prefab;
+            itemDatas.Add(itemData);
+        }
         foreach (var item in itemDatas)
         {
             ItemDatas.Add(item.ID, item);
         }
+
+        Destroy(go);
     }
 
     private void LoadFoodDataDict()
     {
+        GameObject go = ResourceManager.Instance.Create<GameObject>(Constants.DataHolder + "FoodDataHolder", this.transform);
+        FoodDataHolder holder = go.GetComponent<FoodDataHolder>();
+        foreach (FoodData data in holder.foodDataList)
+        {
+            FoodData foodData = new FoodData();
+            foodData.ID = data.ID;
+            foodData.Name = data.Name;
+            foodData.Description = data.Description;
+            foodData.Price = data.Price;
+            foodData.CookTime = data.CookTime;
+            foodData.SellTime = data.SellTime;
+            foodData.Sprite = data.Sprite;
+            foodDatas.Add(foodData);
+        }
         foreach (var food in foodDatas)
         {
             FoodDatas.Add(food.ID, food);
         }
+        Destroy(go);
     }
 
     private List<T> LoadJsonData<T>(string path)

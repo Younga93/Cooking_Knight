@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
+    private Inventory _inventory;
+    
     //Player State: Attack, Movement
     private IPlayerMovementState _movementState;
     private IPlayerActionState _actionState;
@@ -30,6 +32,7 @@ public class Player : MonoBehaviour
     
     private void Awake()
     {
+        _inventory = GetComponent<Inventory>();
         MovementController = GetComponent<PlayerMovementController>();
         AttackController = GetComponentInChildren<PlayerAttackController>();
         ConditionController = GetComponent<PlayerConditionController>();
@@ -57,6 +60,7 @@ public class Player : MonoBehaviour
 
          _actionState = _actionStates[PlayerState.Action.Idle];
          _actionState.EnterState(this);
+         InventoryManager.Instance.inventory = _inventory;
      }
 
      private void OnEnable()

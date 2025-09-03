@@ -8,14 +8,14 @@ public class UIRestaurant : UIBase
     [SerializeField] private Button exitButton;
     [SerializeField] private HorizontalLayoutGroup layoutGroup;
     private Transform _contents;
-    private List<UIFoodSlot> _foodSlots;
+    private List<UIFoodSlot> _foodSlots = new();
     
-    private void Start()
-    {
-        _contents = layoutGroup.GetComponent<Transform>();
-    }
     protected override void OnOpen()
     {
+        if (_contents == null)
+        {
+            _contents = layoutGroup.GetComponent<Transform>();
+        }
         foreach (var data in InventoryManager.Instance.inventory.foods)
         {
             IncreaseWidth(300);
@@ -27,6 +27,7 @@ public class UIRestaurant : UIBase
     }
     protected override void OnClose()
     {
+        Debug.Log("Close this");
         ClearSlotsAndResetWidth();
         exitButton.onClick.RemoveListener(OnClickExitButton);
     }

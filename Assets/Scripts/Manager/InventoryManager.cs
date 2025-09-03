@@ -6,6 +6,7 @@ public class InventoryManager: Singleton<InventoryManager>
 {
     [HideInInspector] public Inventory inventory;
 
+    
     public int GetItemCount(int ID)
     {
         foreach (ItemSlot item in inventory.ingredients)

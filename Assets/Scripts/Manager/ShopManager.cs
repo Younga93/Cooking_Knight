@@ -46,11 +46,9 @@ public class ShopManager : Singleton<ShopManager>
         try
         {
             if (ItemsForSale.Count == 0) yield break;
-            //yield return new WaitForSeconds(ItemsForSale[0].time ??);
+            yield return new WaitForSeconds(ItemsForSale[0].foodData.SellTime);
             NotifyObservers(ItemsForSale[0].foodData.Price);
             ItemsForSale.RemoveAt(0);
-
-            yield break;
         }
         finally
         {
