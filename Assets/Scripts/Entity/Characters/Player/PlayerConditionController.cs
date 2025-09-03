@@ -31,7 +31,7 @@ public class PlayerConditionController : ConditionController
 
     protected override void OnDeath()
     {
-        _player.TransitionToState(PlayerState.Dead);
+        _player.OnDead();
     }
     public void StartHitEffect()
     {

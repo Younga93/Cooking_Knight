@@ -80,7 +80,6 @@ public class Player : MonoBehaviour
      private void Update()
      {
          _currentState.UpdateState(this);
-         _currentState.UpdateState(this);
      }
      
      public void OnMove(InputAction.CallbackContext context)
@@ -117,6 +116,7 @@ public class Player : MonoBehaviour
      public void OnDead()
      {
          //todo 사망상태로 전환하기
+         TransitionToState(PlayerState.Dead);
      }
      
      public void TransitionToState(string stateName)
