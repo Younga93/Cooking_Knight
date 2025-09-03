@@ -35,6 +35,7 @@ public class UIRecipeSlot : UIBase
     private void SetData()
     {
         var foodData = DataManager.Instance.FoodDatas[recipeData.FoodID];
+        icon.sprite = foodData.Sprite;
         nameText.text = foodData.Name;
         descriptionText.text = foodData.Description;
         priceText.text = foodData.Price.ToString();

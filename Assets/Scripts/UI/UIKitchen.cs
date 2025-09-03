@@ -40,6 +40,12 @@ public class UIKitchen : UIBase
         RefreshUI();
     }
 
+    protected override void OnClose()
+    {
+        ClearSlotsAndResetHeight();
+        exitButton.onClick.RemoveListener(OnClickExitButton);
+        cookButton.onClick.RemoveListener(OnClickCookButton);
+    }
     private void IncreaseHeight(float height)
     {
         var rt = _contents.GetComponent<RectTransform>();
@@ -55,6 +61,23 @@ public class UIKitchen : UIBase
         RefreshUI();
     }
 
+    private void ClearSlotsAndResetHeight()
+    {
+        if (_recipeSlots != null)
+        {
+            for (int i = 0; i < _recipeSlots.Count; i++)
+            {
+                if (_recipeSlots[i] != null)
+                    Destroy(_recipeSlots[i].gameObject);
+            }
+            _recipeSlots.Clear();
+        }
+
+        var rt = _contents.GetComponent<RectTransform>();
+        rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 0);
+        LayoutRebuilder.ForceRebuildLayoutImmediate(rt);
+    }
+    
     private void RefreshUI()
     {
         if (currentID == -1)

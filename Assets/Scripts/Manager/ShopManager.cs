@@ -29,12 +29,16 @@ public class ShopManager : Singleton<ShopManager>
             ItemsForSale.Add(item);
         }
     }
+    public void AddItemForSale(FoodData item)
+    {
+        ItemsForSale.Add(item);
+    }
 
     private void SellItem()
     {
         if (sellItemCoroutine != null) return;
         isSelling = true;
-        StartCoroutine(SellItemProcess());
+        sellItemCoroutine = StartCoroutine(SellItemProcess());
     }
 
     private IEnumerator SellItemProcess()
