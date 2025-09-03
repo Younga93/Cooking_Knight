@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,13 +10,24 @@ public class UIRestaurant : UIBase
     [SerializeField] private HorizontalLayoutGroup layoutGroup;
     private Transform _contents;
     private List<UIFoodSlot> _foodSlots = new();
-    
+    [SerializeField] private TextMeshProUGUI emptyText;
+
     protected override void OnOpen()
     {
+        exitButton.onClick.AddListener(OnClickExitButton);
         if (_contents == null)
         {
             _contents = layoutGroup.GetComponent<Transform>();
         }
+
+        if (InventoryManager.Instance.inventory != null && InventoryManager.Instance.inventory.foods.Count == 0)
+        {
+            emptyText.gameObject.SetActive(true);
+            return;
+        }
+
+        emptyText.gameObject.SetActive(false);
+        
         foreach (var data in InventoryManager.Instance.inventory.foods)
         {
             IncreaseWidth(300);
@@ -23,11 +35,10 @@ public class UIRestaurant : UIBase
             slot.SetFood(data);
             _foodSlots.Add(slot);
         }
-        exitButton.onClick.AddListener(OnClickExitButton);
     }
+
     protected override void OnClose()
     {
-        Debug.Log("Close this");
         ClearSlotsAndResetWidth();
         exitButton.onClick.RemoveListener(OnClickExitButton);
     }
@@ -50,6 +61,7 @@ public class UIRestaurant : UIBase
                 if (_foodSlots[i] != null)
                     Destroy(_foodSlots[i].gameObject);
             }
+
             _foodSlots.Clear();
         }
 
@@ -57,5 +69,6 @@ public class UIRestaurant : UIBase
         rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 0);
         LayoutRebuilder.ForceRebuildLayoutImmediate(rt);
     }
+
     private void OnClickExitButton() => UIManager.Instance.CloseUI<UIRestaurant>();
 }

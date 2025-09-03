@@ -54,7 +54,7 @@ public class DataManager : Singleton<DataManager>
         ItemDataHolder holder = go.GetComponent<ItemDataHolder>();
         foreach (ItemData data in holder.itemDataList)
         {
-            ItemData itemData = new ItemData();
+            ItemData itemData = ScriptableObject.CreateInstance<ItemData>();
             itemData.ID = data.ID;
             itemData.Name = data.Name;
             itemData.Sprite = data.Sprite;
@@ -75,7 +75,7 @@ public class DataManager : Singleton<DataManager>
         FoodDataHolder holder = go.GetComponent<FoodDataHolder>();
         foreach (FoodData data in holder.foodDataList)
         {
-            FoodData foodData = new FoodData();
+            FoodData foodData = ScriptableObject.CreateInstance<FoodData>();
             foodData.ID = data.ID;
             foodData.Name = data.Name;
             foodData.Description = data.Description;

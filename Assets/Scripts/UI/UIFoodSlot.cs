@@ -12,7 +12,7 @@ public class UIFoodSlot : UIBase
     [SerializeField] private TextMeshProUGUI priceText;
     [SerializeField] private TextMeshProUGUI descriptionText;
     [SerializeField] private Button button;
-    private FoodSlot _foodData;
+    private FoodSlot _foodSlot;
 
     private void Start()
     {
@@ -21,34 +21,35 @@ public class UIFoodSlot : UIBase
 
     public void SetFood(FoodSlot data)
     {
-        _foodData = data;
+        _foodSlot = data;
         SetData();
     }
 
     private void SetData()
     {
-        icon.sprite = _foodData.foodData.Sprite;
-        nameText.text = _foodData.foodData.Name;
-        countText.text = _foodData.count.ToString();
+        icon.sprite = _foodSlot.foodData.Sprite;
+        nameText.text = _foodSlot.foodData.Name;
+        countText.text = _foodSlot.count.ToString();
         countText.text += " 개";
-        priceText.text = _foodData.foodData.Price.ToString();
+        priceText.text = _foodSlot.foodData.Price.ToString();
         priceText.text += " G";
-        descriptionText.text = _foodData.foodData.Description;
+        descriptionText.text = _foodSlot.foodData.Description;
     }
 
     private void OnClickButton()
     {
-        if (_foodData.count > 0)
+        if (_foodSlot.count > 0)
         {
-            ShopManager.Instance.AddItemForSale(_foodData);
-            _foodData.count--;
+            ShopManager.Instance.AddItemForSale(_foodSlot);
+            InventoryManager.Instance.UseItem(_foodSlot);
+            
             RefreshCountText();
         }
     }
 
     private void RefreshCountText()
     {
-        countText.text = _foodData.count.ToString();
+        countText.text = _foodSlot.count.ToString();
         countText.text += " 개";
     }
 }

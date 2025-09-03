@@ -32,7 +32,7 @@ public class KitchenManager : Singleton<KitchenManager>
     private bool CheckIngredients(int itemID, int amount)
     {
         if (itemID == 0) return true;
-        return InventoryManager.Instance.GetItemCount(itemID) >= amount;
+        return InventoryManager.Instance.GetIngredientCount(itemID) >= amount;
     }
 
     public void Cook(int recipeID)
@@ -88,7 +88,7 @@ public class KitchenManager : Singleton<KitchenManager>
     {
         foreach (var food in cookedFoods)
         {
-            _inventory.AddItem(food);
+            InventoryManager.Instance.AddItem(food);
         }
         cookedFoods.Clear();
     }

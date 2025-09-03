@@ -105,7 +105,7 @@ public class UIKitchen : UIBase
         {
             text1.gameObject.SetActive(true);
             image1.gameObject.SetActive(true);
-            text1.text = $"{InventoryManager.Instance.GetItemCount(data.FirstDropItemID)} / {data.FirstDropItemCount}";
+            text1.text = $"{InventoryManager.Instance.GetIngredientCount(data.FirstDropItemID)} / {data.FirstDropItemCount}";
             image1.sprite = DataManager.Instance.ItemDatas[data.FirstDropItemID].Sprite;
             text1.color = Color.white;
         }
@@ -120,7 +120,7 @@ public class UIKitchen : UIBase
             text2.gameObject.SetActive(true);
             image2.gameObject.SetActive(true);
             text2.text =
-                $"{InventoryManager.Instance.GetItemCount(data.SecondDropItemID)} / {data.SecondDropItemCount}";
+                $"{InventoryManager.Instance.GetIngredientCount(data.SecondDropItemID)} / {data.SecondDropItemCount}";
             image2.sprite = DataManager.Instance.ItemDatas[data.SecondDropItemID].Sprite;
             text2.color = Color.white;
         }
@@ -134,7 +134,7 @@ public class UIKitchen : UIBase
         {
             text3.gameObject.SetActive(true);
             image3.gameObject.SetActive(true);
-            text3.text = $"{InventoryManager.Instance.GetItemCount(data.ThirdDropItemID)} / {data.ThirdDropItemCount}";
+            text3.text = $"{InventoryManager.Instance.GetIngredientCount(data.ThirdDropItemID)} / {data.ThirdDropItemCount}";
             image3.sprite = DataManager.Instance.ItemDatas[data.ThirdDropItemID].Sprite;
             text3.color = Color.white;
         }

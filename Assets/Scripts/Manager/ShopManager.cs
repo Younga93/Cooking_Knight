@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -74,4 +75,5 @@ public class ShopManager : Singleton<ShopManager>
          foreach (var observer in shopObservers)
              observer.OnItemSold(price);
     }
+    
 }
