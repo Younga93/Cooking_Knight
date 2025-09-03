@@ -15,7 +15,31 @@ public class InventoryManager: Singleton<InventoryManager>
                 return item.Count;
             }
         }
-
         return 0;
+    }
+
+    public bool TryUseItem(int ID, int amount)
+    {
+        foreach (var item in inventory.ingredients)
+        {
+            if (item.ID == ID && item.Count>=amount)
+            {
+                item.Count -= amount;
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void UseItem(int ID, int amount)
+    {
+        foreach (var item in inventory.ingredients)
+        {
+            if (item.ID == ID && item.Count>=amount)
+            {
+                item.Count -= amount;
+            }
+        }
     }
 }

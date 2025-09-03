@@ -45,6 +45,7 @@ public class Inventory : MonoBehaviour , IShopObserver, IItemCollector
         foods.Add(item);
     }
 
+
     public void SendFoodsToShop()
     {
         ShopManager.Instance.AddItemForSale(foods);
