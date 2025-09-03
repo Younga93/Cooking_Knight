@@ -8,11 +8,11 @@ public class InventoryManager: Singleton<InventoryManager>
 
     public int GetItemCount(int ID)
     {
-        foreach (ItemData item in inventory.ingredients)
+        foreach (ItemSlot item in inventory.ingredients)
         {
-            if (item.ID == ID)
+            if (item.itemData.ID == ID)
             {
-                return item.Count;
+                return item.count;
             }
         }
         return 0;
@@ -22,9 +22,9 @@ public class InventoryManager: Singleton<InventoryManager>
     {
         foreach (var item in inventory.ingredients)
         {
-            if (item.ID == ID && item.Count>=amount)
+            if (item.itemData.ID == ID && item.count>=amount)
             {
-                item.Count -= amount;
+                item.count -= amount;
                 return true;
             }
         }
@@ -36,9 +36,9 @@ public class InventoryManager: Singleton<InventoryManager>
     {
         foreach (var item in inventory.ingredients)
         {
-            if (item.ID == ID && item.Count>=amount)
+            if (item.itemData.ID == ID && item.count>=amount)
             {
-                item.Count -= amount;
+                item.count -= amount;
             }
         }
     }

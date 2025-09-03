@@ -10,10 +10,7 @@ public class DataManager : Singleton<DataManager>
 
     private readonly List<DropItemTable> _dropItemTables = new();
     public Dictionary<int, DropItemTable> DropItemTables = new();
-
-    private readonly List<DropItemData> _dropItemDatas = new();
-    public Dictionary<int, DropItemData> DropItemDatas = new();
-
+    
     private readonly List<RecipeData> _recipeDatas = new();
     public Dictionary<int, RecipeData> RecipeDatas = new();
 
@@ -25,24 +22,15 @@ public class DataManager : Singleton<DataManager>
     protected override void Awake()
     {
         base.Awake();
-        LoadData(_dropItemDatas, "DropItemData.json");
-        LoadData(_recipeDatas, "RecipeData.json");
-        LoadData(_dropItemTables, "DropItemTable.json");
+        LoadData(_recipeDatas, "RecipeDataJson.json");
+        LoadData(_dropItemTables, "DropItemTableDataJson.json");
         ;
         LoadItemDataDict();
         LoadFoodDataDict();
-        LoadDropItemDataDict();
         LoadDropItemTableDict();
         LoadRecipeDataDict();
     }
-
-    private void LoadDropItemDataDict()
-    {
-        foreach (var item in _dropItemDatas)
-        {
-            DropItemDatas.Add(item.ID, item);
-        }
-    }
+    
 
     private void LoadDropItemTableDict()
     {

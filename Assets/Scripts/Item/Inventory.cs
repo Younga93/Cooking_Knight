@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour , IShopObserver, IItemCollector
 {
-    public List<ItemData> ingredients = new();
-    public Dictionary<int, ItemData> ingredientDict = new();
-    public List<FoodData> foods = new();
+    public List<ItemSlot> ingredients = new();
+    public List<FoodSlot> foods = new();
 
     public int money;
 
@@ -23,26 +22,30 @@ public class Inventory : MonoBehaviour , IShopObserver, IItemCollector
     {
         foreach (var ingredient in ingredients)
         {
-            if (ingredient.ID == item.ID)
+            if (ingredient.itemData.ID == item.ID)
             {
-                ingredient.Count++;
+                ingredient.count++;
                 return;
             }
         }
-        ingredients.Add(item);
+        var itemSlot = new ItemSlot(item);
+        ingredients.Add(itemSlot);
+        itemSlot.count = 1;
     }
 
     public void AddItem(FoodData item)
     {
         foreach (var food in foods)
         {
-            if (food.ID == item.ID)
+            if (food.foodData.ID == item.ID)
             {
-                food.Count++;
+                food.count++;
                 return;
             }
         }
-        foods.Add(item);
+        var foodSlot = new FoodSlot(item);
+        foods.Add(foodSlot);
+        foodSlot.count = 1;
     }
 
 

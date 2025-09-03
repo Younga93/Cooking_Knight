@@ -8,8 +8,8 @@ public class Restaurant : MonoBehaviour
     {
         if (other.TryGetComponent<Player>(out var player))
         {
-            //UIManager.Instance.OpenUI<UIKitchen>();
-            //KitchenManager.Instance.OnEnterKitchen();
+            UIManager.Instance.OpenUI<UIRestaurant>();
+            KitchenManager.Instance.OnEnterKitchen();
         }
     }
     
@@ -17,7 +17,7 @@ public class Restaurant : MonoBehaviour
     {
         if (other.TryGetComponent<Player>(out var player))
         {
-            //UIManager.Instance.CloseUI<UIKitchen>();
+            UIManager.Instance.CloseUI<UIRestaurant>();
         }
     }
 
