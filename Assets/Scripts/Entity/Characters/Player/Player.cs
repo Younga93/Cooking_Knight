@@ -11,6 +11,9 @@ public class Player : MonoBehaviour
     //todo. 리팩토링: State 두종류로 나누지 말고 그냥 하나로 합치기. //했는데, 
     private Dictionary<string, IPlayerState> _states;
 
+    private Vector2 _currentMovementInput;
+    public Vector2 CurrentMovementInput => _currentMovementInput;
+    
     //Player Controller들
     public PlayerMovementController MovementController { get; private set; }
     public PlayerAttackController AttackController { get; private set; }
@@ -82,16 +85,7 @@ public class Player : MonoBehaviour
      
      public void OnMove(InputAction.CallbackContext context)
      {
-         Vector2 movementInput = context.ReadValue<Vector2>();
-         if (movementInput.magnitude > 0)
-         {
-             TransitionToState(PlayerState.Walk);
-         }
-         else
-         {
-             TransitionToState(PlayerState.Idle);
-         }
-         MovementController.SetMovementInput(movementInput);
+         _currentMovementInput = context.ReadValue<Vector2>();
      }
 
      public void OnJump(InputAction.CallbackContext context)
@@ -117,6 +111,7 @@ public class Player : MonoBehaviour
      public void OnHit()
      {
          //todo 피격상태로 전환하기
+         TransitionToState(PlayerState.Hit);
      }
 
      public void OnDead()

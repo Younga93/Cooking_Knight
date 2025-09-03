@@ -25,7 +25,7 @@ public class PlayerConditionController : ConditionController
         base.TakeDamage(amount);
         if (amount > 0 && currentHealth > 0)
         {
-            _player.TransitionToState(PlayerState.Hit);
+            _player.OnHit();
         }
     }
 

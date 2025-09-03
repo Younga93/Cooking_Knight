@@ -10,7 +10,8 @@ public class PlayerHitState : IPlayerState
         _stunTimer = Timer.STUN_DURATION;
         player.PlayerAnimator.SetTrigger(AnimatorString.PlayerParameters.Hit);
         
-        player.MovementController.ApplyKnockback();
+        // player.MovementController.ApplyKnockback();
+        player.MovementController.SetStun(true);
         player.ConditionController.StartHitEffect();
     }
 
@@ -20,7 +21,16 @@ public class PlayerHitState : IPlayerState
         
         if (_stunTimer <= 0)
         {
-            player.TransitionToState(PlayerState.Idle);
+            player.MovementController.SetStun(false);
+            
+            if (player.CurrentMovementInput.magnitude > 0)
+            {
+                player.TransitionToState(PlayerState.Walk);
+            }
+            else
+            {
+                player.TransitionToState(PlayerState.Idle);
+            }
         }
     }
 

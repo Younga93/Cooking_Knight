@@ -38,7 +38,7 @@ public static class Timer
 {
     //Player
     public const float INVINCIBLE_TIME = 1f;
-    public const float STUN_DURATION = 0.1f;
+    public const float STUN_DURATION = 0.2f;
 }
 public static class AnimatorString
 {
