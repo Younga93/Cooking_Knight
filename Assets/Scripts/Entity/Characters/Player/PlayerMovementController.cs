@@ -11,6 +11,7 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] private float knockbackForce;
     
     public bool IsStunned { get; private set; } = false;
+    private Coroutine _stunCoroutine;
     private Player _player;
     
     public Rigidbody2D Rigidbody2D { get; private set; }
@@ -60,8 +61,21 @@ public class PlayerMovementController : MonoBehaviour
     //     Rigidbody2D.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
     // }
     
-    public void SetStun(bool isStunned)
+    public void SetStun(bool isStunned, float duration)
     {
         IsStunned = isStunned;
+        if (IsStunned)
+        {
+            if (_stunCoroutine != null)
+            {
+                StopCoroutine(_stunCoroutine);
+            }
+            _stunCoroutine = StartCoroutine(StunCoroutine(duration));
+        }
+    }
+    private IEnumerator StunCoroutine(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        IsStunned = false;
     }
 }
