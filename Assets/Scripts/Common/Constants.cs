@@ -34,6 +34,12 @@ public static class EnemyState
     public const string Hit = "Hit";
 }
 
+public static class Timer
+{
+    //Player
+    public const float INVINCIBLE_TIME = 1f;
+    public const float STUN_DURATION = 0.1f;
+}
 public static class AnimatorString
 {
     public static class PlayerAnimation
@@ -70,7 +76,6 @@ public static class AnimatorString
         public const string Hit = "hit";
         public const string Dead = "dead";
     }
-
 }
 public class Constants
 {

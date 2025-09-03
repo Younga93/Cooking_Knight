@@ -4,8 +4,8 @@ using System;
 public abstract class ConditionController : MonoBehaviour
 {
     [Header("Health")] 
-    [SerializeField] private float maxHealth;
-    [SerializeField] private float currentHealth;
+    [SerializeField] protected float maxHealth;
+    [SerializeField] protected float currentHealth;
     
     public event Action<float> OnHealthChanged;
     
@@ -27,7 +27,7 @@ public abstract class ConditionController : MonoBehaviour
 
     public virtual void TakeDamage(float amount)
     {
-        if (currentHealth <= 0) return;
+        if (currentHealth <= 0 || amount == 0) return;
 
         currentHealth = Mathf.Max(currentHealth - amount, 0);
         

@@ -9,7 +9,7 @@ public class PlayerAttackController : MonoBehaviour
     [SerializeField] private float attackPower = 20f;
     [SerializeField] private float attackSpeed = 1f;
     [SerializeField] private float attackRange = 0.5f;
-    [SerializeField] private Transform attackPoint;
+    [SerializeField] private Transform hitBox;
     [SerializeField] private LayerMask enemyLayers;
     
     private Animator _animator;
@@ -52,7 +52,7 @@ public class PlayerAttackController : MonoBehaviour
 
     public void OnAttackHit()
     {
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(hitBox.position, attackRange, enemyLayers);
 
         foreach (Collider2D enemyCollider in hitEnemies)
         {
@@ -61,10 +61,8 @@ public class PlayerAttackController : MonoBehaviour
             if (enemy != null)
             {
                 enemy.ConditionController.TakeDamage(attackPower);
-                enemy.TransitionToState(EnemyState.Hit);
             }
         }
-
         // OnAttackAnimationEnd();
     }
 
@@ -79,7 +77,7 @@ public class PlayerAttackController : MonoBehaviour
     {
         // 디버깅용: Scene 뷰에 GroundCheck 원을 그려주는 코드
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+        Gizmos.DrawWireSphere(hitBox.position, attackRange);
     }
 #endif
 }

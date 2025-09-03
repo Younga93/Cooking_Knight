@@ -204,6 +204,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6749733204045487339, guid: 6bf7a297730a3624fbfd1369c4e5c478, type: 3}
   m_PrefabInstance: {fileID: 138041404}
   m_PrefabAsset: {fileID: 0}
+--- !u!212 &1095598756 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6345511951975215247, guid: 45c4e5b9ed172fb438f1f9c336a0047a, type: 3}
+  m_PrefabInstance: {fileID: 1479975053}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1350911874
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,7 +219,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1350911875}
   - component: {fileID: 1350911876}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: HitBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -270,7 +275,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.4
 --- !u!1 &1477141981
 GameObject:
   m_ObjectHideFlags: 0
@@ -363,6 +368,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3137128868418613261, guid: 45c4e5b9ed172fb438f1f9c336a0047a, type: 3}
+      propertyPath: maxHealth
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 3137128868418613261, guid: 45c4e5b9ed172fb438f1f9c336a0047a, type: 3}
+      propertyPath: _spriteRenderer
+      value: 
+      objectReference: {fileID: 1095598756}
     - target: {fileID: 4137712304085420056, guid: 45c4e5b9ed172fb438f1f9c336a0047a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.01
@@ -406,6 +419,14 @@ PrefabInstance:
     - target: {fileID: 4802902652135792186, guid: 45c4e5b9ed172fb438f1f9c336a0047a, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7483221192981850525, guid: 45c4e5b9ed172fb438f1f9c336a0047a, type: 3}
+      propertyPath: knockbackForce
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7957851634947763447, guid: 45c4e5b9ed172fb438f1f9c336a0047a, type: 3}
+      propertyPath: m_Mass
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

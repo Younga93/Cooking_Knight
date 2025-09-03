@@ -11,7 +11,11 @@ public class EnemyConditionController : ConditionController
         base.Awake();
         _enemy = GetComponent<Enemy>();
     }
-    
+    public override void TakeDamage(float amount)
+    {
+        _enemy.TransitionToState(PlayerState.Hit);
+        base.TakeDamage(amount);
+    }
      protected override void OnDeath()
      {        
          // if (_enemy != null)

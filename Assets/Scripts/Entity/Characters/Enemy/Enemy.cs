@@ -90,6 +90,16 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        HitPlayer(collision);
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        HitPlayer(collision);
+    }
+
+    private void HitPlayer(Collider2D collision)
+    {
         if (collision.CompareTag("Player"))
         {
             ConditionController playerCondition = collision.GetComponent<ConditionController>();

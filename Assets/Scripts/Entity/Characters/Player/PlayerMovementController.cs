@@ -6,8 +6,9 @@ using UnityEngine;
 public class PlayerMovementController : MonoBehaviour
 {
     [Header("Player Movement Configuration")]
-    [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float jumpForce = 5f;
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private float jumpForce;
+    [SerializeField] private float knockbackForce;
     
     public Rigidbody2D Rigidbody2D { get; private set; }
     public Vector2 MovementInput { get; private set; }
@@ -43,5 +44,13 @@ public class PlayerMovementController : MonoBehaviour
         {
             transform.localScale = new Vector3(1, 1, 1);
         }
+    }
+    public void ApplyKnockback()
+    {
+        // Rigidbody2D.velocity = Vector2.zero;
+        
+        Vector2 knockbackDirection = transform.localScale.x < 0 ? Vector2.right : Vector2.left;
+        Debug.Log($"{knockbackForce}만큼 {knockbackDirection.ToString()}으로 넉백중");
+        Rigidbody2D.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
     }
 }

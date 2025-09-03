@@ -42,6 +42,7 @@ public class Player : MonoBehaviour
         _states.Add(PlayerState.Walk, new PlayerWalkState());
         _states.Add(PlayerState.Jump, new PlayerJumpState());
         _states.Add(PlayerState.Attack, new PlayerAttackState());
+        _states.Add(PlayerState.Hit, new PlayerHitState());
         _states.Add(PlayerState.Dead, new PlayerDeadState());
     }
 
@@ -125,7 +126,7 @@ public class Player : MonoBehaviour
      
      public void TransitionToState(string stateName)
     {
-        if (_currentState == _states[stateName]) return;
+        if (_currentState is PlayerDeadState) return;
         
         IsGrounded();
         _currentState.ExitState(this);
