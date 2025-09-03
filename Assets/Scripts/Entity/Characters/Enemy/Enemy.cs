@@ -87,4 +87,16 @@ public class Enemy : MonoBehaviour
             TransitionToState(EnemyState.Flee);
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            ConditionController playerCondition = collision.GetComponent<ConditionController>();
+            if (playerCondition != null)
+            {
+                playerCondition.TakeDamage(_enemyData.attack);
+            }
+        }
+    }
 }
