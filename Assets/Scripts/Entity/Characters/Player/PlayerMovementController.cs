@@ -24,7 +24,6 @@ public class PlayerMovementController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log($"_isStunned 상태: {IsStunned}");
         if (!IsStunned)
         {
             FlipCharacter();
