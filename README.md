@@ -19,16 +19,20 @@
 - 2D 플랫포머 액션 아케이드
 ### 3. 플랫폼
 - PC
-### 4. 개발 기간 및 범위
+### 4. 개발 목적
+- 기획, 개발 팀의 협업 업무 경험
+- 개발 일정을 고려한 개발 범위 설정과 업무 분할
+- 코어 루프, 핵심 시스템 구축
+### 5. 개발 기간 및 범위
 - 개발 기간
   - 25.09.01 ~ 25.09.05
 - 개발 범위
   1. 플레이어 조작
   2. 코어 루프 시스템 (사냥, 요리, 음식 판매)
   3. 사운드 및 에셋
-### 5. 사용 기술
+### 6. 사용 기술
 - Unity / C#
-### 6. 참여 인원
+### 7. 참여 인원
 - __31 조__ : 기획
   - 고승진
   - 박기훈
@@ -39,7 +43,7 @@
 ## 주요 기능
 ### 1. 조작
 | 기능 | 방법 |
-| :-:  | :-: |
+| :-: | :-: |
 | 이동 | 키보드 A / D |
 | 공격 | 마우스 좌클릭 |
 | 점프 | Space |
@@ -58,6 +62,8 @@
 - 음식을 판매하고 골드를 획득합니다.
 ---
 ## 게임 실행 화면 (추후 gif 삽입 예정)
+---
+## 폴더 구조 (추후 작성 예정)
 ---
 ## 에셋 및 사운드 라이센스 (assets, sounds lisence)
 - 에셋 라이센스 (assets lisence)
@@ -85,3 +91,5 @@ https://leohpaz.itch.io/minifantasy-dungeon-sfx-pack
 https://cyrex-studios.itch.io/universal-ui-soundpack
 5. chicken-hurt, kitchen, portal, restaurant
 https://soundeffect-lab.info/sound/battle/
+6. player-death
+https://dillonbecker.itch.io/sdap
