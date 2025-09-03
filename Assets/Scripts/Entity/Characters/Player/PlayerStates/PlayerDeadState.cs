@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerActionDeadState : IPlayerActionState
+public class PlayerDeadState : IPlayerState
 {
     public void EnterState(Player player)
     {

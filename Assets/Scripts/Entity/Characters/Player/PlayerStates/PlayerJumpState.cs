@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerActionJumpState : IPlayerActionState
+public class PlayerJumpState : IPlayerState
 {
     public void EnterState(Player player)
     {
@@ -20,9 +20,9 @@ public class PlayerActionJumpState : IPlayerActionState
         if (player.IsGrounded() && player.MovementController.Rigidbody2D.velocity.y <= 0f)
         {
             Debug.Log("PlayerActionJumpState it is grounded");
-
-            // 상태 머신을 Idle로 전환
-            player.TransitionToActionState(PlayerState.Action.Idle);
+            // 리팩토링중 일단 주석처리함.
+            // // 상태 머신을 Idle로 전환
+            // player.TransitionToState(PlayerState.Idle);
         }
     }
 

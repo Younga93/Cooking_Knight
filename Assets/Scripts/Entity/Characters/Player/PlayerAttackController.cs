@@ -65,14 +65,14 @@ public class PlayerAttackController : MonoBehaviour
             }
         }
 
-        OnAttackAnimationEnd();
+        // OnAttackAnimationEnd();
     }
 
-    public void OnAttackAnimationEnd()
-    {
-        _animator.Play("Empty", 1);
-        _player.TransitionToActionState(PlayerState.Action.Idle);
-    }
+    // public void OnAttackAnimationEnd()
+    // {
+    //     _animator.Play("Empty", 1);
+    //     _player.TransitionToState(PlayerState.Idle);
+    // }
     
 #if UNITY_EDITOR
     private void OnDrawGizmos()

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerMovementWalkState: IPlayerMovementState
+public class PlayerWalkState: IPlayerState
 {
     public void EnterState(Player player)
     {

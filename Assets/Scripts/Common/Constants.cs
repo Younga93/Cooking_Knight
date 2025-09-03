@@ -17,18 +17,12 @@ public static class SceneNames
 
 public static class PlayerState
 {
-    public static class Movement
-    {
         public const string Walk = "Walk";
         public const string Idle = "Idle";
-    }
-
-    public static class Action
-    {
         public const string Jump = "Jump";
-        public const string Idle = "Idle";
         public const string Attack = "Attack";
-    }
+        public const string Hit = "Hit";
+        public const string Dead = "Dead";
 }
 
 public static class EnemyState

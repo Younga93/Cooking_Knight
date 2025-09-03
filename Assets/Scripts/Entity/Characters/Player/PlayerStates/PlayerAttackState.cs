@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerActionAttackState : IPlayerActionState
+public class PlayerAttackState : IPlayerState
 {
     public void EnterState(Player player)
     {
