@@ -8,7 +8,7 @@ public class SceneLoadManager : Singleton<SceneLoadManager>
 {
     private Dictionary<SceneType, SceneBase> _scenes = new Dictionary<SceneType, SceneBase>();
     private SceneBase _previousScene;
-    private SceneBase _currentScene;
+    public SceneBase _currentScene;
     public event Action OnSceneChanged;
     protected override void Awake() 
     {

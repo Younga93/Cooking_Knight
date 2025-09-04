@@ -10,6 +10,10 @@ public class UITrigger : MonoBehaviour
         {
             UIManager.Instance.OpenUI<UIIntro>();
         }
+        else
+        {
+            UIManager.Instance.OpenUI<UIFadeOut>();
+        }
         UIManager.Instance.OpenUI<UIInventory>();
         Destroy(gameObject);
     }
