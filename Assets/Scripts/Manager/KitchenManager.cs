@@ -31,7 +31,8 @@ public class KitchenManager : Singleton<KitchenManager>
 
     private bool CheckIngredients(int itemID, int amount)
     {
-        return itemID != 0 && InventoryManager.Instance.GetItemCount(itemID) >= amount;
+        if (itemID == 0) return true;
+        return InventoryManager.Instance.GetIngredientCount(itemID) >= amount;
     }
 
     public void Cook(int recipeID)
@@ -56,26 +57,26 @@ public class KitchenManager : Singleton<KitchenManager>
     {
         if (cookingQueue.Count > 0)
         {
-            foreach (FoodData food in cookingQueue)
+            while (cookingQueue.Count > 0)
             {
-                //현재 foodData에 time이 없어 주석처리 함.
-                // if (time >= food.CookTime)
-                // {
-                //     cookedFoods.Add(food);
-                //     cookingQueue.Remove(food);
-                //     time -= food.CookTime;
-                // }
-                // else
-                // {
-                //     break;
-                // }
+                var food = cookingQueue[0];
+                if(time>=food.CookTime)
+                {
+                    cookedFoods.Add(food);
+                    cookingQueue.RemoveAt(0);
+                    time -= food.CookTime;
+                }
+                else
+                {
+                    break;
+                }
             }
-
+            
             if (cookingQueue.Count == 0)
             {
                 isCooking = false;
             }
-
+            
             if (cookedFoods.Count != 0)
             {
                 AddFoodsToInventory();
@@ -87,7 +88,7 @@ public class KitchenManager : Singleton<KitchenManager>
     {
         foreach (var food in cookedFoods)
         {
-            _inventory.AddItem(food);
+            InventoryManager.Instance.AddItem(food);
         }
         cookedFoods.Clear();
     }

@@ -10,10 +10,7 @@ public class DataManager : Singleton<DataManager>
 
     private readonly List<DropItemTable> _dropItemTables = new();
     public Dictionary<int, DropItemTable> DropItemTables = new();
-
-    private readonly List<DropItemData> _dropItemDatas = new();
-    public Dictionary<int, DropItemData> DropItemDatas = new();
-
+    
     private readonly List<RecipeData> _recipeDatas = new();
     public Dictionary<int, RecipeData> RecipeDatas = new();
 
@@ -25,24 +22,15 @@ public class DataManager : Singleton<DataManager>
     protected override void Awake()
     {
         base.Awake();
-        LoadData(_dropItemDatas, "DropItemData.json");
-        LoadData(_recipeDatas, "RecipeData.json");
-        LoadData(_dropItemTables, "DropItemTable.json");
-        ;
+        LoadData(_recipeDatas, "RecipeDataJson.json");
+        LoadData(_dropItemTables, "DropItemTableDataJson.json");
+        
         LoadItemDataDict();
         LoadFoodDataDict();
-        LoadDropItemDataDict();
         LoadDropItemTableDict();
         LoadRecipeDataDict();
     }
-
-    private void LoadDropItemDataDict()
-    {
-        foreach (var item in _dropItemDatas)
-        {
-            DropItemDatas.Add(item.ID, item);
-        }
-    }
+    
 
     private void LoadDropItemTableDict()
     {
@@ -62,18 +50,46 @@ public class DataManager : Singleton<DataManager>
 
     private void LoadItemDataDict()
     {
+        GameObject go = ResourceManager.Instance.Create<GameObject>(Constants.DataHolder + "ItemDataHolder", this.transform);
+        ItemDataHolder holder = go.GetComponent<ItemDataHolder>();
+        foreach (ItemData data in holder.itemDataList)
+        {
+            ItemData itemData = ScriptableObject.CreateInstance<ItemData>();
+            itemData.ID = data.ID;
+            itemData.Name = data.Name;
+            itemData.Sprite = data.Sprite;
+            itemData.Prefab = data.Prefab;
+            itemDatas.Add(itemData);
+        }
         foreach (var item in itemDatas)
         {
             ItemDatas.Add(item.ID, item);
         }
+
+        Destroy(go);
     }
 
     private void LoadFoodDataDict()
     {
+        GameObject go = ResourceManager.Instance.Create<GameObject>(Constants.DataHolder + "FoodDataHolder", this.transform);
+        FoodDataHolder holder = go.GetComponent<FoodDataHolder>();
+        foreach (FoodData data in holder.foodDataList)
+        {
+            FoodData foodData = ScriptableObject.CreateInstance<FoodData>();
+            foodData.ID = data.ID;
+            foodData.Name = data.Name;
+            foodData.Description = data.Description;
+            foodData.Price = data.Price;
+            foodData.CookTime = data.CookTime;
+            foodData.SellTime = data.SellTime;
+            foodData.Sprite = data.Sprite;
+            foodDatas.Add(foodData);
+        }
         foreach (var food in foodDatas)
         {
             FoodDatas.Add(food.ID, food);
         }
+        Destroy(go);
     }
 
     private List<T> LoadJsonData<T>(string path)

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class UIRecipeSlot : UIBase
 {
-    private int index;
+    public int index;
     [SerializeField] private Image icon;
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI descriptionText;
@@ -27,7 +27,6 @@ public class UIRecipeSlot : UIBase
         _uiKitchen = uiKitchen;
         recipeData = data;
         index = recipeData.ID;
-        outline = GetComponent<Outline>();
         outline.enabled = false;
         SetData();
     }
@@ -35,6 +34,7 @@ public class UIRecipeSlot : UIBase
     private void SetData()
     {
         var foodData = DataManager.Instance.FoodDatas[recipeData.FoodID];
+        icon.sprite = foodData.Sprite;
         nameText.text = foodData.Name;
         descriptionText.text = foodData.Description;
         priceText.text = foodData.Price.ToString();

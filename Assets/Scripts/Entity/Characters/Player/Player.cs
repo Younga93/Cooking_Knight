@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IItemCollector
 {
     //Player State: Attack, Movement
     private IPlayerState _currentState;
@@ -49,6 +50,10 @@ public class Player : MonoBehaviour
         _states.Add(PlayerState.Dead, new PlayerDeadState());
     }
 
+    public void AddItem(ItemData item)
+    {
+        InventoryManager.Instance.AddItem(item);
+    }
      private void Start()
      {
          _currentState = _states[PlayerState.Idle];

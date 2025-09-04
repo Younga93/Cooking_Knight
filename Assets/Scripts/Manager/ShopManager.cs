@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,7 @@ using UnityEngine;
 //고민해봐야겠습니다.
 public class ShopManager : Singleton<ShopManager>
 {
-    private List<FoodData> ItemsForSale = new();
+    private List<FoodSlot> ItemsForSale = new();
     private bool isSelling = false;
 
     private readonly List<IShopObserver> shopObservers = new();
@@ -22,19 +23,23 @@ public class ShopManager : Singleton<ShopManager>
         SellItem();
     }
 
-    public void AddItemForSale(List<FoodData> items)
+    public void AddItemForSale(List<FoodSlot> items)
     {
         foreach (var item in items)
         {
             ItemsForSale.Add(item);
         }
     }
+    public void AddItemForSale(FoodSlot item)
+    {
+        ItemsForSale.Add(item);
+    }
 
     private void SellItem()
     {
         if (sellItemCoroutine != null) return;
         isSelling = true;
-        StartCoroutine(SellItemProcess());
+        sellItemCoroutine = StartCoroutine(SellItemProcess());
     }
 
     private IEnumerator SellItemProcess()
@@ -42,11 +47,9 @@ public class ShopManager : Singleton<ShopManager>
         try
         {
             if (ItemsForSale.Count == 0) yield break;
-            //yield return new WaitForSeconds(ItemsForSale[0].time ??);
-            NotifyObservers(ItemsForSale[0].Price);
+            yield return new WaitForSeconds(ItemsForSale[0].foodData.SellTime);
+            NotifyObservers(ItemsForSale[0].foodData.Price);
             ItemsForSale.RemoveAt(0);
-
-            yield break;
         }
         finally
         {
@@ -72,4 +75,5 @@ public class ShopManager : Singleton<ShopManager>
          foreach (var observer in shopObservers)
              observer.OnItemSold(price);
     }
+    
 }

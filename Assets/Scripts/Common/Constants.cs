@@ -83,4 +83,5 @@ public class Constants
     public const string UIElementsPath = "Prefabs/UI/Elements/";
     public const string Canvas = "Canvas";
     public const string EventSystem = "EventSystem";
+    public const string DataHolder = "Prefabs/DataHolder/";
 }

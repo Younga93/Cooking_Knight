@@ -19,6 +19,7 @@ public class UIManager : Singleton<UIManager>
 
     private void OnDisable()
     {
+        if (SceneLoadManager.Instance == null) return;
         SceneLoadManager.Instance.OnSceneChanged -= ClearUI;
     }
     
@@ -138,7 +139,7 @@ public class UIManager : Singleton<UIManager>
             {
                 Destroy(ui.gameObject);
             }
-            _uiDictionary.Remove(ui.GetType().Name);
         }
+        _uiDictionary.Clear();
     }
 }

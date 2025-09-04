@@ -291,7 +291,7 @@ MonoBehaviour:
   text1: {fileID: 5317060708357044304}
   text2: {fileID: 6953034419105372462}
   text3: {fileID: 3950610545294146068}
-  button: {fileID: 1454215361486430768}
+  cookButton: {fileID: 1454215361486430768}
   exitButton: {fileID: 64348462925200569}
 --- !u!1 &2178964804643755436
 GameObject:
