@@ -14,6 +14,11 @@ public class StageScene : SceneBase
         UIManager.Instance.CreateUIDontDestroy<UIFadeOut>();
         UIManager.Instance.OpenUI<UIInventory>();
         Debug.Log($"{GetSceneName()}: OnLoad");
+
+        //todo. enemydata, stagedata load
+        // ItemManager.Instance.
+        // json으로 관리하는 걸로 바꿔야댐.
+        
     }
 
     public override void OnUnload()

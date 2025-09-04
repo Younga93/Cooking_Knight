@@ -18,6 +18,8 @@ public class DataManager : Singleton<DataManager>
     [SerializeField] private List<FoodData> foodDatas = new();
     public Dictionary<int, ItemData> ItemDatas = new();
     public Dictionary<int, FoodData> FoodDatas = new();
+    
+    //enemyData, stageData 관리하기
 
     protected override void Awake()
     {
