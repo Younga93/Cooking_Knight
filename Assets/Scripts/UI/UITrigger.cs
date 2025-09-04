@@ -6,7 +6,6 @@ public class UITrigger : MonoBehaviour
 {
     void Start()
     {
-        Debug.Log(GameManager.Instance == null);
         if (GameManager.Instance.isFirstBoot)
         {
             UIManager.Instance.OpenUI<UIIntro>();

@@ -164,6 +164,7 @@ public class UIManager : Singleton<UIManager>
         {
             if (ui != null)
             {
+                ui.CloseUI();
                 Destroy(ui.gameObject);
             }
         }
