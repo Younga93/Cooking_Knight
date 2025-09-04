@@ -52,6 +52,7 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         _currentState.UpdateState(this);
+        CheckBroundary();
     }
 
     public void Init(EnemyData data, EnemySpawnManager  spawnManager)
@@ -140,6 +141,15 @@ public class Enemy : MonoBehaviour
             {
                 playerCondition.TakeDamage(_enemyData.attack);
             }
+        }
+    }
+
+    private void CheckBroundary()
+    {
+        float yBound = -10f; //todo. Constants로 옮기기
+        if (transform.position.y < yBound)
+        {
+            _spawnManager.ReleaseEnemy(this.gameObject);
         }
     }
 }

@@ -144,6 +144,17 @@ public class EnemySpawnManager : MonoBehaviour
         _currentEnemyCount--;
         _defeatedEnemyCount++;
 
+        ReleaseEnemy(enemyObject);
+        
+        if (_defeatedEnemyCount >= _currentStageData.totalEnemyToDefeatCount)
+        {
+            //todo. 스테이지 클리어
+        }
+    }
+
+    public void ReleaseEnemy(GameObject enemyObject)
+    {
+        _currentEnemyCount--;
         Enemy enemyComponent = enemyObject.GetComponent<Enemy>();
         if (enemyComponent != null)
         {
@@ -151,11 +162,6 @@ public class EnemySpawnManager : MonoBehaviour
             {
                 pool.Release(enemyObject);
             }
-        }
-
-        if (_defeatedEnemyCount >= _currentStageData.totalEnemyToDefeatCount)
-        {
-            //todo. 스테이지 클리어
         }
     }
     #if UNITY_EDITOR
