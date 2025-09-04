@@ -19,9 +19,12 @@ public class DataManager : Singleton<DataManager>
     public Dictionary<int, ItemData> ItemDatas = new();
     public Dictionary<int, FoodData> FoodDatas = new();
 
-    protected override void Awake()
+    public bool isLoaded;
+    
+
+    public void LoadData()
     {
-        base.Awake();
+        if (isLoaded) return;
         LoadData(_recipeDatas, "RecipeDataJson.json");
         LoadData(_dropItemTables, "DropItemTableDataJson.json");
         
@@ -29,8 +32,8 @@ public class DataManager : Singleton<DataManager>
         LoadFoodDataDict();
         LoadDropItemTableDict();
         LoadRecipeDataDict();
+        isLoaded = true;
     }
-    
 
     private void LoadDropItemTableDict()
     {

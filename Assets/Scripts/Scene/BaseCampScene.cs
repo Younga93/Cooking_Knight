@@ -11,6 +11,11 @@ public class BaseCampScene : SceneBase
 
     public override void OnLoad()
     {
+        if (!DataManager.Instance.isLoaded)
+        {
+            DataManager.Instance.LoadData();
+        }
+
         if (GameManager.Instance.isFirstBoot)
         {
             UIManager.Instance.OpenUI<UIIntro>();

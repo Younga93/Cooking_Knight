@@ -9,12 +9,12 @@ using UnityEngine;
 //고민해봐야겠습니다.
 public class RestuarantManager : Singleton<RestuarantManager>
 {
-    private List<FoodSlot> ItemsForSale = new();
-    private bool isSelling = false;
+    private readonly List<FoodSlot> _itemsForSale = new();
+    private bool _isSelling = false;
 
-    private readonly List<IShopObserver> shopObservers = new();
+    private readonly List<IShopObserver> _shopObservers = new();
 
-    private Coroutine sellItemCoroutine;
+    private Coroutine _sellItemCoroutine;
     private float _elapsedTime;
     private bool _timeStarted;
     public event Action<float, float> TimeChanged;
@@ -24,10 +24,10 @@ public class RestuarantManager : Singleton<RestuarantManager>
         if (_timeStarted)
         {
             _elapsedTime += Time.deltaTime;
-            TimeChanged?.Invoke(_elapsedTime, ItemsForSale[0].foodData.SellTime);
+            TimeChanged?.Invoke(_elapsedTime, _itemsForSale[0].foodData.SellTime);
         }
-        if (isSelling) return;
-        if (ItemsForSale.Count == 0) return;
+        if (_isSelling) return;
+        if (_itemsForSale.Count == 0) return;
         SellItem();
     }
 
@@ -35,57 +35,57 @@ public class RestuarantManager : Singleton<RestuarantManager>
     {
         foreach (var item in items)
         {
-            ItemsForSale.Add(item);
+            _itemsForSale.Add(item);
         }
     }
     public void AddItemForSale(FoodSlot item)
     {
-        ItemsForSale.Add(item);
+        _itemsForSale.Add(item);
     }
 
     private void SellItem()
     {
-        if (sellItemCoroutine != null) return;
-        isSelling = true;
-        sellItemCoroutine = StartCoroutine(SellItemProcess());
+        if (_sellItemCoroutine != null) return;
+        _isSelling = true;
+        _sellItemCoroutine = StartCoroutine(SellItemProcess());
     }
 
     private IEnumerator SellItemProcess()
     {
         try
         {
-            if (ItemsForSale.Count == 0) yield break;
+            if (_itemsForSale.Count == 0) yield break;
             _timeStarted = true;
             OnTimeStarted?.Invoke(true);
-            yield return new WaitForSeconds(ItemsForSale[0].foodData.SellTime);
-            NotifyObservers(ItemsForSale[0].foodData.Price);
-            ItemsForSale.RemoveAt(0);
+            yield return new WaitForSeconds(_itemsForSale[0].foodData.SellTime);
+            NotifyObservers(_itemsForSale[0].foodData.Price);
+            _itemsForSale.RemoveAt(0);
         }
         finally
         {
             _elapsedTime = 0;
-            isSelling = false;
+            _isSelling = false;
             _timeStarted = false;
             OnTimeStarted?.Invoke(false);
-            sellItemCoroutine = null;
+            _sellItemCoroutine = null;
         }
     }
 
     public void AddObserver(IShopObserver observer)
     {
-        if (!shopObservers.Contains(observer))
-            shopObservers.Add(observer);
+        if (!_shopObservers.Contains(observer))
+            _shopObservers.Add(observer);
     }
 
     public void RemoveObserver(IShopObserver observer)
     {
-        if (shopObservers.Contains(observer))
-            shopObservers.Remove(observer);
+        if (_shopObservers.Contains(observer))
+            _shopObservers.Remove(observer);
     }
 
     private void NotifyObservers(int price)
     {
-         foreach (var observer in shopObservers)
+         foreach (var observer in _shopObservers)
              observer.OnItemSold(price);
     }
     

@@ -15,7 +15,7 @@ public class Restaurant : MonoBehaviour
         RestuarantManager.Instance.TimeChanged += ChangeFillAmount;
     }
     
-    private void OnDestroy()
+    private void OnDisable()
     {
         RestuarantManager.Instance.OnTimeStarted -= ActivateBar;
         RestuarantManager.Instance.TimeChanged -= ChangeFillAmount;

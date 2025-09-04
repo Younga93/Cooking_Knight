@@ -9,6 +9,7 @@ public class UIKitchenBar : UIBase
 
     public void Fill(float value, float max)
     {
+        if (bar == null) return;
         bar.fillAmount = value / max;
     }
 }
