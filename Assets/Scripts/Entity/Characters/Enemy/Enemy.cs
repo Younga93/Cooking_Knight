@@ -97,7 +97,7 @@ public class Enemy : MonoBehaviour
 
     private void Reward()
     {
-        //todo. 리워드 제공 로직
+        ItemManager.Instance.DropItem(_enemyData.enemyId, this.transform);
         Debug.Log($"{_enemyData.enemyName} Reward");
     }
     
