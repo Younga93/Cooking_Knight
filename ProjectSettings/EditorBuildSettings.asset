@@ -8,18 +8,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Younga.unity
     guid: ee02d553359ee8f449ea175dc661d69c
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/IntroScene.unity
     guid: 71c2d9316c728d248b7397b0486d877d
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TitleScene.unity
     guid: a286291371e1f9846a4adb782ed1d332
   - enabled: 1
     path: Assets/Scenes/BaseCampScene.unity
-    guid: e2bc886e6037f6349a88c8d1900c3445
+    guid: 07f1f92b7cf370c40a05f80002b2839d
   - enabled: 1
     path: Assets/Scenes/StageScene.unity
     guid: 992d27b6fd51e44458fa4f93a1845e70
