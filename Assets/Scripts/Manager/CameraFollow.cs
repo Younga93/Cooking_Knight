@@ -23,7 +23,7 @@ public class CameraFollow : MonoBehaviour
         }
 
         float playerX = playerTransform.position.x;
-        float clampedX = Mathf.Clamp(playerX, 0f, 17.8f);
+        float clampedX = Mathf.Clamp(playerX, 0f, 17.8f);   //todo. 씬 종류에 따라 SceneLoadManager에서 조절해주면 좋을 듯.
         Vector3 newPosition = new Vector3(clampedX, _fixedYPosition, transform.position.z);
         transform.position = newPosition;
     }
