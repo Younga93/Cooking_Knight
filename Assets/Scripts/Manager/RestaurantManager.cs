@@ -7,7 +7,7 @@ using UnityEngine;
 //정말로 싱글턴으로 만들어 게임 실행 매 순간마다 이걸 계산하는게 과연 옳은 일일까요?
 //그냥 단순히 흐른 시간만 계산하고, 거점으로 돌아왔을 때 한꺼번에 이 시간을 판매 아이템 리스트에 적용하는 것이 더 효율적이지 않을까요?
 //고민해봐야겠습니다.
-public class ShopManager : Singleton<ShopManager>
+public class RestuarantManager : Singleton<RestuarantManager>
 {
     private List<FoodSlot> ItemsForSale = new();
     private bool isSelling = false;

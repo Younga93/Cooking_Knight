@@ -79,7 +79,7 @@ public class InventoryManager: Singleton<InventoryManager>, IShopObserver
     }
     private void OnEnable()
     {
-        ShopManager.Instance.AddObserver(this);
+        RestuarantManager.Instance.AddObserver(this);
     }
 
     public int GetIngredientCount(int id)
@@ -95,11 +95,11 @@ public class InventoryManager: Singleton<InventoryManager>, IShopObserver
     }
     private void OnDisable()
     {
-        if (ShopManager.Instance == null)
+        if (RestuarantManager.Instance == null)
         {
             return;
         }
-        ShopManager.Instance.RemoveObserver(this);
+        RestuarantManager.Instance.RemoveObserver(this);
     }
     
     public void OnItemSold(int price)

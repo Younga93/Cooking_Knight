@@ -27,9 +27,4 @@ public class UIFadeOut : UIBase
         yield return new WaitForSeconds(1.0f);
         Destroy(this.gameObject);
     }
-
-    private void OnDestroy()
-    {
-        Debug.Log("Destroy");
-    }
 }

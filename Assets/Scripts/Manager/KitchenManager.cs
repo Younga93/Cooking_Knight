@@ -7,14 +7,12 @@ public class KitchenManager : Singleton<KitchenManager>
 {
     private List<FoodData> cookingQueue = new();
     private List<FoodData> cookedFoods = new();
-    private bool isCooking = false;
-    private float time = 0.0f;
-    private Inventory _inventory;
-
-    private void Start()
-    {
-        _inventory = InventoryManager.Instance.inventory;
-    }
+    private bool isCooking;
+    private float _elapsedTime;
+    private Coroutine cookCoroutine;
+    private bool _timeStarted;
+    public event Action<float, float> TimeChanged;
+    public event Action<bool> OnTimeStarted;
 
     public bool IsCookAvailable(int recipeID)
     {
@@ -25,7 +23,7 @@ public class KitchenManager : Singleton<KitchenManager>
             return false;
         if (!CheckIngredients(recipe.ThirdDropItemID, recipe.ThirdDropItemCount))
             return false;
-        
+
         return true;
     }
 
@@ -35,52 +33,61 @@ public class KitchenManager : Singleton<KitchenManager>
         return InventoryManager.Instance.GetIngredientCount(itemID) >= amount;
     }
 
-    public void Cook(int recipeID)
+    public void AddFoodToCookingQueue(int recipeID)
     {
         var recipe = DataManager.Instance.RecipeDatas[recipeID];
         InventoryManager.Instance.UseItem(recipe.FirstDropItemID, recipe.FirstDropItemCount);
         InventoryManager.Instance.UseItem(recipe.SecondDropItemID, recipe.SecondDropItemCount);
         InventoryManager.Instance.UseItem(recipe.ThirdDropItemID, recipe.ThirdDropItemCount);
         cookingQueue.Add(DataManager.Instance.FoodDatas[recipe.FoodID]);
-        isCooking = true;
     }
 
     private void Update()
     {
-        if (isCooking)
+        if (_timeStarted)
         {
-            time += Time.deltaTime;
+            _elapsedTime += Time.deltaTime;
+            TimeChanged?.Invoke(_elapsedTime, cookingQueue[0].CookTime);
         }
+        if (isCooking) return;
+        if (cookingQueue.Count == 0) return;
+        
+        StartCook();
     }
 
+    private void StartCook()
+    {
+        if(cookCoroutine != null) return;
+        isCooking = true;
+        cookCoroutine = StartCoroutine(CookProcess());
+    }
+
+    private IEnumerator CookProcess()
+    {
+        try
+        {
+            Debug.Log("cookingStart");
+            if (cookingQueue.Count == 0) yield break;
+            _timeStarted = true;
+            OnTimeStarted?.Invoke(true);
+            yield return new WaitForSeconds(cookingQueue[0].CookTime);
+            cookedFoods.Add(cookingQueue[0]);
+            cookingQueue.RemoveAt(0);
+        }
+        finally
+        {
+            _elapsedTime = 0;
+            isCooking = false;
+            _timeStarted = false;
+            OnTimeStarted?.Invoke(false);
+            cookCoroutine = null;
+        }
+    }
     public void OnEnterKitchen()
     {
-        if (cookingQueue.Count > 0)
+        if (cookedFoods.Count != 0)
         {
-            while (cookingQueue.Count > 0)
-            {
-                var food = cookingQueue[0];
-                if(time>=food.CookTime)
-                {
-                    cookedFoods.Add(food);
-                    cookingQueue.RemoveAt(0);
-                    time -= food.CookTime;
-                }
-                else
-                {
-                    break;
-                }
-            }
-            
-            if (cookingQueue.Count == 0)
-            {
-                isCooking = false;
-            }
-            
-            if (cookedFoods.Count != 0)
-            {
-                AddFoodsToInventory();
-            }
+            AddFoodsToInventory();
         }
     }
 
@@ -90,6 +97,7 @@ public class KitchenManager : Singleton<KitchenManager>
         {
             InventoryManager.Instance.AddItem(food);
         }
+
         cookedFoods.Clear();
     }
 }

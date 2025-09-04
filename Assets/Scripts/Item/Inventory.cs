@@ -14,7 +14,7 @@ public class Inventory : MonoBehaviour
 
     public void SendFoodsToShop()
     {
-        ShopManager.Instance.AddItemForSale(foods);
+        RestuarantManager.Instance.AddItemForSale(foods);
         foods.Clear();
     }
 

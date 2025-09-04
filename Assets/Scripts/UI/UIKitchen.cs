@@ -151,7 +151,7 @@ public class UIKitchen : UIBase
     {
         if (KitchenManager.Instance.IsCookAvailable(currentID))
         {
-            KitchenManager.Instance.Cook(currentID);
+            KitchenManager.Instance.AddFoodToCookingQueue(currentID);
             RefreshUI();
         }
         else

@@ -6,15 +6,11 @@ public class UITrigger : MonoBehaviour
 {
     void Start()
     {
-        if (GameManager.Instance.isFirstBoot)
-        {
-            UIManager.Instance.OpenUI<UIIntro>();
-        }
-        else
-        {
-            UIManager.Instance.OpenUI<UIFadeOut>();
-        }
-        UIManager.Instance.OpenUI<UIInventory>();
+        // if (GameManager.Instance.isFirstBoot)
+        // {
+        //     UIManager.Instance.OpenUI<UIIntro>();
+        // }
+        // UIManager.Instance.OpenUI<UIInventory>();
         Destroy(gameObject);
     }
     
