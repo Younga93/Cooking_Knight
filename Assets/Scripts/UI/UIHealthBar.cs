@@ -8,12 +8,12 @@ public class UIHealthBar : UIBase
 
     protected override void OnOpen()
     {
-        GameManager.Instance.Player.ConditionController.OnHealthChanged += Fill;
+        PlayerManager.Instance.player.ConditionController.OnHealthChanged += Fill;
     }
 
     protected override void OnClose()
     {
-        GameManager.Instance.Player.ConditionController.OnHealthChanged -= Fill;   
+        PlayerManager.Instance.player.ConditionController.OnHealthChanged -= Fill;   
     }
 
     private void Fill(float value)

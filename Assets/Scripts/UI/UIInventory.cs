@@ -15,6 +15,7 @@ public class UIInventory : UIBase
     protected override void OnOpen()
     {
         RefreshMoneyText();
+        CreateSlots();
         InventoryManager.Instance.OnMoneyChanged += RefreshMoneyText;
         InventoryManager.Instance.OnItemAdded += OnItemAdded;
         InventoryManager.Instance.OnItemUsed += OnItemUsed;

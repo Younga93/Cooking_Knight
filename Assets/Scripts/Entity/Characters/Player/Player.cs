@@ -62,6 +62,8 @@ public class Player : MonoBehaviour, IItemCollector
 
          _actionState = _actionStates[PlayerState.Action.Idle];
          _actionState.EnterState(this);
+         PlayerManager.Instance.player = this;
+         UIManager.Instance.OpenUI<UIHealthBar>();
      }
 
      private void OnEnable()
