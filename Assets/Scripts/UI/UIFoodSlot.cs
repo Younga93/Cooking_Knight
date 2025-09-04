@@ -40,7 +40,7 @@ public class UIFoodSlot : UIBase
     {
         if (_foodSlot.count > 0)
         {
-            ShopManager.Instance.AddItemForSale(_foodSlot);
+            RestuarantManager.Instance.AddItemForSale(_foodSlot);
             InventoryManager.Instance.UseItem(_foodSlot);
             
             RefreshCountText();

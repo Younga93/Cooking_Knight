@@ -11,6 +11,16 @@ public class BaseCampScene : SceneBase
 
     public override void OnLoad()
     {
+        if (GameManager.Instance.isFirstBoot)
+        {
+            UIManager.Instance.OpenUI<UIIntro>();
+        }
+        else
+        {
+            UIManager.Instance.CreateUIDontDestroy<UIFadeOut>();            
+        }
+        
+        UIManager.Instance.OpenUI<UIInventory>();
         Debug.Log($"{GetSceneName()}: OnLoad");
     }
 

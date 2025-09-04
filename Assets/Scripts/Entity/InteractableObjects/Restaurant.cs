@@ -11,14 +11,14 @@ public class Restaurant : MonoBehaviour
         _timeBar = UIManager.Instance.CreateBarUI<UIRestaurantBar>();
         _timeBar.gameObject.SetActive(false);
         
-        ShopManager.Instance.OnTimeStarted += ActivateBar;
-        ShopManager.Instance.TimeChanged += ChangeFillAmount;
+        RestuarantManager.Instance.OnTimeStarted += ActivateBar;
+        RestuarantManager.Instance.TimeChanged += ChangeFillAmount;
     }
     
     private void OnDestroy()
     {
-        ShopManager.Instance.OnTimeStarted -= ActivateBar;
-        ShopManager.Instance.TimeChanged -= ChangeFillAmount;
+        RestuarantManager.Instance.OnTimeStarted -= ActivateBar;
+        RestuarantManager.Instance.TimeChanged -= ChangeFillAmount;
     }
 
     private void ActivateBar(bool activate)

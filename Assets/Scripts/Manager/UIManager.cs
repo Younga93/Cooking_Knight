@@ -113,7 +113,7 @@ public class UIManager : Singleton<UIManager>
         _uiDictionary[uiName] = uiComponent;
         return uiComponent;
     }
-
+    
     public T CreateBarUI<T>() where T : UIBase
     {
         string uiName = typeof(T).Name;
@@ -140,6 +140,31 @@ public class UIManager : Singleton<UIManager>
         _uiDictionary[uiName] = uiComponent;
         return uiComponent;
     }
+
+    public T CreateUIDontDestroy<T>() where T : UIBase
+    {
+        string uiName = typeof(T).Name;
+        string path = Constants.UIElementsPath + uiName;
+        
+        CheckCanvas();
+        CheckEventSystem();
+        
+        GameObject go = ResourceManager.Instance.Create<GameObject>(path, _canvas);
+        if (go == null)
+        {
+            Debug.LogError($"Prefab not found: {uiName}");
+            return null;
+        }
+        
+        T uiComponent = go.GetComponent<T>();
+        if (uiComponent == null)
+        {
+            Debug.LogError($"Component not found: {uiName}");
+            Destroy(go);
+            return null;
+        }
+        return uiComponent;
+    }
     private void CheckCanvas()
     {
         //캔버스 있는지 확인, 있으면 return
@@ -147,6 +172,7 @@ public class UIManager : Singleton<UIManager>
         //없으면 경로 만들고 생성 후 _canvas 초기화
         var path = Constants.UICommonPath + Constants.Canvas;
         _canvas = ResourceManager.Instance.Create<Transform>(path, null);
+        DontDestroyOnLoad(_canvas.gameObject);
     }
 
     private void CheckEventSystem()
@@ -156,6 +182,7 @@ public class UIManager : Singleton<UIManager>
         //없으면 경로 만들고 생성 후 _eventSystem 초기화
         var path = Constants.UICommonPath + Constants.EventSystem;
         _eventSystem = ResourceManager.Instance.Create<EventSystem>(path, null);
+        DontDestroyOnLoad(_eventSystem.gameObject);
     }
 
     private void ClearUI()

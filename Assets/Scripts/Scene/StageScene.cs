@@ -11,6 +11,8 @@ public class StageScene : SceneBase
 
     public override void OnLoad()
     {
+        UIManager.Instance.CreateUIDontDestroy<UIFadeOut>();
+        UIManager.Instance.OpenUI<UIInventory>();
         Debug.Log($"{GetSceneName()}: OnLoad");
     }
 
