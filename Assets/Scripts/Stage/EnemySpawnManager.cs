@@ -52,7 +52,7 @@ public class EnemySpawnManager : MonoBehaviour
                 (obj) =>
                 {
                     obj.SetActive(true);
-                    obj.transform.position = this.transform.position; //todo. random 위치 생성하기
+                    obj.transform.position = _currentStageData.GetRandomSpawnPosition();
 
                     Enemy enemy = obj.GetComponent<Enemy>();
                     if (enemy != null)
@@ -158,4 +158,17 @@ public class EnemySpawnManager : MonoBehaviour
             //todo. 스테이지 클리어
         }
     }
+    #if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        if (_currentStageData != null)
+        {
+            // ⭐ 기즈모의 색상 설정
+            Gizmos.color = Color.red;
+
+            // ⭐ StageData의 spawnCenter와 spawnSize를 이용해 사각형 그리기
+            Gizmos.DrawWireCube(_currentStageData.spawnCenter, _currentStageData.spawnSize);
+        }
+    }
+    #endif
 }
