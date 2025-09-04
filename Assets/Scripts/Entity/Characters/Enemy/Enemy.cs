@@ -7,6 +7,10 @@ public class Enemy : MonoBehaviour
     [Header("Data")] 
     [SerializeField] public EnemyData _enemyData;
 
+    // [Header("Configuration")] //오브젝트 풀링 들어갔다 나올때마다 미묘하게 변경되는 값들 초기화하려고.
+    // [SerializeField] private Rigidbody2D _rigidbody2D;
+    // [SerializeField] private CircleCollider2D _circleCollider2D;
+    //
     private IEnemyState _currentState;
     private Dictionary<string, IEnemyState> _states;
     
@@ -54,7 +58,27 @@ public class Enemy : MonoBehaviour
     {
         ConditionController.SetMaxHealth(data.maxHealth);
         _spawnManager = spawnManager;
+
+        if (_currentState is EnemyDeadState)
+        {
+            _currentState.ExitState(this);
+            _currentState = _states[EnemyState.Idle];
+            _currentState.EnterState(this);
+        }
+        
+        //몬스터 풀에서 꺼내져나올때마다 호출됨. 리지드바디 꺼지는 것, 콜라이더 설정 이상한 것 코드로 초기화...
+        if (MovementController.Rigidbody2D != null)
+        {
+            MovementController.Rigidbody2D.isKinematic = false;
+            MovementController.Rigidbody2D.velocity = Vector2.zero;
+        }
+        Collider2D[] colliders = GetComponents<Collider2D>();
+        foreach (Collider2D col in colliders)
+        {
+            col.enabled = true;
+        }
     }
+
     public void TransitionToState(string stateName)
     {
         // if (_currentState == _states[stateName])
@@ -83,7 +107,7 @@ public class Enemy : MonoBehaviour
         _spawnManager.OnEnemyDefeated(this.gameObject);
         
         Debug.Log($"{_enemyData.enemyName} Destroy");
-        Destroy(gameObject);
+        // Destroy(gameObject);
     }
     public void OnHitAnimationEnd()
     {

@@ -118,6 +118,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyData: {fileID: 11400000, guid: 122d859632df06845b496b94888a4715, type: 2}
+  _rigidbody2D: {fileID: 6939430269390876050}
+  _circleCollider2D: {fileID: 3453255120416206543}
 --- !u!114 &501156656941822321
 MonoBehaviour:
   m_ObjectHideFlags: 0

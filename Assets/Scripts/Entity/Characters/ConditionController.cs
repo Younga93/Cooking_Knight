@@ -21,12 +21,13 @@ public abstract class ConditionController : MonoBehaviour
     public void SetMaxHealth(float maxHealth)
     {
         this.maxHealth = maxHealth;
-        this.currentHealth = this.maxHealth;
+        this.currentHealth = maxHealth;
         OnHealthChanged?.Invoke(currentHealth/maxHealth);
     }
 
     public virtual void TakeDamage(float amount)
     {
+        Debug.Log($"{gameObject.name}TakeDamage");
         if (currentHealth <= 0 || amount == 0) return;
 
         currentHealth = Mathf.Max(currentHealth - amount, 0);

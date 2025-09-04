@@ -15,6 +15,7 @@ public class StageData : ScriptableObject
     [Header("Information")]
     public int stageId;
     public int maxEnemyCount;
+    public int totalEnemyToDefeatCount;
     public float respawnTime;
     [Header("Enemies")]
     public List<EnemyData> enemies;
