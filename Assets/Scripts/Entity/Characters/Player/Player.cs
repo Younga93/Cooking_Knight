@@ -20,7 +20,7 @@ public class Player : MonoBehaviour, IItemCollector
     public PlayerAttackController AttackController { get; private set; }
     public PlayerConditionController ConditionController { get; private set; }
     
-    public PlayerInput PlayerInputActions { get; private set; } 
+    public PlayerInput PlayerInputActions { get; private set; }
     
     public Animator PlayerAnimator { get; private set; }
     
@@ -28,8 +28,7 @@ public class Player : MonoBehaviour, IItemCollector
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float groundCheckRadius = 0.1f;
-    
-    
+    //_currentState is PlayerWalkState -> 소리 출력
     private void Awake()
     {
         MovementController = GetComponent<PlayerMovementController>();

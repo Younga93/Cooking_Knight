@@ -28,6 +28,4 @@ public class UIFadeIn : UIBase
         yield return new WaitForSeconds(1.2f);
         Destroy(this.gameObject);
     }
-    
-
 }

@@ -17,17 +17,24 @@ public class PlayerMovementController : MonoBehaviour
     public Rigidbody2D Rigidbody2D { get; private set; }
     // public Vector2 MovementInput { get; private set; }
 
+    
+    
     private void Awake()
     {
         Rigidbody2D = GetComponent<Rigidbody2D>();
         _player = GetComponent<Player>();
     }
 
+    private void Update()
+    {
+        
+    }
     private void FixedUpdate()
     {
         if (!IsStunned)
         {
             FlipCharacter();
+            
             Rigidbody2D.velocity = new Vector2(_player.CurrentMovementInput.x * moveSpeed, Rigidbody2D.velocity.y);
         }
         else

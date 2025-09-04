@@ -6,6 +6,7 @@ public class PlayerJumpState : IPlayerState
     {
         // Debug.Log("PlayerActionJumpState entered");
         player.MovementController.Jump();
+        AudioManager.Instance.PlayJumpSoundEffect();
         player.PlayerAnimator.SetTrigger(AnimatorString.PlayerParameters.Jump);
         player.PlayerAnimator.SetBool(AnimatorString.PlayerParameters.IsGrounded, false);
     }

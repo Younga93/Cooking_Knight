@@ -103,6 +103,8 @@ public class Enemy : MonoBehaviour
     
     public void DestroyOnAnimationEnd()
     {
+        AudioManager.Instance.PlayChickenHurtSoundEffect();
+        //좋지 않은 방법. 현재는 적이 닭 한마리니까 가능하겠지만, ScriptableObject에 AudioClip을 넣는 편이 좋겠습니다.
         Reward();
         
         _spawnManager.OnEnemyDefeated(this.gameObject);

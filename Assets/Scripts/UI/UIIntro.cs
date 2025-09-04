@@ -53,6 +53,7 @@ public class UIIntro : UIBase
 
     private void OnClickButton()
     {
+        AudioManager.Instance.PlayClickSoundEffect();
         Destroy(this.gameObject);
     }
 }

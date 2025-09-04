@@ -18,6 +18,7 @@ public class DataManager : Singleton<DataManager>
     [SerializeField] private List<FoodData> foodDatas = new();
     public Dictionary<int, ItemData> ItemDatas = new();
     public Dictionary<int, FoodData> FoodDatas = new();
+    public List<AudioClip> AudioClips = new();
 
     public bool isLoaded;
     
@@ -32,9 +33,37 @@ public class DataManager : Singleton<DataManager>
         LoadFoodDataDict();
         LoadDropItemTableDict();
         LoadRecipeDataDict();
+        LoadSounds();
         isLoaded = true;
     }
 
+    private void LoadSounds()
+    {
+        var bgm = Resources.Load<AudioClip>(Constants.Sounds + "BGM");
+        var attack = Resources.Load <AudioClip>(Constants.Sounds + "Attack");
+        var jump = Resources.Load <AudioClip>(Constants.Sounds + "Jump");
+        var hurt = Resources.Load <AudioClip>(Constants.Sounds + "Hurt");
+        var move = Resources.Load <AudioClip>(Constants.Sounds + "Move");
+        var death = Resources.Load <AudioClip>(Constants.Sounds + "Death");
+        var chickenHurt = Resources.Load <AudioClip>(Constants.Sounds + "ChickenHurt");
+        var portal = Resources.Load <AudioClip>(Constants.Sounds + "Portal");
+        var kitchen = Resources.Load <AudioClip>(Constants.Sounds + "Kitchen");
+        var restaurant = Resources.Load <AudioClip>(Constants.Sounds + "Restaurant");
+        var click = Resources.Load <AudioClip>(Constants.Sounds + "Click");
+        AudioClips.Add(bgm);
+        AudioClips.Add(attack);
+        AudioClips.Add(jump);
+        AudioClips.Add(hurt);       
+        AudioClips.Add(move);
+        AudioClips.Add(death);
+        AudioClips.Add(chickenHurt);
+        AudioClips.Add(portal);
+        AudioClips.Add(kitchen);
+        AudioClips.Add(restaurant);
+        AudioClips.Add(click);
+
+        AudioManager.Instance.SetAudioClips(bgm, attack, jump, hurt, move, death, chickenHurt, portal, kitchen, restaurant, click);
+    }
     private void LoadDropItemTableDict()
     {
         foreach (var item in _dropItemTables)

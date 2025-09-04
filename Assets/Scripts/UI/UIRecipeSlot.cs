@@ -40,5 +40,10 @@ public class UIRecipeSlot : UIBase
         priceText.text = foodData.Price.ToString();
         priceText.text += " G";
     }
-    private void OnClickButton() => _uiKitchen.SelectRecipe(index);
+
+    private void OnClickButton()
+    {
+        _uiKitchen.SelectRecipe(index);
+        AudioManager.Instance.PlayClickSoundEffect();
+    }
 }

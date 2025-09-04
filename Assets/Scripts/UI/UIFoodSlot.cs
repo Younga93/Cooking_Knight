@@ -45,6 +45,7 @@ public class UIFoodSlot : UIBase
             
             RefreshCountText();
         }
+        AudioManager.Instance.PlayClickSoundEffect();
     }
 
     private void RefreshCountText()
