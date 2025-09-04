@@ -133,6 +133,7 @@ public class Player : MonoBehaviour, IItemCollector
 
      private IEnumerator ResurrectionCoroutine()
      {
+         UIManager.Instance.CreateUIDontDestroy<UIDieFadeIn>();
          yield return new WaitForSeconds(Timer.RESURRECTION_TIME);
          TransitionToState(PlayerState.Idle);
          SceneLoadManager.Instance.LoadScene(SceneType.BaseCamp);
