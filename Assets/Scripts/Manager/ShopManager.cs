@@ -15,9 +15,17 @@ public class ShopManager : Singleton<ShopManager>
     private readonly List<IShopObserver> shopObservers = new();
 
     private Coroutine sellItemCoroutine;
-
+    private float _elapsedTime;
+    private bool _timeStarted;
+    public event Action<float, float> TimeChanged;
+    public event Action<bool> OnTimeStarted;
     private void Update()
     {
+        if (_timeStarted)
+        {
+            _elapsedTime += Time.deltaTime;
+            TimeChanged?.Invoke(_elapsedTime, ItemsForSale[0].foodData.SellTime);
+        }
         if (isSelling) return;
         if (ItemsForSale.Count == 0) return;
         SellItem();
@@ -47,13 +55,18 @@ public class ShopManager : Singleton<ShopManager>
         try
         {
             if (ItemsForSale.Count == 0) yield break;
+            _timeStarted = true;
+            OnTimeStarted?.Invoke(true);
             yield return new WaitForSeconds(ItemsForSale[0].foodData.SellTime);
             NotifyObservers(ItemsForSale[0].foodData.Price);
             ItemsForSale.RemoveAt(0);
         }
         finally
         {
+            _elapsedTime = 0;
             isSelling = false;
+            _timeStarted = false;
+            OnTimeStarted?.Invoke(false);
             sellItemCoroutine = null;
         }
     }

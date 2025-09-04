@@ -7,6 +7,7 @@ public class UITrigger : MonoBehaviour
     void Start()
     {
         UIManager.Instance.OpenUI<UIInventory>();
+        UIManager.Instance.OpenUI<UIHealthBar>();
         Destroy(gameObject);
     }
     

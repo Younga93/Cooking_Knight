@@ -113,6 +113,33 @@ public class UIManager : Singleton<UIManager>
         _uiDictionary[uiName] = uiComponent;
         return uiComponent;
     }
+
+    public T CreateBarUI<T>() where T : UIBase
+    {
+        string uiName = typeof(T).Name;
+        string path = Constants.UIElementsPath + uiName;
+        
+        CheckCanvas();
+        CheckEventSystem();
+        
+        GameObject go = ResourceManager.Instance.Create<GameObject>(path, _canvas);
+        if (go == null)
+        {
+            Debug.LogError($"Prefab not found: {uiName}");
+            return null;
+        }
+        
+        T uiComponent = go.GetComponent<T>();
+        if (uiComponent == null)
+        {
+            Debug.LogError($"Component not found: {uiName}");
+            Destroy(go);
+            return null;
+        }
+        
+        _uiDictionary[uiName] = uiComponent;
+        return uiComponent;
+    }
     private void CheckCanvas()
     {
         //캔버스 있는지 확인, 있으면 return
