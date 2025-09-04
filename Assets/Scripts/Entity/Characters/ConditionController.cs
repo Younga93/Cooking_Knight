@@ -27,9 +27,9 @@ public abstract class ConditionController : MonoBehaviour
 
     public virtual void TakeDamage(float amount)
     {
-        Debug.Log($"{gameObject.name}TakeDamage");
         if (currentHealth <= 0 || amount == 0) return;
 
+        Debug.Log($"{gameObject.name}TakeDamage");
         currentHealth = Mathf.Max(currentHealth - amount, 0);
         
         OnHealthChanged?.Invoke(currentHealth / maxHealth);

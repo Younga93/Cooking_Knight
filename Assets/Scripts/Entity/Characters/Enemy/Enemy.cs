@@ -26,7 +26,7 @@ public class Enemy : MonoBehaviour
         ConditionController = GetComponent<EnemyConditionController>();
         MovementController = GetComponent<EnemyMovementController>();
         Animator = GetComponentInChildren<Animator>();
-        Player = GameManager.Instance.Player;
+        Player = PlayerManager.Instance.player;
         if (_enemyData != null)
         {
             if(ConditionController != null)

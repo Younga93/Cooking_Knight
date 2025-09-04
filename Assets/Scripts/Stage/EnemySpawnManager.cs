@@ -40,8 +40,7 @@ public class EnemySpawnManager : MonoBehaviour
         this._defeatedEnemyCount = 0;
 
         _enemyPools.Clear();
-
-        //todo. 이너미 종류별로 풀 생성하기
+        
         foreach (EnemyData enemyData in _currentStageData.enemies)
         {
             IObjectPool<GameObject> pool = new ObjectPool<GameObject>(() =>
@@ -77,7 +76,7 @@ public class EnemySpawnManager : MonoBehaviour
             _enemyPools.Add(enemyData.prefab, pool);
         }
     }
-    public void SpawnEnemy()  //todo. currentEnemycount 10미만일때 호출하기.
+    public void SpawnEnemy()
     {
         EnemyData enemyData = _currentStageData.GetRandomEnemyFromList();
         if (_enemyPools.TryGetValue(enemyData.prefab, out IObjectPool<GameObject> pool))

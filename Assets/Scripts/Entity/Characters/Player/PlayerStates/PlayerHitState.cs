@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class PlayerHitState : IPlayerState
 {
-    private float _stunTimer;
+    // private float _stunTimer;
     public void EnterState(Player player)
     {
         Debug.Log($"Player: Hit 상태 진입 (피격 경직)");
         
-        _stunTimer = Timer.STUN_DURATION;
+        // _stunTimer = Timer.STUN_DURATION;
         player.PlayerAnimator.SetTrigger(AnimatorString.PlayerParameters.Hit);
         
         // player.MovementController.ApplyKnockback();
