@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e53dabaa1582d6f44810f40de33568dc, type: 3}
+  m_Name: Stage_1
+  m_EditorClassIdentifier: 
+  stageId: 1
+  maxEnemyCount: 5
+  totalEnemyToDefeatCount: 0
+  respawnTime: 3
+  enemies:
+  - {fileID: 11400000, guid: 122d859632df06845b496b94888a4715, type: 2}
+  spawnCenter: {x: 10, y: 0}
+  spawnSize: {x: 30, y: 0}

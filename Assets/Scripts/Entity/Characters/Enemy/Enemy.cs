@@ -7,6 +7,10 @@ public class Enemy : MonoBehaviour
     [Header("Data")] 
     [SerializeField] public EnemyData _enemyData;
 
+    // [Header("Configuration")] //오브젝트 풀링 들어갔다 나올때마다 미묘하게 변경되는 값들 초기화하려고.
+    // [SerializeField] private Rigidbody2D _rigidbody2D;
+    // [SerializeField] private CircleCollider2D _circleCollider2D;
+    //
     private IEnemyState _currentState;
     private Dictionary<string, IEnemyState> _states;
     
@@ -15,6 +19,7 @@ public class Enemy : MonoBehaviour
     public EnemyMovementController MovementController { get; private set; }
     public Animator Animator { get; private set; }
 
+    private EnemySpawnManager  _spawnManager;
     
     private void Awake()
     {
@@ -47,6 +52,32 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         _currentState.UpdateState(this);
+        CheckBroundary();
+    }
+
+    public void Init(EnemyData data, EnemySpawnManager  spawnManager)
+    {
+        ConditionController.SetMaxHealth(data.maxHealth);
+        _spawnManager = spawnManager;
+
+        if (_currentState is EnemyDeadState)
+        {
+            _currentState.ExitState(this);
+            _currentState = _states[EnemyState.Idle];
+            _currentState.EnterState(this);
+        }
+        
+        //몬스터 풀에서 꺼내져나올때마다 호출됨. 리지드바디 꺼지는 것, 콜라이더 설정 이상한 것 코드로 초기화...
+        if (MovementController.Rigidbody2D != null)
+        {
+            MovementController.Rigidbody2D.isKinematic = false;
+            MovementController.Rigidbody2D.velocity = Vector2.zero;
+        }
+        Collider2D[] colliders = GetComponents<Collider2D>();
+        foreach (Collider2D col in colliders)
+        {
+            col.enabled = true;
+        }
     }
 
     public void TransitionToState(string stateName)
@@ -73,8 +104,11 @@ public class Enemy : MonoBehaviour
     public void DestroyOnAnimationEnd()
     {
         Reward();
+        
+        _spawnManager.OnEnemyDefeated(this.gameObject);
+        
         Debug.Log($"{_enemyData.enemyName} Destroy");
-        Destroy(gameObject);
+        // Destroy(gameObject);
     }
     public void OnHitAnimationEnd()
     {
@@ -85,6 +119,37 @@ public class Enemy : MonoBehaviour
         else
         {
             TransitionToState(EnemyState.Flee);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        HitPlayer(collision);
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        HitPlayer(collision);
+    }
+
+    private void HitPlayer(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            ConditionController playerCondition = collision.GetComponent<ConditionController>();
+            if (playerCondition != null)
+            {
+                playerCondition.TakeDamage(_enemyData.attack);
+            }
+        }
+    }
+
+    private void CheckBroundary()
+    {
+        float yBound = -10f; //todo. Constants로 옮기기
+        if (transform.position.y < yBound)
+        {
+            _spawnManager.ReleaseEnemy(this.gameObject);
         }
     }
 }

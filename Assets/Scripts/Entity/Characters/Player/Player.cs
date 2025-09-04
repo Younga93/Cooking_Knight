@@ -6,14 +6,15 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour, IItemCollector
 {
     //Player State: Attack, Movement
-    private IPlayerMovementState _movementState;
-    private IPlayerActionState _actionState;
+    private IPlayerState _currentState;
     
     //Player 상태 캐싱 //Key 값은 Animation이랑 맞춰서 쓰면 될듯.
-    //todo. 리팩토링: State 두종류로 나누지 말고 그냥 하나로 합치기.
-    private Dictionary<string, IPlayerMovementState> _movementStates;
-    private Dictionary<string, IPlayerActionState> _actionStates;
+    //todo. 리팩토링: State 두종류로 나누지 말고 그냥 하나로 합치기. //했는데, 
+    private Dictionary<string, IPlayerState> _states;
 
+    private Vector2 _currentMovementInput;
+    public Vector2 CurrentMovementInput => _currentMovementInput;
+    
     //Player Controller들
     public PlayerMovementController MovementController { get; private set; }
     public PlayerAttackController AttackController { get; private set; }
@@ -39,16 +40,14 @@ public class Player : MonoBehaviour, IItemCollector
         
         PlayerAnimator = GetComponentInChildren<Animator>();
         
-        //이동 상태 머신 초기화
-        _movementStates = new Dictionary<string, IPlayerMovementState>();
-        _movementStates.Add(PlayerState.Movement.Idle, new PlayerMovementIdleState());
-        _movementStates.Add(PlayerState.Movement.Walk, new PlayerMovementWalkState());
-        
-        //액션 상태 머신 초기화
-        _actionStates = new Dictionary<string, IPlayerActionState>();
-        _actionStates.Add(PlayerState.Action.Idle, new PlayerActionIdleState());
-        _actionStates.Add(PlayerState.Action.Jump, new PlayerActionJumpState());
-        _actionStates.Add(PlayerState.Action.Attack, new PlayerActionAttackState());
+        //상태 머신 초기화
+        _states = new Dictionary<string, IPlayerState>();
+        _states.Add(PlayerState.Idle, new PlayerIdleState());
+        _states.Add(PlayerState.Walk, new PlayerWalkState());
+        _states.Add(PlayerState.Jump, new PlayerJumpState());
+        _states.Add(PlayerState.Attack, new PlayerAttackState());
+        _states.Add(PlayerState.Hit, new PlayerHitState());
+        _states.Add(PlayerState.Dead, new PlayerDeadState());
     }
 
     public void AddItem(ItemData item)
@@ -57,14 +56,11 @@ public class Player : MonoBehaviour, IItemCollector
     }
      private void Start()
      {
-         _movementState = _movementStates[PlayerState.Movement.Idle];
-         _movementState.EnterState(this);
-
-         _actionState = _actionStates[PlayerState.Action.Idle];
-         _actionState.EnterState(this);
-         PlayerManager.Instance.player = this;
-         UIManager.Instance.OpenUI<UIHealthBar>();
-     }
+         _currentState = _states[PlayerState.Idle];
+         _currentState.EnterState(this);
+        PlayerManager.Instance.player = this;
+        UIManager.Instance.OpenUI<UIHealthBar>();
+    }
 
      private void OnEnable()
      {
@@ -90,22 +86,12 @@ public class Player : MonoBehaviour, IItemCollector
      
      private void Update()
      {
-         _movementState.UpdateState(this);
-         _actionState.UpdateState(this);
+         _currentState.UpdateState(this);
      }
      
      public void OnMove(InputAction.CallbackContext context)
      {
-         Vector2 movementInput = context.ReadValue<Vector2>();
-         if (movementInput.magnitude > 0)
-         {
-             TransitionToMovementState(PlayerState.Movement.Walk);
-         }
-         else
-         {
-             TransitionToMovementState(PlayerState.Movement.Idle);
-         }
-         MovementController.SetMovementInput(movementInput);
+         _currentMovementInput = context.ReadValue<Vector2>();
      }
 
      public void OnJump(InputAction.CallbackContext context)
@@ -116,53 +102,55 @@ public class Player : MonoBehaviour, IItemCollector
              // 애니메이터 isGrounded 파라미터를 true로 설정
              PlayerAnimator.SetBool(AnimatorString.PlayerParameters.IsGrounded, true);
              
-             TransitionToActionState(PlayerState.Action.Jump);
+             TransitionToState(PlayerState.Jump);
          }
      }
 
      public void OnAttack(InputAction.CallbackContext context)
      {
-         if (AttackController.CanAttack() && !(_actionState is PlayerActionDeadState))
+         if (AttackController.CanAttack() && !(_currentState is PlayerDeadState))
          {
-             TransitionToActionState(PlayerState.Action.Attack);
+             TransitionToState(PlayerState.Attack);
          }
      }
 
      public void OnHit()
      {
          //todo 피격상태로 전환하기
+         TransitionToState(PlayerState.Hit);
      }
 
      public void OnDead()
      {
          //todo 사망상태로 전환하기
+         TransitionToState(PlayerState.Dead);
      }
      
-     public void TransitionToMovementState(string stateName)
+     public void TransitionToState(string stateName)
     {
-        if (_movementState == _movementStates[stateName]) return;
+        if (_currentState is PlayerDeadState) return;
         
         IsGrounded();
-        _movementState.ExitState(this);
-        _movementState = _movementStates[stateName];
-        _movementState.EnterState(this);
+        _currentState.ExitState(this);
+        _currentState = _states[stateName];
+        _currentState.EnterState(this);
     }
     
-    public void TransitionToActionState(string stateName)
-    {
-        if (_actionState == _actionStates[stateName]) return;
-
-        if (PlayerAnimator != null)
-        {
-            Debug.Log("PlayerAnimator trigger들 초기화됨");
-            PlayerAnimator.ResetTrigger(AnimatorString.PlayerParameters.Jump);
-            PlayerAnimator.ResetTrigger(AnimatorString.PlayerParameters.Hit);
-            PlayerAnimator.ResetTrigger(AnimatorString.PlayerParameters.Dead);
-        }
-        _actionState.ExitState(this);
-        _actionState = _actionStates[stateName];
-        _actionState.EnterState(this);
-    }
+    // public void TransitionToActionState(string stateName)
+    // {
+    //     if (_currentState == _states[stateName]) return;
+    //
+    //     if (PlayerAnimator != null)
+    //     {
+    //         Debug.Log("PlayerAnimator trigger들 초기화됨");
+    //         PlayerAnimator.ResetTrigger(AnimatorString.PlayerParameters.Jump);
+    //         PlayerAnimator.ResetTrigger(AnimatorString.PlayerParameters.Hit);
+    //         PlayerAnimator.ResetTrigger(AnimatorString.PlayerParameters.Dead);
+    //     }
+    //     _currentState.ExitState(this);
+    //     _currentState = _states[stateName];
+    //     _currentState.EnterState(this);
+    // }
     
     public bool IsGrounded()
     {

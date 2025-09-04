@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerMovementWalkState: IPlayerMovementState
+public class PlayerWalkState: IPlayerState
 {
     public void EnterState(Player player)
     {
@@ -10,8 +10,10 @@ public class PlayerMovementWalkState: IPlayerMovementState
 
     public void UpdateState(Player player)
     {
-        Vector2 movementInput = player.PlayerInputActions.Player.Move.ReadValue<Vector2>();
-        player.MovementController.SetMovementInput(movementInput);
+        if (player.CurrentMovementInput.magnitude <= 0)
+        {
+            player.TransitionToState(PlayerState.Idle);
+        }
     }
 
     public void ExitState(Player player)

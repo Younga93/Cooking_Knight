@@ -169,7 +169,7 @@ MonoBehaviour:
   attackPower: 20
   attackSpeed: 1
   attackRange: 1
-  attackPoint: {fileID: 6869560416439009218}
+  hitBox: {fileID: 6869560416439009218}
   enemyLayers:
     serializedVersion: 2
     m_Bits: 256
@@ -241,7 +241,7 @@ GameObject:
   - component: {fileID: 7957851634947763447}
   m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -293,8 +293,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86adcb71676167942bf1eb6b9c8df744, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 0
+  maxHealth: 200
   currentHealth: 0
+  _spriteRenderer: {fileID: 6345511951975215247}
 --- !u!114 &7483221192981850525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,6 +310,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   jumpForce: 50
+  knockbackForce: 1000
 --- !u!58 &4968318792245807339
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -381,7 +383,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6869560416439009218}
   m_Layer: 6
-  m_Name: AttackPoint
+  m_Name: HitBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerActionJumpState : IPlayerActionState
+public class PlayerJumpState : IPlayerState
 {
     public void EnterState(Player player)
     {
@@ -12,17 +12,16 @@ public class PlayerActionJumpState : IPlayerActionState
 
     public void UpdateState(Player player)
     {
-        //점프 중에도 이동 가능하게.
-        Vector2 movementInput = player.PlayerInputActions.Player.Move.ReadValue<Vector2>();
-        player.MovementController.SetMovementInput(movementInput);
-
-        //땅에 붙어있거나, 아래로 하강할때만.
         if (player.IsGrounded() && player.MovementController.Rigidbody2D.velocity.y <= 0f)
         {
-            Debug.Log("PlayerActionJumpState it is grounded");
-
-            // 상태 머신을 Idle로 전환
-            player.TransitionToActionState(PlayerState.Action.Idle);
+            if (player.CurrentMovementInput.magnitude > 0)
+            {
+                player.TransitionToState(PlayerState.Walk);
+            }
+            else
+            {
+                player.TransitionToState(PlayerState.Idle);
+            }
         }
     }
 

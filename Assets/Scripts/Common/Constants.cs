@@ -17,18 +17,12 @@ public static class SceneNames
 
 public static class PlayerState
 {
-    public static class Movement
-    {
         public const string Walk = "Walk";
         public const string Idle = "Idle";
-    }
-
-    public static class Action
-    {
         public const string Jump = "Jump";
-        public const string Idle = "Idle";
         public const string Attack = "Attack";
-    }
+        public const string Hit = "Hit";
+        public const string Dead = "Dead";
 }
 
 public static class EnemyState
@@ -40,6 +34,12 @@ public static class EnemyState
     public const string Hit = "Hit";
 }
 
+public static class Timer
+{
+    //Player
+    public const float INVINCIBLE_TIME = 1f;
+    public const float STUN_DURATION = 0.2f;
+}
 public static class AnimatorString
 {
     public static class PlayerAnimation
@@ -76,7 +76,6 @@ public static class AnimatorString
         public const string Hit = "hit";
         public const string Dead = "dead";
     }
-
 }
 public class Constants
 {
