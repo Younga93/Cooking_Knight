@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
@@ -19,6 +19,8 @@ public class DataManager : Singleton<DataManager>
     public Dictionary<int, ItemData> ItemDatas = new();
     public Dictionary<int, FoodData> FoodDatas = new();
     public List<AudioClip> AudioClips = new();
+
+    //enemyData, stageData 관리하기
 
     public bool isLoaded;
     

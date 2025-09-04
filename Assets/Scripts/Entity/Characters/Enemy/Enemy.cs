@@ -26,7 +26,7 @@ public class Enemy : MonoBehaviour
         ConditionController = GetComponent<EnemyConditionController>();
         MovementController = GetComponent<EnemyMovementController>();
         Animator = GetComponentInChildren<Animator>();
-        Player = GameManager.Instance.Player;
+        Player = PlayerManager.Instance.player;
         if (_enemyData != null)
         {
             if(ConditionController != null)
@@ -97,7 +97,7 @@ public class Enemy : MonoBehaviour
 
     private void Reward()
     {
-        //todo. 리워드 제공 로직
+        ItemManager.Instance.DropItem(_enemyData.enemyId, this.gameObject.transform);
         Debug.Log($"{_enemyData.enemyName} Reward");
     }
     

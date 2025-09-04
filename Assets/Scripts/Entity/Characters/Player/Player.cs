@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -124,6 +125,20 @@ public class Player : MonoBehaviour, IItemCollector
          //todo 사망상태로 전환하기
          TransitionToState(PlayerState.Dead);
      }
+
+     public void OnResurrection()
+     {
+         StartCoroutine(ResurrectionCoroutine());
+     }
+
+     private IEnumerator ResurrectionCoroutine()
+     {
+         yield return new WaitForSeconds(Timer.RESURRECTION_TIME);
+         TransitionToState(PlayerState.Idle);
+         SceneLoadManager.Instance.LoadScene(SceneType.BaseCamp);
+         
+         yield return null;
+     }
      
      public void TransitionToState(string stateName)
     {
@@ -134,22 +149,6 @@ public class Player : MonoBehaviour, IItemCollector
         _currentState = _states[stateName];
         _currentState.EnterState(this);
     }
-    
-    // public void TransitionToActionState(string stateName)
-    // {
-    //     if (_currentState == _states[stateName]) return;
-    //
-    //     if (PlayerAnimator != null)
-    //     {
-    //         Debug.Log("PlayerAnimator trigger들 초기화됨");
-    //         PlayerAnimator.ResetTrigger(AnimatorString.PlayerParameters.Jump);
-    //         PlayerAnimator.ResetTrigger(AnimatorString.PlayerParameters.Hit);
-    //         PlayerAnimator.ResetTrigger(AnimatorString.PlayerParameters.Dead);
-    //     }
-    //     _currentState.ExitState(this);
-    //     _currentState = _states[stateName];
-    //     _currentState.EnterState(this);
-    // }
     
     public bool IsGrounded()
     {

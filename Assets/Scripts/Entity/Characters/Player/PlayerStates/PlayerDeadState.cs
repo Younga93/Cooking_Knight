@@ -1,3 +1,5 @@
+using System.Collections;
+
 public class PlayerDeadState : IPlayerState
 {
     public void EnterState(Player player)
@@ -5,6 +7,8 @@ public class PlayerDeadState : IPlayerState
         AudioManager.Instance.PlayDeathSoundEffect();
         player.PlayerAnimator.SetTrigger(AnimatorString.PlayerParameters.Dead);
         player.PlayerInputActions.Disable();
+        
+        player.OnResurrection();
     }
 
     public void UpdateState(Player player)

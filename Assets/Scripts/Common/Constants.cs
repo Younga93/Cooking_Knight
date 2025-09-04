@@ -39,6 +39,7 @@ public static class Timer
     //Player
     public const float INVINCIBLE_TIME = 1f;
     public const float STUN_DURATION = 0.2f;
+    public const float RESURRECTION_TIME = 3f;
 }
 public static class AnimatorString
 {
@@ -84,5 +85,6 @@ public class Constants
     public const string Canvas = "Canvas";
     public const string EventSystem = "EventSystem";
     public const string DataHolder = "Prefabs/DataHolder/";
+    public const string Player = "Prefabs/Entities/Player";
     public const string Sounds = "Sounds/";
 }
