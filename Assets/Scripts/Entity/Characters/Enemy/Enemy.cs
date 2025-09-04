@@ -97,7 +97,7 @@ public class Enemy : MonoBehaviour
 
     private void Reward()
     {
-        ItemManager.Instance.DropItem(_enemyData.enemyId, this.transform);
+        ItemManager.Instance.DropItem(_enemyData.enemyId, this.gameObject.transform);
         Debug.Log($"{_enemyData.enemyName} Reward");
     }
     

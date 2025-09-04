@@ -18,5 +18,5 @@ MonoBehaviour:
   respawnTime: 3
   enemies:
   - {fileID: 11400000, guid: 122d859632df06845b496b94888a4715, type: 2}
-  spawnCenter: {x: 10, y: 0}
-  spawnSize: {x: 30, y: 0}
+  spawnCenter: {x: 11, y: 0}
+  spawnSize: {x: 28, y: 0}
