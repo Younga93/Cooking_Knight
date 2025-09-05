@@ -16,6 +16,7 @@ public class StageScene : SceneBase
         UIManager.Instance.OpenUI<UISettingsButton>();
         Debug.Log($"{GetSceneName()}: OnLoad");
 
+        // StageManager.Instance.InitStage(DataManager.Instance.StageDatas[0]);
         //todo. enemydata, stagedata load
         // ItemManager.Instance.
         // json으로 관리하는 걸로 바꿔야댐.

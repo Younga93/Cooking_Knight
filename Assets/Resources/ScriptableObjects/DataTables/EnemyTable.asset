@@ -9,14 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e53dabaa1582d6f44810f40de33568dc, type: 3}
-  m_Name: Stage_1
+  m_Script: {fileID: 11500000, guid: c312eb76c0e1e4048abf8fa9fab5e85f, type: 3}
+  m_Name: EnemyTable
   m_EditorClassIdentifier: 
-  stageId: 1
-  maxEnemyCount: 10
-  totalEnemyToDefeatCount: 0
-  respawnTime: 5
   enemies:
   - {fileID: 11400000, guid: 122d859632df06845b496b94888a4715, type: 2}
-  spawnCenter: {x: 11, y: 0}
-  spawnSize: {x: 28, y: 0}

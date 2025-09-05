@@ -4,10 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class EnemySpawnManager : MonoBehaviour
+public class StageManager : MonoBehaviour
 {
-    // 존재 가능한 최대 몬스터 수	10
-    // 몬스터 생성 시간	5
     [Header("Stage Information")] 
     [SerializeField] private StageData _currentStageData;
 
@@ -22,7 +20,7 @@ public class EnemySpawnManager : MonoBehaviour
     
     private void Awake()
     {
-        InitStage(_currentStageData);   //todo. Awake에서가 아니라 SceneLoadManager에서 Scene진입할때 InitStage 호출하기
+        InitStage(DataManager.Instance.StageDatas[0]);       //todo. 추후 스테이지 선택 기능이 생긴다면, 0번 인덱스가 아니라 선택된 인덱스 호출하도록.
     }
 
     private void Update()
@@ -140,7 +138,6 @@ public class EnemySpawnManager : MonoBehaviour
     
     public void OnEnemyDefeated(GameObject enemyObject)
     {
-        _currentEnemyCount--;
         _defeatedEnemyCount++;
 
         ReleaseEnemy(enemyObject);
