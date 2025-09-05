@@ -34,17 +34,6 @@ public class PlayerAttackController : MonoBehaviour
     {
         _additionalAttackPower = dmg;
     }
-    public void AddAttackDmg(float dmg)
-    {
-        _additionalAttackPower += dmg;
-    }
-    private void FixedUpdate()
-    {
-        if (attackCooldown > 0)
-        {
-            attackCooldown -= Time.deltaTime;
-        }
-    }
     public void StartAttack()
     {
         CanAttack = false;
