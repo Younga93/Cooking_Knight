@@ -108,7 +108,7 @@ public class Player : MonoBehaviour, IItemCollector
 
      public void OnAttack(InputAction.CallbackContext context)
      {
-         if (AttackController.CanAttack() && !(_currentState is PlayerDeadState))
+         if (AttackController.CanAttack && !(_currentState is PlayerDeadState))
          {
              TransitionToState(PlayerState.Attack);
          }

@@ -16,39 +16,33 @@ public class PlayerAttackController : MonoBehaviour
     private Player _player;
 
     private float attackCooldown;
-    
+    public bool CanAttack { get; set; }
     private void Awake()
     {
         _animator = GetComponent<Animator>();
         _player = GetComponentInParent<Player>();
-    }
-
-    private void FixedUpdate()
-    {
-        if (attackCooldown > 0)
-        {
-            attackCooldown -= Time.deltaTime;
-        }
-    }
-
-    public bool CanAttack()
-    {
-        return true;
-        // return attackCooldown <= 0;
-
+        CanAttack = true;
     }
     public void StartAttack()
     {
-        //AudioManager.Instance.PlayAttackSoundEffect(); // 현재 쿨다운이 없나요? 소리가 계속 재생되는 것 같아서요.
+        CanAttack = false;
+        // AudioManager.Instance.PlayAttackSoundEffect(); // 현재 쿨다운이 없나요? 소리가 계속 재생되는 것 같아서요.
         Debug.Log("StartAttack()이 호출되었습니다.");
         //1번 레이어(Action Layer)에서 재생하기
         _animator.Play(AnimatorString.PlayerAnimation.Attack, 1);
 
         attackCooldown = 1f / attackSpeed;
+        StartCoroutine(AttackCooldownCoroutine(attackCooldown));
         
         //todo. 추후 애니메이션 이벤트로 처리하기
         // float animationLength = _animator.GetCurrentAnimatorStateInfo(1).length;
         // Invoke(nameof(OnAttackAnimationEnd), animationLength);
+    }
+
+    private IEnumerator AttackCooldownCoroutine(float cooldown)
+    {
+        yield return new WaitForSeconds(cooldown);
+        CanAttack = true;
     }
 
     public void OnAttackHit()
@@ -64,14 +58,8 @@ public class PlayerAttackController : MonoBehaviour
                 enemy.ConditionController.TakeDamage(attackPower);
             }
         }
-        // OnAttackAnimationEnd();
+        _player.TransitionToState(PlayerState.Idle);
     }
-
-    // public void OnAttackAnimationEnd()
-    // {
-    //     _animator.Play("Empty", 1);
-    //     _player.TransitionToState(PlayerState.Idle);
-    // }
     
 #if UNITY_EDITOR
     private void OnDrawGizmos()
