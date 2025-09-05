@@ -98,6 +98,8 @@ https://ghostpixxells.itch.io/pixelfood
 https://astra-lissa.itch.io/pixel-food-icons
 6. background
 https://bongseng.itch.io/parallax-forest-desert-sky-moon
+7. 2D Casual UI
+https://assetstore.unity.com/packages/package/82080
 - 사운드 라이센스 (sounds lisence)
 1. background, player-hurt, player-jump
 https://brackeysgames.itch.io/brackeys-platformer-bundle
