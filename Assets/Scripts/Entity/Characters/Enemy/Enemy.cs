@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour
     public EnemyMovementController MovementController { get; private set; }
     public Animator Animator { get; private set; }
 
-    private EnemySpawnManager  _spawnManager;
+    private StageManager  _spawnManager;
     
     private void Awake()
     {
@@ -55,7 +55,7 @@ public class Enemy : MonoBehaviour
         CheckBroundary();
     }
 
-    public void Init(EnemyData data, EnemySpawnManager  spawnManager)
+    public void Init(EnemyData data, StageManager  spawnManager)
     {
         ConditionController.SetMaxHealth(data.maxHealth);
         _spawnManager = spawnManager;

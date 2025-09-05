@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Stage_1
   m_EditorClassIdentifier: 
   stageId: 1
-  maxEnemyCount: 5
+  maxEnemyCount: 10
   totalEnemyToDefeatCount: 0
-  respawnTime: 3
+  respawnTime: 5
   enemies:
   - {fileID: 11400000, guid: 122d859632df06845b496b94888a4715, type: 2}
   spawnCenter: {x: 11, y: 0}

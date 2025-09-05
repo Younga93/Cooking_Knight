@@ -20,8 +20,8 @@ public class DataManager : Singleton<DataManager>
     public Dictionary<int, FoodData> FoodDatas = new();
     public List<AudioClip> AudioClips = new();
     
-    [SerializeField] private List<EnemyData> EnemyDatas = new();
-    [SerializeField] private List<StageData> StageDatas = new();
+    public List<EnemyData> EnemyDatas { get; private set; } = new();
+    public List<StageData> StageDatas { get; private set; } = new();
 
     public bool isLoaded;
     
