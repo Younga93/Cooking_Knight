@@ -28,6 +28,8 @@ public class UIIntro : UIBase
         FadeInImage();
 
         button.onClick.AddListener(OnClickButton);
+        PlayerManager.Instance.player.isMovable = false;
+        PlayerManager.Instance.player.isAttackable = false;
     }
 
     private void FadeInImage()
@@ -53,6 +55,8 @@ public class UIIntro : UIBase
 
     private void OnClickButton()
     {
+        PlayerManager.Instance.player.isMovable = true;
+        PlayerManager.Instance.player.isAttackable = true;
         AudioManager.Instance.PlayClickSoundEffect();
         Destroy(this.gameObject);
     }

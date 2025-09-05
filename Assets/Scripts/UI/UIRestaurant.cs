@@ -16,6 +16,7 @@ public class UIRestaurant : UIBase
     {
         AudioManager.Instance.PlayRestaurantSoundEffect();
         exitButton.onClick.AddListener(OnClickExitButton);
+        PlayerManager.Instance.player.isAttackable = false;
         if (_contents == null)
         {
             _contents = layoutGroup.GetComponent<Transform>();
@@ -43,6 +44,7 @@ public class UIRestaurant : UIBase
     {
         ClearSlotsAndResetWidth();
         exitButton.onClick.RemoveListener(OnClickExitButton);
+        PlayerManager.Instance.player.isAttackable = true;
     }
 
     private void IncreaseWidth(float width)

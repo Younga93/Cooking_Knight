@@ -25,7 +25,7 @@ public class BaseCampScene : SceneBase
         {
             UIManager.Instance.CreateUIDontDestroy<UIFadeOut>();            
         }
-        
+        UIManager.Instance.OpenUI<UISettingsButton>();
         UIManager.Instance.OpenUI<UIInventory>();
         Debug.Log($"{GetSceneName()}: OnLoad");
     }

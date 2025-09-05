@@ -14,17 +14,11 @@ public class Inventory : MonoBehaviour
 
     public void SendFoodsToShop()
     {
-        RestuarantManager.Instance.AddItemForSale(foods);
+        RestaurantManager.Instance.AddItemForSale(foods);
         foods.Clear();
     }
 
-    public bool TryPurchase(int price)
-    {
-        if (price > money)
-            return false;
-        money -= price;
-        return true;
-    }
+    
 
 
 }

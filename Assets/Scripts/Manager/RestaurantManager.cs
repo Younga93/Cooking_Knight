@@ -7,7 +7,7 @@ using UnityEngine;
 //정말로 싱글턴으로 만들어 게임 실행 매 순간마다 이걸 계산하는게 과연 옳은 일일까요?
 //그냥 단순히 흐른 시간만 계산하고, 거점으로 돌아왔을 때 한꺼번에 이 시간을 판매 아이템 리스트에 적용하는 것이 더 효율적이지 않을까요?
 //고민해봐야겠습니다.
-public class RestuarantManager : Singleton<RestuarantManager>
+public class RestaurantManager : Singleton<RestaurantManager>
 {
     private readonly List<FoodSlot> _itemsForSale = new();
     private bool _isSelling = false;
@@ -19,6 +19,7 @@ public class RestuarantManager : Singleton<RestuarantManager>
     private bool _timeStarted;
     public event Action<float, float> TimeChanged;
     public event Action<bool> OnTimeStarted;
+    public float revenueMultiplier = 1.0f;
     private void Update()
     {
         if (_timeStarted)
@@ -29,6 +30,11 @@ public class RestuarantManager : Singleton<RestuarantManager>
         if (_isSelling) return;
         if (_itemsForSale.Count == 0) return;
         SellItem();
+    }
+
+    public void IncreaseRevenueMultiplier()
+    {
+        revenueMultiplier *= 1.1f;
     }
 
     public void AddItemForSale(List<FoodSlot> items)
@@ -86,7 +92,7 @@ public class RestuarantManager : Singleton<RestuarantManager>
     private void NotifyObservers(int price)
     {
          foreach (var observer in _shopObservers)
-             observer.OnItemSold(price);
+             observer.OnItemSold((int)(price * revenueMultiplier));
     }
     
 }

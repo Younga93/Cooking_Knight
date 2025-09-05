@@ -13,6 +13,7 @@ public class StageScene : SceneBase
     {
         UIManager.Instance.CreateUIDontDestroy<UIFadeOut>();
         UIManager.Instance.OpenUI<UIInventory>();
+        UIManager.Instance.OpenUI<UISettingsButton>();
         Debug.Log($"{GetSceneName()}: OnLoad");
 
         //todo. enemydata, stagedata load

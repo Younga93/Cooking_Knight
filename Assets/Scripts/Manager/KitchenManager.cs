@@ -13,6 +13,7 @@ public class KitchenManager : Singleton<KitchenManager>
     private bool _timeStarted;
     public event Action<float, float> TimeChanged;
     public event Action<bool> OnTimeStarted;
+    private float _timeMultiplier = 1.0f;
 
     public bool IsCookAvailable(int recipeID)
     {
@@ -27,6 +28,10 @@ public class KitchenManager : Singleton<KitchenManager>
         return true;
     }
 
+    public void ReduceTimeMultiplier()
+    {
+        _timeMultiplier *= 0.9f;
+    }
     private bool CheckIngredients(int itemID, int amount)
     {
         if (itemID == 0) return true;
@@ -70,7 +75,7 @@ public class KitchenManager : Singleton<KitchenManager>
             if (cookingQueue.Count == 0) yield break;
             _timeStarted = true;
             OnTimeStarted?.Invoke(true);
-            yield return new WaitForSeconds(cookingQueue[0].CookTime);
+            yield return new WaitForSeconds(cookingQueue[0].CookTime * _timeMultiplier);
             cookedFoods.Add(cookingQueue[0]);
             cookingQueue.RemoveAt(0);
         }

@@ -24,7 +24,8 @@ public class Player : MonoBehaviour, IItemCollector
     public PlayerInput PlayerInputActions { get; private set; }
     
     public Animator PlayerAnimator { get; private set; }
-    
+    public bool isMovable = true;
+    public bool isAttackable = true;
     [Header("Ground check")]
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
@@ -49,7 +50,7 @@ public class Player : MonoBehaviour, IItemCollector
         _states.Add(PlayerState.Hit, new PlayerHitState());
         _states.Add(PlayerState.Dead, new PlayerDeadState());
     }
-
+    
     public void AddItem(ItemData item)
     {
         InventoryManager.Instance.AddItem(item);
@@ -91,12 +92,13 @@ public class Player : MonoBehaviour, IItemCollector
      
      public void OnMove(InputAction.CallbackContext context)
      {
+         if (!isMovable) return;
          _currentMovementInput = context.ReadValue<Vector2>();
      }
 
      public void OnJump(InputAction.CallbackContext context)
      {
-         if (IsGrounded())
+         if (IsGrounded() && isMovable)
          {
              // 땅에 닿았을 때만
              // 애니메이터 isGrounded 파라미터를 true로 설정
@@ -108,7 +110,7 @@ public class Player : MonoBehaviour, IItemCollector
 
      public void OnAttack(InputAction.CallbackContext context)
      {
-         if (AttackController.CanAttack && !(_currentState is PlayerDeadState))
+         if (AttackController.CanAttack() && !(_currentState is PlayerDeadState) && isAttackable)
          {
              TransitionToState(PlayerState.Attack);
          }

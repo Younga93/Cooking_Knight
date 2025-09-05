@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +9,7 @@ public class PlayerAttackController : MonoBehaviour
     [SerializeField] private float attackPower = 20f;
     [SerializeField] private float attackSpeed = 1f;
     [SerializeField] private float attackRange = 0.5f;
+    private float _additionalAttackPower;
     [SerializeField] private Transform hitBox;
     [SerializeField] private LayerMask enemyLayers;
     
@@ -22,6 +23,27 @@ public class PlayerAttackController : MonoBehaviour
         _animator = GetComponent<Animator>();
         _player = GetComponentInParent<Player>();
         CanAttack = true;
+    }
+
+    private void Start()
+    {
+        _additionalAttackPower = PlayerManager.Instance.additionalAttackPower;
+    }
+
+    public void SetAdditionalAttackPower(float dmg)
+    {
+        _additionalAttackPower = dmg;
+    }
+    public void AddAttackDmg(float dmg)
+    {
+        _additionalAttackPower += dmg;
+    }
+    private void FixedUpdate()
+    {
+        if (attackCooldown > 0)
+        {
+            attackCooldown -= Time.deltaTime;
+        }
     }
     public void StartAttack()
     {
@@ -55,7 +77,7 @@ public class PlayerAttackController : MonoBehaviour
 
             if (enemy != null)
             {
-                enemy.ConditionController.TakeDamage(attackPower);
+                enemy.ConditionController.TakeDamage(attackPower + _additionalAttackPower);
             }
         }
         _player.TransitionToState(PlayerState.Idle);
