@@ -19,8 +19,9 @@ public class DataManager : Singleton<DataManager>
     public Dictionary<int, ItemData> ItemDatas = new();
     public Dictionary<int, FoodData> FoodDatas = new();
     public List<AudioClip> AudioClips = new();
-
-    //enemyData, stageData 관리하기
+    
+    [SerializeField] private List<EnemyData> EnemyDatas = new();
+    [SerializeField] private List<StageData> StageDatas = new();
 
     public bool isLoaded;
     
@@ -36,6 +37,10 @@ public class DataManager : Singleton<DataManager>
         LoadDropItemTableDict();
         LoadRecipeDataDict();
         LoadSounds();
+
+        LoadEnemyTable();
+        LoadStageTable();
+        
         isLoaded = true;
     }
 
@@ -146,6 +151,30 @@ public class DataManager : Singleton<DataManager>
                 list.Add(data);
             }
         }
+    }
+
+    private void LoadEnemyTable()
+    {
+        EnemyDataTable enemyDataTable = LoadSOFromResources<EnemyDataTable>(Constants.EnemyData);
+        EnemyDatas = enemyDataTable.enemies;
+    }
+
+    private void LoadStageTable()
+    {
+        StageDataTable stageDataTable = LoadSOFromResources<StageDataTable>(Constants.StageData);
+        StageDatas = stageDataTable.stages;
+    }
+
+    private T LoadSOFromResources<T>(string path) where T : ScriptableObject
+    {
+        T so = Resources.Load<T>(path);
+
+        if (so == null)
+        {
+            Debug.LogError($"Failed to load ScriptableObject of type {typeof(T)} from path: {path}");
+        }
+
+        return so;
     }
 
     //매개변수에 담은 DropTable의 리스트에 따라 드롭될 아이템의 확률 계산을 하고, 등장할 아이템을 droppedItems에 담습니다.
