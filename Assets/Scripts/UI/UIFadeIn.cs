@@ -15,6 +15,8 @@ public class UIFadeIn : UIBase
         c.a = 1f;
         image.color = c;
         StartCoroutine(FadeCoroutine());
+        PlayerManager.Instance.player.isMovable = false;
+        PlayerManager.Instance.player.isAttackable = false;
     }
     
     private void FadeInImage()
