@@ -14,6 +14,7 @@ public class BaseCampScene : SceneBase
         if (!DataManager.Instance.isLoaded)
         {
             DataManager.Instance.LoadData();
+            AudioManager.Instance.PlayBGM();
         }
 
         if (GameManager.Instance.isFirstBoot)

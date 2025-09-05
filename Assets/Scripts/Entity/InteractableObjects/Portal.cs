@@ -26,6 +26,7 @@ public class Portal : MonoBehaviour
     private IEnumerator SceneChangeProcess()
     {
         yield return new WaitForSeconds(1f);
+        AudioManager.Instance.PlayPortalSoundEffect();
         UIManager.Instance.CreateUIDontDestroy<UIFadeIn>();
         yield return new WaitForSeconds(1.0f);
         SceneLoadManager.Instance.LoadScene(sceneType);

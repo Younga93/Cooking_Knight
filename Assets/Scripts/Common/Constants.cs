@@ -86,4 +86,5 @@ public class Constants
     public const string EventSystem = "EventSystem";
     public const string DataHolder = "Prefabs/DataHolder/";
     public const string Player = "Prefabs/Entities/Player";
+    public const string Sounds = "Sounds/";
 }

@@ -14,6 +14,7 @@ public class UIRestaurant : UIBase
 
     protected override void OnOpen()
     {
+        AudioManager.Instance.PlayRestaurantSoundEffect();
         exitButton.onClick.AddListener(OnClickExitButton);
         if (_contents == null)
         {
@@ -35,6 +36,7 @@ public class UIRestaurant : UIBase
             slot.SetFood(data);
             _foodSlots.Add(slot);
         }
+        
     }
 
     protected override void OnClose()
@@ -70,5 +72,9 @@ public class UIRestaurant : UIBase
         LayoutRebuilder.ForceRebuildLayoutImmediate(rt);
     }
 
-    private void OnClickExitButton() => UIManager.Instance.CloseUI<UIRestaurant>();
+    private void OnClickExitButton()
+    {
+        UIManager.Instance.CloseUI<UIRestaurant>();
+        AudioManager.Instance.PlayClickSoundEffect();
+    }
 }

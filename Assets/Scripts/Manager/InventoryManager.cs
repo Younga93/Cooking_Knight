@@ -1,8 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
+using Random = System.Random;
 
 public class InventoryManager: Singleton<InventoryManager>, IShopObserver
 {
@@ -101,7 +100,12 @@ public class InventoryManager: Singleton<InventoryManager>, IShopObserver
         }
         RestuarantManager.Instance.RemoveObserver(this);
     }
-    
+
+    public void LoseOneItem()
+    {
+        int random = UnityEngine.Random.Range(0, inventory.ingredients.Count);
+        UseItem(inventory.ingredients[random].itemData.ID, 1);
+    }
     public void OnItemSold(int price)
     {
         inventory.money += price;

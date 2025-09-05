@@ -42,6 +42,7 @@ public class UIKitchen : UIBase
         exitButton.onClick.AddListener(OnClickExitButton);
         cookButton.onClick.AddListener(OnClickCookButton);
         RefreshUI();
+        AudioManager.Instance.PlayKitchenSoundEffect();
     }
 
     protected override void OnClose()
@@ -145,7 +146,11 @@ public class UIKitchen : UIBase
         }
     }
 
-    private void OnClickExitButton() => UIManager.Instance.CloseUI<UIKitchen>();
+    private void OnClickExitButton()
+    {
+        UIManager.Instance.CloseUI<UIKitchen>();
+        AudioManager.Instance.PlayClickSoundEffect();
+    }
 
     private void OnClickCookButton()
     {
@@ -160,5 +165,6 @@ public class UIKitchen : UIBase
             text2.color = Color.red;
             text3.color = Color.red;
         }
+        AudioManager.Instance.PlayClickSoundEffect();
     }
 }
