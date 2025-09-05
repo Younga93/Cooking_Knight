@@ -10,7 +10,20 @@ public class PlayerManager : Singleton<PlayerManager>
     [SerializeField] private Dictionary<SceneType, Vector2> spawnPositions = new();
 
     public Player player;
-    
+
+    public float additionalAttackPower;
+    public float additionalMaxHealth;
+    public void AddAttackPower(float dmg)
+    {
+        additionalAttackPower += dmg;
+        player.AttackController.SetAdditionalAttackPower(additionalAttackPower);
+    }
+
+    public void AddAdditionalMaxHealth(float amount)
+    {
+        additionalMaxHealth += amount;
+        player.ConditionController.AddMaxHealth(amount);
+    }
     // public void SpawnPlayer(SceneType type){
     //  Instantiate(player, spawnPositions[type], Quaternion.identity);
     // }

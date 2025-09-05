@@ -43,6 +43,7 @@ public class UIKitchen : UIBase
         cookButton.onClick.AddListener(OnClickCookButton);
         RefreshUI();
         AudioManager.Instance.PlayKitchenSoundEffect();
+        PlayerManager.Instance.player.isAttackable = false;
     }
 
     protected override void OnClose()
@@ -50,6 +51,7 @@ public class UIKitchen : UIBase
         ClearSlotsAndResetHeight();
         exitButton.onClick.RemoveListener(OnClickExitButton);
         cookButton.onClick.RemoveListener(OnClickCookButton);
+        PlayerManager.Instance.player.isAttackable = true;
     }
     private void IncreaseHeight(float height)
     {

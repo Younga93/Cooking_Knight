@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,6 @@ public class PlayerConditionController : ConditionController
 {
     private Player _player;
     public bool IsInvincible { get; private set; } // 외부에 노출
-    
     [SerializeField] private SpriteRenderer _spriteRenderer;
     private Coroutine _hitEffectCoroutine;
     
@@ -15,7 +15,18 @@ public class PlayerConditionController : ConditionController
         base.Awake();
         _player = GetComponent<Player>();
     }
-    
+
+    private void Start()
+    {
+        maxHealth += PlayerManager.Instance.additionalMaxHealth;
+        SetMaxHealth(maxHealth);
+    }
+
+    public void AddMaxHealth(float amount)
+    {
+        maxHealth += amount;
+        SetMaxHealth(maxHealth);
+    }
     public override void TakeDamage(float amount)
     {      
         if (IsInvincible)

@@ -31,7 +31,8 @@ public class UIFoodSlot : UIBase
         nameText.text = _foodSlot.foodData.Name;
         countText.text = _foodSlot.count.ToString();
         countText.text += " 개";
-        priceText.text = _foodSlot.foodData.Price.ToString();
+        var price = (int)(_foodSlot.foodData.Price * RestaurantManager.Instance.revenueMultiplier);
+        priceText.text = price.ToString();
         priceText.text += " G";
         descriptionText.text = _foodSlot.foodData.Description;
     }
@@ -40,7 +41,7 @@ public class UIFoodSlot : UIBase
     {
         if (_foodSlot.count > 0)
         {
-            RestuarantManager.Instance.AddItemForSale(_foodSlot);
+            RestaurantManager.Instance.AddItemForSale(_foodSlot);
             InventoryManager.Instance.UseItem(_foodSlot);
             
             RefreshCountText();

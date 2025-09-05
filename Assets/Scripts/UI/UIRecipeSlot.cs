@@ -37,7 +37,8 @@ public class UIRecipeSlot : UIBase
         icon.sprite = foodData.Sprite;
         nameText.text = foodData.Name;
         descriptionText.text = foodData.Description;
-        priceText.text = foodData.Price.ToString();
+        var price = (int)(foodData.Price * RestaurantManager.Instance.revenueMultiplier);
+        priceText.text = price.ToString();
         priceText.text += " G";
     }
 

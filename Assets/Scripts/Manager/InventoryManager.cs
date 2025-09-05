@@ -78,7 +78,7 @@ public class InventoryManager: Singleton<InventoryManager>, IShopObserver
     }
     private void OnEnable()
     {
-        RestuarantManager.Instance.AddObserver(this);
+        RestaurantManager.Instance.AddObserver(this);
     }
 
     public int GetIngredientCount(int id)
@@ -94,15 +94,16 @@ public class InventoryManager: Singleton<InventoryManager>, IShopObserver
     }
     private void OnDisable()
     {
-        if (RestuarantManager.Instance == null)
+        if (RestaurantManager.Instance == null)
         {
             return;
         }
-        RestuarantManager.Instance.RemoveObserver(this);
+        RestaurantManager.Instance.RemoveObserver(this);
     }
 
     public void LoseOneItem()
     {
+        if(inventory.ingredients.Count == 0) return;
         int random = UnityEngine.Random.Range(0, inventory.ingredients.Count);
         UseItem(inventory.ingredients[random].itemData.ID, 1);
     }
@@ -194,5 +195,13 @@ public class InventoryManager: Singleton<InventoryManager>, IShopObserver
         {
             OnItemUsed?.Invoke(false, false, foodSlot.foodData.ID);       
         }
+    }
+    public bool TryPurchase(int price)
+    {
+        if (price > inventory.money)
+            return false;
+        inventory.money -= price;
+        OnMoneyChanged?.Invoke();
+        return true;
     }
 }
