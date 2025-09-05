@@ -76,6 +76,7 @@ public class DataManager : Singleton<DataManager>
 
         AudioManager.Instance.SetAudioClips(bgm, attack, jump, hurt, move, death, chickenHurt, portal, kitchen, restaurant, click);
     }
+    
     private void LoadDropItemTableDict()
     {
         foreach (var item in _dropItemTables)
@@ -94,46 +95,18 @@ public class DataManager : Singleton<DataManager>
 
     private void LoadItemDataDict()
     {
-        GameObject go = ResourceManager.Instance.Create<GameObject>(Constants.DataHolder + "ItemDataHolder", this.transform);
-        ItemDataHolder holder = go.GetComponent<ItemDataHolder>();
-        foreach (ItemData data in holder.itemDataList)
+        foreach(var data in Resources.LoadAll<ItemData>(Constants.ItemData))
         {
-            ItemData itemData = ScriptableObject.CreateInstance<ItemData>();
-            itemData.ID = data.ID;
-            itemData.Name = data.Name;
-            itemData.Sprite = data.Sprite;
-            itemData.Prefab = data.Prefab;
-            itemDatas.Add(itemData);
+            ItemDatas.Add(data.ID, data);
         }
-        foreach (var item in itemDatas)
-        {
-            ItemDatas.Add(item.ID, item);
-        }
-
-        Destroy(go);
     }
 
     private void LoadFoodDataDict()
     {
-        GameObject go = ResourceManager.Instance.Create<GameObject>(Constants.DataHolder + "FoodDataHolder", this.transform);
-        FoodDataHolder holder = go.GetComponent<FoodDataHolder>();
-        foreach (FoodData data in holder.foodDataList)
+        foreach(var data in Resources.LoadAll<FoodData>(Constants.FoodData))
         {
-            FoodData foodData = ScriptableObject.CreateInstance<FoodData>();
-            foodData.ID = data.ID;
-            foodData.Name = data.Name;
-            foodData.Description = data.Description;
-            foodData.Price = data.Price;
-            foodData.CookTime = data.CookTime;
-            foodData.SellTime = data.SellTime;
-            foodData.Sprite = data.Sprite;
-            foodDatas.Add(foodData);
+            FoodDatas.Add(data.ID, data);
         }
-        foreach (var food in foodDatas)
-        {
-            FoodDatas.Add(food.ID, food);
-        }
-        Destroy(go);
     }
 
     private List<T> LoadJsonData<T>(string path)

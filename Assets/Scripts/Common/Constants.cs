@@ -83,4 +83,6 @@ public class Constants
     public const string Sounds = "Sounds/";
     public const string EnemyData = "ScriptableObjects/DataTables/EnemyTable";
     public const string StageData =  "ScriptableObjects/DataTables/StageTable";
+    public const string ItemData = "ScriptableObjects/Items/";
+    public const string FoodData = "ScriptableObjects/Foods/";
 }
