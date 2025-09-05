@@ -13,8 +13,6 @@ public class SceneLoadManager : Singleton<SceneLoadManager>
     protected override void Awake() 
     {
         base.Awake();
-        _scenes.Add(SceneType.Intro, new IntroScene());
-        _scenes.Add(SceneType.Title, new TitleScene());
         _scenes.Add(SceneType.BaseCamp, new BaseCampScene());
         _scenes.Add(SceneType.Stage, new StageScene());
     }

@@ -1,18 +1,13 @@
 ﻿
 public enum SceneType{
-    Intro,
-    Title,
     BaseCamp,
     Stage
 }
 
 public static class SceneNames
 {
-    public const string Intro = "IntroScene";
-    public const string Title = "TitleScene";
     public const string BaseCamp = "BaseCampScene";
     public const string Stage = "StageScene";
-    public const string Loading = "LoadingScene";
 }
 
 public static class PlayerState
@@ -85,6 +80,5 @@ public class Constants
     public const string Canvas = "Canvas";
     public const string EventSystem = "EventSystem";
     public const string DataHolder = "Prefabs/DataHolder/";
-    public const string Player = "Prefabs/Entities/Player";
     public const string Sounds = "Sounds/";
 }
