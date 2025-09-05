@@ -23,7 +23,12 @@ public class DataManager : Singleton<DataManager>
     //enemyData, stageData 관리하기
 
     public bool isLoaded;
-    
+
+    protected override void Awake()
+    {
+        base.Awake();
+        LoadData();
+    }
 
     public void LoadData()
     {
