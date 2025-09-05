@@ -1,8 +1,8 @@
 # Cooking_Knight
 스파르타 유니티 11기 10주차 유니티 심화 팀과제
 
-#### [ 기획서 ]
-#### [ 발표자료 ]
+#### [[ 기획서 ]](https://www.notion.so/Cooking-Knight-25ec9d875db7809bbb4ffbaed6638234?source=copy_link)
+#### [[ 발표자료 ]](https://www.canva.com/design/DAGx0EZTgGE/ePFWl_wrXAHOOhebuEVZlg/edit?utm_content=DAGx0EZTgGE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 
 ---
 
