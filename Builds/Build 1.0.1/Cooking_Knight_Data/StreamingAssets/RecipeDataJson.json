@@ -1,0 +1,32 @@
+[
+  {
+    "ID": 1,
+    "FoodID": 1,
+    "FirstDropItemID": 1,
+    "FirstDropItemCount": 2,
+    "SecondDropItemID": 0,
+    "SecondDropItemCount": 0,
+    "ThirdDropItemID": 0,
+    "ThirdDropItemCount": 0
+  },
+  {
+    "ID": 2,
+    "FoodID": 2,
+    "FirstDropItemID": 2,
+    "FirstDropItemCount": 2,
+    "SecondDropItemID": 0,
+    "SecondDropItemCount": 0,
+    "ThirdDropItemID": 0,
+    "ThirdDropItemCount": 0
+  },
+  {
+    "ID": 3,
+    "FoodID": 3,
+    "FirstDropItemID": 1,
+    "FirstDropItemCount": 1,
+    "SecondDropItemID": 3,
+    "SecondDropItemCount": 1,
+    "ThirdDropItemID": 4,
+    "ThirdDropItemCount": 1
+  }
+]

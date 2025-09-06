@@ -18,7 +18,7 @@ public class AudioManager : Singleton<AudioManager>
     private AudioClip _clickClip;
 
     public float volume;
-
+    public bool isBGMPlaying;
     protected override void Awake()
     {
         base.Awake();
@@ -55,8 +55,10 @@ public class AudioManager : Singleton<AudioManager>
             Debug.Log("BGM is null");
             return;
         }
+        if(isBGMPlaying) return;
         _audioSource.clip = _bgmClip;
         _audioSource.Play();
+        isBGMPlaying = true;
     }
 
     public void PlayAttackSoundEffect()
