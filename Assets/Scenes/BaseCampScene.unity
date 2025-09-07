@@ -311,6 +311,7 @@ MonoBehaviour:
   restaurantLevel1Sprite: {fileID: -1692479643, guid: a3e3eb4381de71646820d7119e31dc34, type: 3}
   restaurantLevel2Sprite: {fileID: -132315378, guid: a3e3eb4381de71646820d7119e31dc34, type: 3}
   restaurantLevel3Sprite: {fileID: 1324608291, guid: a3e3eb4381de71646820d7119e31dc34, type: 3}
+  offset: {x: 0, y: 1, z: 0}
 --- !u!1 &141524951
 GameObject:
   m_ObjectHideFlags: 0
@@ -489,6 +490,7 @@ MonoBehaviour:
   kitchenLevel1Sprite: {fileID: 307096706, guid: a3e3eb4381de71646820d7119e31dc34, type: 3}
   kitchenLevel2Sprite: {fileID: -1637821281, guid: a3e3eb4381de71646820d7119e31dc34, type: 3}
   kitchenLevel3Sprite: {fileID: -181453236, guid: a3e3eb4381de71646820d7119e31dc34, type: 3}
+  offset: {x: 0, y: 1, z: 0}
 --- !u!1 &561216249
 GameObject:
   m_ObjectHideFlags: 0

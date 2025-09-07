@@ -6,14 +6,16 @@ using UnityEngine;
 
 public class Kitchen : MonoBehaviour, IShopLevelObserver
 {
-    private UIKitchenBar _timeBar;
+    private UITimeBar _timeBar;
     private SpriteRenderer _spriteRenderer;
     [SerializeField] private Sprite kitchenLevel1Sprite;
     [SerializeField] private Sprite kitchenLevel2Sprite;
     [SerializeField] private Sprite kitchenLevel3Sprite;
+    [SerializeField] private Vector3 offset;
     private void Start()
     {
-        _timeBar = UIManager.Instance.CreateBarUI<UIKitchenBar>();
+        _timeBar = UIManager.Instance.CreateBarUI<UITimeBar>();
+        _timeBar.SetTransform(this.transform, offset);
         _timeBar.gameObject.SetActive(false);
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         KitchenManager.Instance.OnTimeStarted += ActivateBar;

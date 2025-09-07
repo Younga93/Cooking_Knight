@@ -5,15 +5,17 @@ using UnityEngine;
 
 public class Restaurant : MonoBehaviour, IShopLevelObserver
 {
-    private UIRestaurantBar _timeBar;
+    private UITimeBar _timeBar;
     
     private SpriteRenderer _spriteRenderer;
     [SerializeField] private Sprite restaurantLevel1Sprite;
     [SerializeField] private Sprite restaurantLevel2Sprite;
     [SerializeField] private Sprite restaurantLevel3Sprite;
+    [SerializeField] private Vector3 offset;
     private void Start()
     {
-        _timeBar = UIManager.Instance.CreateBarUI<UIRestaurantBar>();
+        _timeBar = UIManager.Instance.CreateBarUI<UITimeBar>();
+        _timeBar.SetTransform(this.transform, offset);
         _timeBar.gameObject.SetActive(false);
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         RestaurantManager.Instance.OnTimeStarted += ActivateBar;
